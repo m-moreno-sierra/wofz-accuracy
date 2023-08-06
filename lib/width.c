@@ -47,7 +47,7 @@ using std::isnan;
  * Olivero & Longbothum [1977]
  * Journal of Quantitative Spectroscopy and Radiative Transfer. 17:233
  */
-double hwhm0(double sigma, double gamma)
+static double hwhm0(double sigma, double gamma)
 {
     return .5*(1.06868*gamma+sqrt(0.86743*gamma*gamma+4*2*log(2)*sigma*sigma));
 }
@@ -72,13 +72,13 @@ double voigt_hwhm(double sigma, double gamma)
     double g = fabs(gamma);
     while (s>1e100 || g>1e100) {
         prefac *= 1e30;
-        s /= 1e30;
-        g /= 1e30;
+        s *= 1e-30;
+        g *= 1e-30;
     }
 
     /* Increase order of magnitude to prevent underflow */
     while (s<1e-100 && g<1e-100) {
-        prefac /= 1e30;
+        prefac *= 1e-30;
         s *= 1e30;
         g *= 1e30;
     }

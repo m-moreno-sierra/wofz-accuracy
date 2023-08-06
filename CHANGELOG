@@ -1,5 +1,8 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
+libcerf-2.5
+  - Minor optimization of width.c (contributed by Alexander Kleinsorge)
+
 libcerf-2.4, released 2aug23:
   - CMake: runtime destination corrected (bin, not lib)
   - CMake: removed option PORTABLE and compiler flag -march (unavailable on some architectures)
