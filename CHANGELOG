@@ -2,6 +2,7 @@
 
 libcerf-2.5
   - Minor optimization of width.c (contributed by Alexander Kleinsorge)
+  - For arbitrary numeric constants, choose powers of 2 (suggested by Alexander Kleinsorge)
 
 libcerf-2.4, released 2aug23:
   - CMake: runtime destination corrected (bin, not lib)

@@ -70,17 +70,17 @@ double voigt_hwhm(double sigma, double gamma)
     double prefac = 1.;
     double s = fabs(sigma);
     double g = fabs(gamma);
-    while (s>1e100 || g>1e100) {
-        prefac *= 1e30;
-        s *= 1e-30;
-        g *= 1e-30;
+    while (s>0x1p+320 || g>0x1p+320) {
+        prefac *= 0x1p+80;
+        s *= 0x1p-80;
+        g *= 0x1p-80;
     }
 
     /* Increase order of magnitude to prevent underflow */
-    while (s<1e-100 && g<1e-100) {
-        prefac *= 1e-30;
-        s *= 1e30;
-        g *= 1e30;
+    while (s<0x1p-320 && g<0x1p-320) {
+        prefac *= 0x1p-80;
+        s *= 0x1p+80;
+        g *= 0x1p+80;
     }
 
     HM = voigt(0.0, s, g) / 2;
