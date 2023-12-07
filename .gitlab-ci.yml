@@ -6,10 +6,10 @@ mac_x64:
   - mac_x64
   stage: build
   script: &macbuild
-    - OPTDIR=/Users/Shared/Software
+    - OPTDIR=/Users/Shared/Software/scg
     - mkdir build
     - cd build
-    - cmake -DCMAKE_INSTALL_PREFIX="$OPTDIR" -DCMAKE_BUILD_TYPE=Release -S..
+    - cmake -DCMAKE_PREFIX_PATH="$OPTDIR" -DCMAKE_INSTALL_PREFIX="$OPTDIR" -DCMAKE_BUILD_TYPE=Release -S..
     - make
     - ctest --output-on-failure
     - cpack .
