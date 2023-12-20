@@ -3,7 +3,7 @@ stages:
 
 mac_x64:
   tags:
-  - mac_x64
+  - mac_x64_cloud
   stage: build
   script: &macbuild
     - OPTDIR=/Users/Shared/Software/scg
