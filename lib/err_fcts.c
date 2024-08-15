@@ -53,6 +53,9 @@
 #include <math.h>
 #include "defs.h" // defines _cerf_cmplx, NaN, C, cexp, ...
 
+// for analysing the algorithm:
+IMPORT extern int faddeeva_algorithm;
+
 const double spi2 = 0.8862269254527580136490837416705725913990; // sqrt(pi)/2
 const double s2pi = 2.5066282746310005024157652848110; // sqrt(2*pi)
 const double pi   = 3.141592653589793238462643383279503;
@@ -139,14 +142,17 @@ double voigt( double x, double sigma, double gamma )
     if ( gam==0 ) {
         if ( sig==0 ) {
             // It's kind of a delta function
+            faddeeva_algorithm = 801;
             return x ? 0 : Inf;
         } else {
             // It's a pure Gaussian (optimized, only 1 run-time division)
+            faddeeva_algorithm = 802;
             return exp( -0.5*(x*(1/sig))*(x*(1/sig)) ) * (1/s2pi) * (1/sig);
         }
     } else {
         if ( sig==0 ) {
             // It's a pure Lorentzian
+            faddeeva_algorithm = 803;
             return gam / (pi * (x*x + gam*gam));
         } else {
             // Regular case, both parameters are nonzero

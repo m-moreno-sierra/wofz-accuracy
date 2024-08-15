@@ -156,6 +156,7 @@ static const double expa2n2[] = {
 
 _cerf_cmplx w_of_z(_cerf_cmplx z)
 {
+    faddeeva_algorithm = -1;
     faddeeva_nofterms = 0;
 
     // Steven G. Johnson, October 2012.

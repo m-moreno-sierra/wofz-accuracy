@@ -77,10 +77,11 @@ __BEGIN_DECLS
 
 #if _WIN32
 #define EXPORT __declspec(dllexport)
+#define IMPORT __declspec(dllimport)
 #else
 #define EXPORT
+#define IMPORT
 #endif
-
 
 // compute w(z) = exp(-z^2) erfc(-iz), Faddeeva's scaled complex error function
 EXPORT _cerf_cmplx w_of_z(_cerf_cmplx z);
