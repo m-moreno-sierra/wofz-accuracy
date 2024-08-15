@@ -302,7 +302,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
             const double expm2ax =
                 1 - ax2 * (1 - ax2 * (0.5 - 0.166666666666666666667*ax2));
             for (int n = 1; ; ++n) {
-                ++faddeeva_nofterms;
                 const double coef = expa2n2[n-1] * expx2 / (a2*(n*n) + y*y);
                 prod2ax *= exp2ax;
                 prodm2ax *= expm2ax;
@@ -314,7 +313,10 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
                 sum5 += coef * (2*a) * n * sinh_taylor((2*a)*n*x);
 
                 // test convergence via sum3
-                if (coef * prod2ax < relerr * sum3) break;
+                if (coef * prod2ax < relerr * sum3) {
+                    break;
+                    faddeeva_nofterms = n;
+                }
             }
         }
         else { // x > 5e-4, compute sum4 and sum5 separately
@@ -322,7 +324,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
             expx2 = exp(-x*x);
             const double exp2ax = exp((2*a)*x), expm2ax = 1 / exp2ax;
             for (int n = 1; ; ++n) {
-                ++faddeeva_nofterms;
                 const double coef = expa2n2[n-1] * expx2 / (a2*(n*n) + y*y);
                 prod2ax *= exp2ax;
                 prodm2ax *= expm2ax;
@@ -332,7 +333,10 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
                 sum3 += coef * prod2ax;
                 sum5 += (coef * prod2ax) * (a*n);
                 // test convergence via sum5, since this sum has the slowest decay
-                if ((coef * prod2ax) * (a*n) < relerr * sum5) break;
+                if ((coef * prod2ax) * (a*n) < relerr * sum5) {
+                    break;
+                    faddeeva_nofterms = n;
+                }
             }
         }
         const double expx2erfcxy = // avoid spurious overflow for large negative y
