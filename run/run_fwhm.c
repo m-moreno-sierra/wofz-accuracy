@@ -2,8 +2,8 @@
  *   Compute complex error functions, based on a new implementation of
  *   Faddeeva's w_of_z. Also provide Dawson and Voigt functions.
  *
- * File runvoigt.c:
- *   Interactive evaluation of Voigt's function.
+ * File run_fwhm.c:
+ *   Interactive evaluation of voigt_fwhm.
  *
  * Copyright:
  *   (C) 2013 Forschungszentrum Jülich GmbH
@@ -22,24 +22,20 @@
 #include <stdlib.h>
 #include "cerf.h"
 
-IMPORT extern int faddeeva_algorithm;
-IMPORT extern int faddeeva_nofterms;
-
 int main( int argc, char **argv )
 {
-    double x, s, g;
+    double s, g;
 
-    if( argc!=4 ){
+    if( argc!=3 ){
         fprintf( stderr,  "usage:\n" );
-        fprintf( stderr,  "   runvoigt <x> <sigma> <gamma>\n" );
+        fprintf( stderr,  "   run_fwhm <sigma> <gamma>\n" );
         exit(-1);
     }
 
-    x = atof( argv[1] );
-    s = atof( argv[2] );
-    g = atof( argv[3] );
+    s = atof( argv[1] );
+    g = atof( argv[2] );
 
-    double y = voigt(x,s,g);
-    printf( "%25.19g %3i %3i\n", y, faddeeva_algorithm, faddeeva_nofterms );
+    double y = voigt_hwhm(s,g);
+    printf( "hwhm=%25.19g fwhm=%25.19g\n", y, 2*y );
     return 0;
 }
