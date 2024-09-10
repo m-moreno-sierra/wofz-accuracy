@@ -1,5 +1,6 @@
 set(apps
     run_fwhm
+    run_imwx
     run_voigt
     run_wofz
     tabulate
