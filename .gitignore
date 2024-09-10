@@ -13,14 +13,6 @@ a.out
 *.Po
 *.Plo
 
-# TeX auxiliaries
-*.aux
-*.dvi
-*.bbl
-*.blg
-*.log
-*.swp
-
 # manual sections
 *.1
 *.2
@@ -33,19 +25,6 @@ a.out
 *.9
 *~
 
-# autotools generated
-Makefile
-autom4te.cache/
-config.log
-config.status
-config.h
-.libs/
-.deps/
-*.pc
-stamp*
-libtool
-test-driver
-
 # doxygen generated
 dox/
 latex/
@@ -54,15 +33,9 @@ html/
 # docs
 podstyle.css
 pod2*
-demo/*demo
-demo/*test
 man/*.html
 */man/*.html
 
 # executables
-
-test/test_libcerf_1
-test/runvoigt
-test/run_w_of_z
 
 build/
