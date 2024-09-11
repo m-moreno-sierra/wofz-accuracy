@@ -82,7 +82,7 @@ endif()
 
 include(CTest)
 
-configure_file("libcerf.pc.in" "libcerf.pc" @ONLY)
+configure_file(var/libcerf.pc.in libcerf.pc @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libcerf.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig/")
 
