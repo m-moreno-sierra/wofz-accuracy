@@ -39,3 +39,4 @@ man/*.html
 # executables
 
 build/
+debug/
