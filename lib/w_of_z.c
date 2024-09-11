@@ -314,8 +314,8 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
 
                 // test convergence via sum3
                 if (coef * prod2ax < relerr * sum3) {
-                    break;
                     faddeeva_nofterms = n;
+                    break;
                 }
             }
         }
@@ -334,8 +334,8 @@ _cerf_cmplx w_of_z(_cerf_cmplx z)
                 sum5 += (coef * prod2ax) * (a*n);
                 // test convergence via sum5, since this sum has the slowest decay
                 if ((coef * prod2ax) * (a*n) < relerr * sum5) {
-                    break;
                     faddeeva_nofterms = n;
+                    break;
                 }
             }
         }
