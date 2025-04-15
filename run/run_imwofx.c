@@ -2,7 +2,7 @@
  *   Compute complex error functions, based on a new implementation of
  *   Faddeeva's w_of_z. Also provide Dawson and Voigt functions.
  *
- * File run_imwx.c:
+ * File run_imwofx.c:
  *   Interactive evaluation of Im w(x), which is proportional to dawson(x).
  *
  * Copyright:
@@ -22,20 +22,17 @@
 #include <stdlib.h>
 #include "cerf.h"
 
-IMPORT extern int faddeeva_algorithm;
-IMPORT extern int faddeeva_nofterms;
-
 int main( int argc, char **argv )
 {
     if( argc!=2 ){
         fprintf( stderr,  "usage:\n" );
-        fprintf( stderr,  "   run_imwx x\n" );
+        fprintf( stderr,  "   run_imwofx x\n" );
         exit(-1);
     }
 
     double x = atof( argv[1] );
 
     double y = im_w_of_x(x);
-    printf( "%21.16g %21.16g %3i %3i\n", x, y, faddeeva_algorithm, faddeeva_nofterms);
+    printf( "%21.16g %21.16g\n", x, y);
     return 0;
 }
