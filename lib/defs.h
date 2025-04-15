@@ -27,3 +27,36 @@
 #else
 #include "c.h"
 #endif
+
+#if !defined(__cplusplus) && (!defined(__STDC_VERSION__) ||  __STDC_VERSION__ < 202311L)
+#define alignas _Alignas // as defined in C++ and in C23
+#endif
+
+#ifdef CERF_NO_IEEE754 // This flag can be set via CMake option -DCERF_IEEE754=OFF
+// Fall back to frexp from math.h. To be used for non-standard processor architectures
+// for which our accelerated function frexp2 does not work.
+#define frexp2 frexp
+
+#else
+//! Simpler replacement for frexp from math.h, assuming that 0 < value < inf.
+//!
+//! Adapted from https://github.com/dioptre/newos/blob/master/lib/libm/arch/sh4/frexp.c.
+//! However, the mantissa must _not_ be broken into two variables to prevent errors
+//! on architectures like MIPS that do not revert the byte order of simple types.
+inline double frexp2(double value, int* eptr)
+{
+    union {
+	double v;
+	struct {
+            unsigned long long mantissa : 52;
+            unsigned long long exponent : 11;
+	    unsigned long long sign : 1;
+	} s;
+    } u;
+
+    u.v = value;
+    *eptr = u.s.exponent - 1022;
+    u.s.exponent = 1022;
+    return u.v;
+}
+#endif
