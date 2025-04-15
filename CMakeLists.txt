@@ -29,7 +29,7 @@ if(CERF_CPP)
 else()
     message("Build C library libcerf")
     project(cerf C)
-    set(CMAKE_C_STANDARD 99)
+    set(CMAKE_C_STANDARD 11)
 endif()
 
 set(CERF_SOVERSION                 2) # API version
