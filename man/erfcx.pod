@@ -30,7 +30,12 @@ The function B<erfcx> takes a real argument and returns a real result.
 The implementation of B<cerfcx> is a thin wrapper around Faddeeva's
 function B<w_of_z>.
 
-The implementation of B<erfcx> is self-contained, and improves upon the SLATEC DERFC function (or an erfcx function derived therefrom) or Cody's CALERF function (from netlib.org/specfun), while retaining near machine precision in accuracy.
+The implementation of B<erfcx> is self-contained. It has been entirely rewritten
+for libcerf-2.5, and now guarantees a relative accuracy of 2.34e-16 for x < 12.
+
+The piecewise polynomial approximation for intermediate values of |x| is explained
+in Wuttke and Kleinknecht, "Code generation for piecewise Chebyshev approximation"
+(submitted; preprint available from the authors).
 
 =head1 SEE ALSO
 
