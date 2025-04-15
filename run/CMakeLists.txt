@@ -1,4 +1,5 @@
 set(apps
+    run_erfcx
     run_fwhm
     run_imwofx
     run_voigt
