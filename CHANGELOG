@@ -1,6 +1,10 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
-libcerf-2.5
+libcerf-2.5, released 16apr25:
+  - Piecewise polynomial approximation for functions im_w_of_c and erfcx rederived
+    for guaranteed accuracy. Methods explained in Joachim Wuttke and Alexander Kleinsorge:
+    "Code generation for piecewise Chebyshev approximation." Preprint available upon request.
+  - Required C standard is now C11 (we need the _Alignas specifier)
   - Minor optimization of width.c (contributed by Alexander Kleinsorge)
   - For arbitrary numeric constants, choose powers of 2 (suggested by Alexander Kleinsorge)
 
