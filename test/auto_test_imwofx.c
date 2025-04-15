@@ -1,0 +1,1035 @@
+//--- Begin of auto-generated test cases; do not edit
+//
+// Generated on 2025-04-15, 11:11:31
+// by the piecewise polynomial approximation generator (https://jugit.fz-juelich.de/mlz/ppapp)
+// Reference: Wuttke and Kleinsorge,
+//            "Code generation for piecewise Chebyshev approximation."
+//
+// clang-format off
+
+// a = 0.5, begin of domain
+// b = 12, end of domain
+// M = 5, 2^M subdomains per octave
+// N = 10, polynomial degree
+// nr= 144, total number of subdomains
+
+static const double ppapp_maxrelerr = 2.2; // maximum expected relative error
+
+int test_one(double x, double fref);
+
+int run_tests()
+{
+    int failed = 0;
+// subdomain 0:0 (0.5..0.515625)
+    failed += test_one(0x1p-1, 0x1.ea6b5c4b5d507p-2);
+    failed += test_one(0x1.042cbb755beeep-1, 0x1.efc9841cbf65cp-2);
+    failed += test_one(0x1.03b8fcefe4431p-1, 0x1.ef360d162f2a5p-2);
+    failed += test_one(0x1.0713c751b83a9p-1, 0x1.f37454c522811p-2);
+    failed += test_one(0x1.01b455e8e3993p-1, 0x1.ec9fc8b612d71p-2);
+    failed += test_one(0x1.07fffffffffffp-1, 0x1.f49beea33df06p-2);
+// subdomain 0:1 (0.515625..0.53125)
+    failed += test_one(0x1.08p-1, 0x1.f49beea33df08p-2);
+    failed += test_one(0x1.09a71b8ebb597p-1, 0x1.f6a9f2175eb57p-2);
+    failed += test_one(0x1.0e48c5fc1b4c7p-1, 0x1.fc54535f2c58dp-2);
+    failed += test_one(0x1.0cb3cb5811f38p-1, 0x1.fa68db56ed5ebp-2);
+    failed += test_one(0x1.0af5c5d8743e5p-1, 0x1.f846dd4090381p-2);
+    failed += test_one(0x1.0ffffffffffffp-1, 0x1.fe64be191cccbp-2);
+// subdomain 0:2 (0.53125..0.546875)
+    failed += test_one(0x1.1p-1, 0x1.fe64be191ccccp-2);
+    failed += test_one(0x1.122179a110064p-1, 0x1.0077251e3973ep-1);
+    failed += test_one(0x1.16ba5fac2a978p-1, 0x1.032735be8e7dcp-1);
+    failed += test_one(0x1.15e6de672f103p-1, 0x1.02acd4eb64e36p-1);
+    failed += test_one(0x1.17dcfc5f87601p-1, 0x1.03ce72592f6ep-1);
+    failed += test_one(0x1.17fffffffffffp-1, 0x1.03e2864fdb65bp-1);
+// subdomain 0:3 (0.546875..0.5625)
+    failed += test_one(0x1.18p-1, 0x1.03e2864fdb65cp-1);
+    failed += test_one(0x1.1f24cd5e0b534p-1, 0x1.07e5d35ac6bdep-1);
+    failed += test_one(0x1.1989752b02a67p-1, 0x1.04c3162c18008p-1);
+    failed += test_one(0x1.1a9c8d13a9a6cp-1, 0x1.055ef0bc326d5p-1);
+    failed += test_one(0x1.19b9d1ea3f9c4p-1, 0x1.04de8e11f4aa5p-1);
+    failed += test_one(0x1.1ffffffffffffp-1, 0x1.085e2312b98ffp-1);
+// subdomain 0:4 (0.5625..0.578125)
+    failed += test_one(0x1.2p-1, 0x1.085e2312b99p-1);
+    failed += test_one(0x1.20b55945a7829p-1, 0x1.08c137a26ffe5p-1);
+    failed += test_one(0x1.202ea20a2173ep-1, 0x1.0877a790d4481p-1);
+    failed += test_one(0x1.242baff1bf24cp-1, 0x1.0a9f83f8d665fp-1);
+    failed += test_one(0x1.22795589cedd1p-1, 0x1.09b65c132dcb4p-1);
+    failed += test_one(0x1.27fffffffffffp-1, 0x1.0ca5001522683p-1);
+// subdomain 0:5 (0.578125..0.59375)
+    failed += test_one(0x1.28p-1, 0x1.0ca5001522683p-1);
+    failed += test_one(0x1.2f04b823998bap-1, 0x1.1039fce2bf579p-1);
+    failed += test_one(0x1.28bd8806ff2c5p-1, 0x1.0d07a6f4be8b9p-1);
+    failed += test_one(0x1.2c3af9bd76b41p-1, 0x1.0ed297864fa9p-1);
+    failed += test_one(0x1.28e309aaedec5p-1, 0x1.0d1b1ee7b070ap-1);
+    failed += test_one(0x1.2ffffffffffffp-1, 0x1.10b6fc9ecc791p-1);
+// subdomain 0:6 (0.59375..0.609375)
+    failed += test_one(0x1.3p-1, 0x1.10b6fc9ecc791p-1);
+    failed += test_one(0x1.357e2710c34aap-1, 0x1.1363c49d71c05p-1);
+    failed += test_one(0x1.316067ab0e4a5p-1, 0x1.1164f286944dep-1);
+    failed += test_one(0x1.30ccfa17112d8p-1, 0x1.111c5ca784bf8p-1);
+    failed += test_one(0x1.34b17bd1b51f3p-1, 0x1.1301a5e414c8p-1);
+    failed += test_one(0x1.37fffffffffffp-1, 0x1.14940c328dceap-1);
+// subdomain 0:7 (0.609375..0.625)
+    failed += test_one(0x1.38p-1, 0x1.14940c328dcebp-1);
+    failed += test_one(0x1.3dcafbb330b75p-1, 0x1.173f371647045p-1);
+    failed += test_one(0x1.3c5bd3355af49p-1, 0x1.1698a86eacf46p-1);
+    failed += test_one(0x1.3895cea25e2fcp-1, 0x1.14da51898427dp-1);
+    failed += test_one(0x1.3dcea5850498dp-1, 0x1.1740de53f17d1p-1);
+    failed += test_one(0x1.3ffffffffffffp-1, 0x1.183c36369712ep-1);
+// subdomain 0:8 (0.625..0.640625)
+    failed += test_one(0x1.4p-1, 0x1.183c36369712fp-1);
+    failed += test_one(0x1.4656f296fe891p-1, 0x1.1afc94057d171p-1);
+    failed += test_one(0x1.43e05e07c1fb6p-1, 0x1.19eed647ce335p-1);
+    failed += test_one(0x1.46277bb16e9bdp-1, 0x1.1ae872c5bc2ep-1);
+    failed += test_one(0x1.40d9cfaca14c5p-1, 0x1.189caad9de298p-1);
+    failed += test_one(0x1.47fffffffffffp-1, 0x1.1baf9591fc49fp-1);
+// subdomain 0:9 (0.640625..0.65625)
+    failed += test_one(0x1.48p-1, 0x1.1baf9591fc49fp-1);
+    failed += test_one(0x1.49892dd6d8546p-1, 0x1.1c532633abd52p-1);
+    failed += test_one(0x1.4c743009d3d76p-1, 0x1.1d84929f1fb7p-1);
+    failed += test_one(0x1.4fa9c49d1273dp-1, 0x1.1ecc6c4fadf47p-1);
+    failed += test_one(0x1.4fbe95ebfc022p-1, 0x1.1ed49ee99b241p-1);
+    failed += test_one(0x1.4ffffffffffffp-1, 0x1.1eee584007495p-1);
+// subdomain 0:10 (0.65625..0.671875)
+    failed += test_one(0x1.5p-1, 0x1.1eee584007495p-1);
+    failed += test_one(0x1.50e3afbd2f015p-1, 0x1.1f4777122c42ep-1);
+    failed += test_one(0x1.5417270486f57p-1, 0x1.2082de25eceafp-1);
+    failed += test_one(0x1.5044a35189563p-1, 0x1.1f0947681c38fp-1);
+    failed += test_one(0x1.505eb2f2039edp-1, 0x1.1f137d7984406p-1);
+    failed += test_one(0x1.57fffffffffffp-1, 0x1.21f8bed9d686ap-1);
+// subdomain 0:11 (0.671875..0.6875)
+    failed += test_one(0x1.58p-1, 0x1.21f8bed9d686bp-1);
+    failed += test_one(0x1.5ae6e8823f187p-1, 0x1.23063a65ca205p-1);
+    failed += test_one(0x1.5c33b5da34ec1p-1, 0x1.237cbb82809f6p-1);
+    failed += test_one(0x1.5cb06ca0398e5p-1, 0x1.23a8c9b607076p-1);
+    failed += test_one(0x1.5ef0b13082f98p-1, 0x1.2471dc9da0a5ep-1);
+    failed += test_one(0x1.5ffffffffffffp-1, 0x1.24cf1c16d0badp-1);
+// subdomain 0:12 (0.6875..0.703125)
+    failed += test_one(0x1.6p-1, 0x1.24cf1c16d0baep-1);
+    failed += test_one(0x1.6499ffc7dad5ap-1, 0x1.26597c90e4447p-1);
+    failed += test_one(0x1.63ab1eea4f176p-1, 0x1.260ae40e15b02p-1);
+    failed += test_one(0x1.6565e4d10df4ep-1, 0x1.269c04d393703p-1);
+    failed += test_one(0x1.653dfc4f51f5ep-1, 0x1.268f095e059a5p-1);
+    failed += test_one(0x1.67fffffffffffp-1, 0x1.2771d4447b11ap-1);
+// subdomain 0:13 (0.703125..0.71875)
+    failed += test_one(0x1.68p-1, 0x1.2771d4447b11bp-1);
+    failed += test_one(0x1.6ee45eac9e587p-1, 0x1.298e0b0be5dfdp-1);
+    failed += test_one(0x1.6eee4889bd0bap-1, 0x1.2990f8c481757p-1);
+    failed += test_one(0x1.6a427b832781ap-1, 0x1.28271e8d03d22p-1);
+    failed += test_one(0x1.6ecda0d867ccap-1, 0x1.2987520b8f0a5p-1);
+    failed += test_one(0x1.6ffffffffffffp-1, 0x1.29e15cb64433dp-1);
+// subdomain 0:14 (0.71875..0.734375)
+    failed += test_one(0x1.7p-1, 0x1.29e15cb64433dp-1);
+    failed += test_one(0x1.72a361c4de6a3p-1, 0x1.2aa3da360f09fp-1);
+    failed += test_one(0x1.73235f887785ap-1, 0x1.2ac8173833488p-1);
+    failed += test_one(0x1.762ef3693d4adp-1, 0x1.2ba09053e750ep-1);
+    failed += test_one(0x1.74cd4281bcfap-1, 0x1.2b3f4132ab23p-1);
+    failed += test_one(0x1.77fffffffffffp-1, 0x1.2c1e3b2dda643p-1);
+// subdomain 0:15 (0.734375..0.75)
+    failed += test_one(0x1.78p-1, 0x1.2c1e3b2dda643p-1);
+    failed += test_one(0x1.79b4743cd1b87p-1, 0x1.2c91d2781e591p-1);
+    failed += test_one(0x1.7964f9b9a5f6p-1, 0x1.2c7cf12c2473dp-1);
+    failed += test_one(0x1.7fb1cc307f0c4p-1, 0x1.2e15f84f23efcp-1);
+    failed += test_one(0x1.7a3e18cea9b3bp-1, 0x1.2cb5ce071fe3fp-1);
+    failed += test_one(0x1.7ffffffffffffp-1, 0x1.2e29053ca62bcp-1);
+// subdomain 0:16 (0.75..0.765625)
+    failed += test_one(0x1.8p-1, 0x1.2e29053ca62bcp-1);
+    failed += test_one(0x1.87076b2db6ec4p-1, 0x1.2fcb88424fe67p-1);
+    failed += test_one(0x1.8282278bca265p-1, 0x1.2ec2bac833edep-1);
+    failed += test_one(0x1.87401899a6fc4p-1, 0x1.2fd8197aaaf65p-1);
+    failed += test_one(0x1.83dd63fd1bce1p-1, 0x1.2f13d40a3598dp-1);
+    failed += test_one(0x1.87fffffffffffp-1, 0x1.30025f9f05a8bp-1);
+// subdomain 0:17 (0.765625..0.78125)
+    failed += test_one(0x1.88p-1, 0x1.30025f9f05a8bp-1);
+    failed += test_one(0x1.8d6b723dac886p-1, 0x1.312750d8b1452p-1);
+    failed += test_one(0x1.8b66883e2e0e1p-1, 0x1.30bcc697e5c08p-1);
+    failed += test_one(0x1.8f0934e85478ap-1, 0x1.317a615a0aa97p-1);
+    failed += test_one(0x1.89f7e4b1b2c1ap-1, 0x1.306f56d7a66ep-1);
+    failed += test_one(0x1.8ffffffffffffp-1, 0x1.31aafd91e6843p-1);
+// subdomain 0:18 (0.78125..0.796875)
+    failed += test_one(0x1.9p-1, 0x1.31aafd91e6844p-1);
+    failed += test_one(0x1.97e7e1af01922p-1, 0x1.331f7759f18d6p-1);
+    failed += test_one(0x1.96396a4725bcbp-1, 0x1.32d420dce6f1cp-1);
+    failed += test_one(0x1.926091079de1ap-1, 0x1.321fe225f49cdp-1);
+    failed += test_one(0x1.93df67d0cda69p-1, 0x1.326741c19d607p-1);
+    failed += test_one(0x1.97fffffffffffp-1, 0x1.3323a0235ddc1p-1);
+// subdomain 0:19 (0.796875..0.8125)
+    failed += test_one(0x1.98p-1, 0x1.3323a0235ddc1p-1);
+    failed += test_one(0x1.9b9e5e86b57fap-1, 0x1.33be71424f695p-1);
+    failed += test_one(0x1.9c90ce1387b99p-1, 0x1.33e55ff08de64p-1);
+    failed += test_one(0x1.9a31a033525afp-1, 0x1.3382a2049331ep-1);
+    failed += test_one(0x1.9963caf8155abp-1, 0x1.336039577a4b4p-1);
+    failed += test_one(0x1.9ffffffffffffp-1, 0x1.346d157ede0f3p-1);
+// subdomain 0:20 (0.8125..0.828125)
+    failed += test_one(0x1.ap-1, 0x1.346d157ede0f3p-1);
+    failed += test_one(0x1.a328340ee9f32p-1, 0x1.34e24d5acabb4p-1);
+    failed += test_one(0x1.a4e5937f66b54p-1, 0x1.351fd562c7f5cp-1);
+    failed += test_one(0x1.a5e4076d6ee64p-1, 0x1.354203faf27a6p-1);
+    failed += test_one(0x1.a4019874ea79fp-1, 0x1.35009b84230e6p-1);
+    failed += test_one(0x1.a7fffffffffffp-1, 0x1.35883835aa60dp-1);
+// subdomain 0:21 (0.828125..0.84375)
+    failed += test_one(0x1.a8p-1, 0x1.35883835aa60dp-1);
+    failed += test_one(0x1.afd99fb4bc561p-1, 0x1.3671e3aa6ded3p-1);
+    failed += test_one(0x1.abefa63aa2b28p-1, 0x1.3602cbf536573p-1);
+    failed += test_one(0x1.aa3ed457de53fp-1, 0x1.35cf7c61bea21p-1);
+    failed += test_one(0x1.ab8831eb28f71p-1, 0x1.35f6b7161de99p-1);
+    failed += test_one(0x1.affffffffffffp-1, 0x1.3675ee8427c65p-1);
+// subdomain 0:22 (0.84375..0.859375)
+    failed += test_one(0x1.bp-1, 0x1.3675ee8427c65p-1);
+    failed += test_one(0x1.b5cf7081a8004p-1, 0x1.3706a38c3035ep-1);
+    failed += test_one(0x1.b31a31a57acc3p-1, 0x1.36c6177b2f354p-1);
+    failed += test_one(0x1.b774a5cd27d4cp-1, 0x1.372b67a89d6b9p-1);
+    failed += test_one(0x1.b2d5814085766p-1, 0x1.36bf6beeb7704p-1);
+    failed += test_one(0x1.b7fffffffffffp-1, 0x1.37372994a902p-1);
+// subdomain 0:23 (0.859375..0.875)
+    failed += test_one(0x1.b8p-1, 0x1.37372994a902p-1);
+    failed += test_one(0x1.ba62f2ac4fdb1p-1, 0x1.3768562f16e2ap-1);
+    failed += test_one(0x1.bdd8897301adcp-1, 0x1.37a8cc47d447fp-1);
+    failed += test_one(0x1.bc9205b6c2252p-1, 0x1.3791f756c2fdfp-1);
+    failed += test_one(0x1.bae84ee2f7919p-1, 0x1.37728ef80a15dp-1);
+    failed += test_one(0x1.bffffffffffffp-1, 0x1.37cce4c0525fcp-1);
+// subdomain 0:24 (0.875..0.890625)
+    failed += test_one(0x1.cp-1, 0x1.37cce4c0525fcp-1);
+    failed += test_one(0x1.c45ccc35886d8p-1, 0x1.380c940fc3349p-1);
+    failed += test_one(0x1.c15d7e16b267dp-1, 0x1.37e22c61c9fd6p-1);
+    failed += test_one(0x1.c7d9416224ef2p-1, 0x1.383680abce13fp-1);
+    failed += test_one(0x1.c4cbde1bcea25p-1, 0x1.38123a54e3c93p-1);
+    failed += test_one(0x1.c7fffffffffffp-1, 0x1.383824ceaf12bp-1);
+// subdomain 0:25 (0.890625..0.90625)
+    failed += test_one(0x1.c8p-1, 0x1.383824ceaf12bp-1);
+    failed += test_one(0x1.cf50b09b103adp-1, 0x1.3875ecfe3149fp-1);
+    failed += test_one(0x1.cb13114462134p-1, 0x1.38564858a841fp-1);
+    failed += test_one(0x1.ca9070b7df674p-1, 0x1.3851b394c63edp-1);
+    failed += test_one(0x1.cfffbdd2d051dp-1, 0x1.3879f5bc7003ap-1);
+    failed += test_one(0x1.cffffffffffffp-1, 0x1.3879f7348f4fcp-1);
+// subdomain 0:26 (0.90625..0.921875)
+    failed += test_one(0x1.dp-1, 0x1.3879f7348f4fcp-1);
+    failed += test_one(0x1.d5cdb106a6b93p-1, 0x1.389066fe2717ep-1);
+    failed += test_one(0x1.d433cd14f810bp-1, 0x1.388c4f1566e08p-1);
+    failed += test_one(0x1.d511d06c19f07p-1, 0x1.388eb925a64c2p-1);
+    failed += test_one(0x1.d5db2e6d75abcp-1, 0x1.3890829359c75p-1);
+    failed += test_one(0x1.d7fffffffffffp-1, 0x1.38937152c2e09p-1);
+// subdomain 0:27 (0.921875..0.9375)
+    failed += test_one(0x1.d8p-1, 0x1.38937152c2e09p-1);
+    failed += test_one(0x1.db8d7d985dcdcp-1, 0x1.38921c09955f7p-1);
+    failed += test_one(0x1.dee40d69bdbb6p-1, 0x1.3889e4faad904p-1);
+    failed += test_one(0x1.de3e16ba6ef5ep-1, 0x1.388c038083c82p-1);
+    failed += test_one(0x1.d9cee84bc5b1ep-1, 0x1.3893b98e67d7ep-1);
+    failed += test_one(0x1.dffffffffffffp-1, 0x1.3885afb5400a5p-1);
+// subdomain 0:28 (0.9375..0.953125)
+    failed += test_one(0x1.ep-1, 0x1.3885afb5400a5p-1);
+    failed += test_one(0x1.e0164d0124229p-1, 0x1.3885532668c1dp-1);
+    failed += test_one(0x1.e458386edb3f3p-1, 0x1.386e2df1a0201p-1);
+    failed += test_one(0x1.e6b6508a7097ap-1, 0x1.385cb4a2c09abp-1);
+    failed += test_one(0x1.e6f54248e937cp-1, 0x1.385ab439953d5p-1);
+    failed += test_one(0x1.e7fffffffffffp-1, 0x1.3851d55342571p-1);
+// subdomain 0:29 (0.953125..0.96875)
+    failed += test_one(0x1.e8p-1, 0x1.3851d55342571p-1);
+    failed += test_one(0x1.e9e3c4c5fbdc7p-1, 0x1.384025ecd3c2fp-1);
+    failed += test_one(0x1.e821a97bc9071p-1, 0x1.3850ab548b3dcp-1);
+    failed += test_one(0x1.eafc35ee8f355p-1, 0x1.3834f5557e9a4p-1);
+    failed += test_one(0x1.e8215f4a3b33cp-1, 0x1.3850ade822f53p-1);
+    failed += test_one(0x1.effffffffffffp-1, 0x1.37f90ad0e812bp-1);
+// subdomain 0:30 (0.96875..0.984375)
+    failed += test_one(0x1.fp-1, 0x1.37f90ad0e812bp-1);
+    failed += test_one(0x1.f4ed75e155c34p-1, 0x1.37b07aae47d07p-1);
+    failed += test_one(0x1.f2373f59febe8p-1, 0x1.37da131896352p-1);
+    failed += test_one(0x1.f58ba1b552a4fp-1, 0x1.37a66ff8f95b6p-1);
+    failed += test_one(0x1.f6fddb23c57ep-1, 0x1.378e1e84250f6p-1);
+    failed += test_one(0x1.f7fffffffffffp-1, 0x1.377c7dc2d0302p-1);
+// subdomain 0:31 (0.984375..1)
+    failed += test_one(0x1.f8p-1, 0x1.377c7dc2d0302p-1);
+    failed += test_one(0x1.fce35668ef1cbp-1, 0x1.371f4d1f878b3p-1);
+    failed += test_one(0x1.fa92830d10c3fp-1, 0x1.374d0aa3e175ep-1);
+    failed += test_one(0x1.fc332c89f1879p-1, 0x1.372d30d4c2c8ep-1);
+    failed += test_one(0x1.fb798f8aed492p-1, 0x1.373b8dbadbc55p-1);
+    failed += test_one(0x1.fffffffffffffp-1, 0x1.36dd5ff434d34p-1);
+// subdomain 1:0 (1..1.03125)
+    failed += test_one(0x1p+0, 0x1.36dd5ff434d34p-1);
+    failed += test_one(0x1.0289ad4300626p+0, 0x1.36670d1d4ea02p-1);
+    failed += test_one(0x1.06415becb4317p+0, 0x1.35a221d39b84bp-1);
+    failed += test_one(0x1.06a0e6c1e8f8cp+0, 0x1.358cd89e32056p-1);
+    failed += test_one(0x1.04d7b4b0ec8e6p+0, 0x1.35f037a94be36p-1);
+    failed += test_one(0x1.07fffffffffffp+0, 0x1.353c4a0d196d9p-1);
+// subdomain 1:1 (1.03125..1.0625)
+    failed += test_one(0x1.08p+0, 0x1.353c4a0d196d9p-1);
+    failed += test_one(0x1.0f7ef402d555dp+0, 0x1.3345197c4b496p-1);
+    failed += test_one(0x1.0e8601a17acefp+0, 0x1.338c3885a2aa8p-1);
+    failed += test_one(0x1.0afe6d2c02a5bp+0, 0x1.347fe1cee6d2bp-1);
+    failed += test_one(0x1.0993d5f90674p+0, 0x1.34db2440eff53p-1);
+    failed += test_one(0x1.0ffffffffffffp+0, 0x1.331f90e98d5b8p-1);
+// subdomain 1:2 (1.0625..1.09375)
+    failed += test_one(0x1.1p+0, 0x1.331f90e98d5b8p-1);
+    failed += test_one(0x1.1703a64cd02c2p+0, 0x1.30e7884849827p-1);
+    failed += test_one(0x1.12dcdb827e951p+0, 0x1.3241eb7f050a9p-1);
+    failed += test_one(0x1.1677c404fa2f9p+0, 0x1.3116c553d06ccp-1);
+    failed += test_one(0x1.11c215915380ep+0, 0x1.329923a8b41fcp-1);
+    failed += test_one(0x1.17fffffffffffp+0, 0x1.309113887339bp-1);
+// subdomain 1:3 (1.09375..1.125)
+    failed += test_one(0x1.18p+0, 0x1.309113887339ap-1);
+    failed += test_one(0x1.1c307ca2fd0ccp+0, 0x1.2f1044383a46ep-1);
+    failed += test_one(0x1.1c5aeca95cb8ap+0, 0x1.2f007942f0f7dp-1);
+    failed += test_one(0x1.1b22f5cb17874p+0, 0x1.2f739351d6f8p-1);
+    failed += test_one(0x1.1ecb49353fc5fp+0, 0x1.2e13477db31ddp-1);
+    failed += test_one(0x1.1ffffffffffffp+0, 0x1.2d9ab38cacbe6p-1);
+// subdomain 1:4 (1.125..1.15625)
+    failed += test_one(0x1.2p+0, 0x1.2d9ab38cacbe5p-1);
+    failed += test_one(0x1.23cfdbe23f082p+0, 0x1.2c0fa6db70866p-1);
+    failed += test_one(0x1.271da6a40c1a9p+0, 0x1.2aa8cb4a3f58ap-1);
+    failed += test_one(0x1.262dc36785054p+0, 0x1.2b1015b92247ap-1);
+    failed += test_one(0x1.2741e838af228p+0, 0x1.2a9914a116e86p-1);
+    failed += test_one(0x1.27fffffffffffp+0, 0x1.2a4641fb8d2c2p-1);
+// subdomain 1:5 (1.15625..1.1875)
+    failed += test_one(0x1.28p+0, 0x1.2a4641fb8d2c2p-1);
+    failed += test_one(0x1.2fb4ad8d0062ap+0, 0x1.26c1443d1a74bp-1);
+    failed += test_one(0x1.2e7e7e782106p+0, 0x1.2753c749b8384p-1);
+    failed += test_one(0x1.2bee232bd8978p+0, 0x1.2883f6d994359p-1);
+    failed += test_one(0x1.29560cf3a6b3cp+0, 0x1.29af66e170c2bp-1);
+    failed += test_one(0x1.2ffffffffffffp+0, 0x1.269d6d68d759cp-1);
+// subdomain 1:6 (1.1875..1.21875)
+    failed += test_one(0x1.3p+0, 0x1.269d6d68d759bp-1);
+    failed += test_one(0x1.36709abbae675p+0, 0x1.2374706959a2bp-1);
+    failed += test_one(0x1.30513432e3323p+0, 0x1.2676ad155513ep-1);
+    failed += test_one(0x1.36d13127ca385p+0, 0x1.2343a4117a5dbp-1);
+    failed += test_one(0x1.37810c49c134bp+0, 0x1.22ea699babb51p-1);
+    failed += test_one(0x1.37fffffffffffp+0, 0x1.22a9b1ab613fdp-1);
+// subdomain 1:7 (1.21875..1.25)
+    failed += test_one(0x1.38p+0, 0x1.22a9b1ab613fdp-1);
+    failed += test_one(0x1.3ed30c59a0078p+0, 0x1.1f166093cd876p-1);
+    failed += test_one(0x1.3a7b51afa0faep+0, 0x1.216211d98524fp-1);
+    failed += test_one(0x1.3fd1e145efec7p+0, 0x1.1e8d34c254498p-1);
+    failed += test_one(0x1.38fd3cba641bcp+0, 0x1.2227d8784a9cdp-1);
+    failed += test_one(0x1.3ffffffffffffp+0, 0x1.1e74492e74908p-1);
+// subdomain 1:8 (1.25..1.28125)
+    failed += test_one(0x1.4p+0, 0x1.1e74492e74907p-1);
+    failed += test_one(0x1.44955cf07d33ap+0, 0x1.1bf0dfde4237ep-1);
+    failed += test_one(0x1.410f4a2716352p+0, 0x1.1de11eac2305cp-1);
+    failed += test_one(0x1.458ff9d5bba74p+0, 0x1.1b6531b7d2c81p-1);
+    failed += test_one(0x1.46e3d932d07f8p+0, 0x1.1aa68dd9c2879p-1);
+    failed += test_one(0x1.47fffffffffffp+0, 0x1.1a061fed2f60ap-1);
+// subdomain 1:9 (1.28125..1.3125)
+    failed += test_one(0x1.48p+0, 0x1.1a061fed2f609p-1);
+    failed += test_one(0x1.4e8330e9370e6p+0, 0x1.1646e535a9baap-1);
+    failed += test_one(0x1.4aefd33fbaf15p+0, 0x1.18593d47ecb3cp-1);
+    failed += test_one(0x1.49f51e703365bp+0, 0x1.18e8f3e0cceecp-1);
+    failed += test_one(0x1.4f6c1bc3e0631p+0, 0x1.15be98ef52742p-1);
+    failed += test_one(0x1.4ffffffffffffp+0, 0x1.1567c81e9bc41p-1);
+// subdomain 1:10 (1.3125..1.34375)
+    failed += test_one(0x1.5p+0, 0x1.1567c81e9bc4p-1);
+    failed += test_one(0x1.56ab14462a67p+0, 0x1.116f5b8edcf28p-1);
+    failed += test_one(0x1.55ba5f672ddc1p+0, 0x1.12003071c571p-1);
+    failed += test_one(0x1.526ae770d296ap+0, 0x1.13fa3e9c76481p-1);
+    failed += test_one(0x1.573e9bdf26da6p+0, 0x1.11165c58354b1p-1);
+    failed += test_one(0x1.57fffffffffffp+0, 0x1.10a17093088afp-1);
+// subdomain 1:11 (1.34375..1.375)
+    failed += test_one(0x1.58p+0, 0x1.10a17093088aep-1);
+    failed += test_one(0x1.5ea08d68566e8p+0, 0x1.0c941f6ee7aa4p-1);
+    failed += test_one(0x1.5d097e882758cp+0, 0x1.0d8ecc4131201p-1);
+    failed += test_one(0x1.5804e8141a4d5p+0, 0x1.109e78352fad4p-1);
+    failed += test_one(0x1.5d7d862fa30a2p+0, 0x1.0d4773d9ba7fap-1);
+    failed += test_one(0x1.5ffffffffffffp+0, 0x1.0bbadcbd73c1p-1);
+// subdomain 1:12 (1.375..1.40625)
+    failed += test_one(0x1.6p+0, 0x1.0bbadcbd73c0fp-1);
+    failed += test_one(0x1.663b9783281bap+0, 0x1.07d7cc78f521p-1);
+    failed += test_one(0x1.61231bea59e1dp+0, 0x1.0b065892f9b6dp-1);
+    failed += test_one(0x1.656048956bc5cp+0, 0x1.0861572b15291p-1);
+    failed += test_one(0x1.617713f49ab54p+0, 0x1.0ad22fbcdb4a5p-1);
+    failed += test_one(0x1.67fffffffffffp+0, 0x1.06bb5e5ea1381p-1);
+// subdomain 1:13 (1.40625..1.4375)
+    failed += test_one(0x1.68p+0, 0x1.06bb5e5ea1381p-1);
+    failed += test_one(0x1.6bee65043b60cp+0, 0x1.043f986dd1444p-1);
+    failed += test_one(0x1.68a2d30583c0ep+0, 0x1.0654c81b7b731p-1);
+    failed += test_one(0x1.68c268d6bfd3ep+0, 0x1.0640de5b908fbp-1);
+    failed += test_one(0x1.6bd47e4775b7ep+0, 0x1.0450019dbd7cep-1);
+    failed += test_one(0x1.6ffffffffffffp+0, 0x1.01a9d0c2d0a82p-1);
+// subdomain 1:14 (1.4375..1.46875)
+    failed += test_one(0x1.7p+0, 0x1.01a9d0c2d0a81p-1);
+    failed += test_one(0x1.72cc59699f29p+0, 0x1.ffc1c6f53bed1p-2);
+    failed += test_one(0x1.72a51a075dafbp+0, 0x1.fff3e924e7ddcp-2);
+    failed += test_one(0x1.73fe46d2a5773p+0, 0x1.fe3ac34596f36p-2);
+    failed += test_one(0x1.735b884b31f82p+0, 0x1.ff0ad23e586d4p-2);
+    failed += test_one(0x1.77fffffffffffp+0, 0x1.f9192afdf10d4p-2);
+// subdomain 1:15 (1.46875..1.5)
+    failed += test_one(0x1.78p+0, 0x1.f9192afdf10d3p-2);
+    failed += test_one(0x1.7ba60360765c8p+0, 0x1.f46a79edf122ap-2);
+    failed += test_one(0x1.7920e4e6aa785p+0, 0x1.f7a69cf940891p-2);
+    failed += test_one(0x1.7a2dcd067335fp+0, 0x1.f64d849d4d448p-2);
+    failed += test_one(0x1.7e03c66ec9dacp+0, 0x1.f16046672842ap-2);
+    failed += test_one(0x1.7ffffffffffffp+0, 0x1.eed3252df3b5ep-2);
+// subdomain 1:16 (1.5..1.53125)
+    failed += test_one(0x1.8p+0, 0x1.eed3252df3b5dp-2);
+    failed += test_one(0x1.808a01870835cp+0, 0x1.ee21c7071be0bp-2);
+    failed += test_one(0x1.8017ae6bbb79dp+0, 0x1.eeb4b5ad644dp-2);
+    failed += test_one(0x1.80a1cd47619d2p+0, 0x1.ee0331c7d576cp-2);
+    failed += test_one(0x1.813c14d57fd1dp+0, 0x1.ed3ce9946a1e2p-2);
+    failed += test_one(0x1.87fffffffffffp+0, 0x1.e48c63e6dfab5p-2);
+// subdomain 1:17 (1.53125..1.5625)
+    failed += test_one(0x1.88p+0, 0x1.e48c63e6dfab3p-2);
+    failed += test_one(0x1.8f7fd97f90327p+0, 0x1.daf25e622d63fp-2);
+    failed += test_one(0x1.88378005d9ed9p+0, 0x1.e4452eb48f8aep-2);
+    failed += test_one(0x1.891999c769d91p+0, 0x1.e3232a11c1626p-2);
+    failed += test_one(0x1.8ff1a3ad16957p+0, 0x1.da61188f99779p-2);
+    failed += test_one(0x1.8ffffffffffffp+0, 0x1.da4ec417151aep-2);
+// subdomain 1:18 (1.5625..1.59375)
+    failed += test_one(0x1.9p+0, 0x1.da4ec417151adp-2);
+    failed += test_one(0x1.95b09702e8925p+0, 0x1.d310b1dca553ep-2);
+    failed += test_one(0x1.9302e15659c91p+0, 0x1.d67831a8512dcp-2);
+    failed += test_one(0x1.90c05f6344606p+0, 0x1.d9594eddb0cecp-2);
+    failed += test_one(0x1.91cf49b29914dp+0, 0x1.d7ffeb0a4d55p-2);
+    failed += test_one(0x1.97fffffffffffp+0, 0x1.d0232f4b95a8dp-2);
+// subdomain 1:19 (1.59375..1.625)
+    failed += test_one(0x1.98p+0, 0x1.d0232f4b95a8bp-2);
+    failed += test_one(0x1.9b9b05f727388p+0, 0x1.cb95d3d736fa9p-2);
+    failed += test_one(0x1.99917f24c5ff1p+0, 0x1.ce279616ef265p-2);
+    failed += test_one(0x1.9d9b28601b064p+0, 0x1.c911c4cef2e15p-2);
+    failed += test_one(0x1.9d352c21ee0edp+0, 0x1.c991df9364978p-2);
+    failed += test_one(0x1.9ffffffffffffp+0, 0x1.c611a122de03ap-2);
+// subdomain 1:20 (1.625..1.65625)
+    failed += test_one(0x1.ap+0, 0x1.c611a122de039p-2);
+    failed += test_one(0x1.a018b5356a6a5p+0, 0x1.c5f2b8bb7fc8ep-2);
+    failed += test_one(0x1.a6f134a232377p+0, 0x1.bd6f7cfcaa7a5p-2);
+    failed += test_one(0x1.a3f0d4627fb18p+0, 0x1.c127b59e98677p-2);
+    failed += test_one(0x1.a3cca2a1e5578p+0, 0x1.c154b149fac4ep-2);
+    failed += test_one(0x1.a7fffffffffffp+0, 0x1.bc212e73ca07cp-2);
+// subdomain 1:21 (1.65625..1.6875)
+    failed += test_one(0x1.a8p+0, 0x1.bc212e73ca07bp-2);
+    failed += test_one(0x1.ae6f60652a112p+0, 0x1.b43ebd665b58ep-2);
+    failed += test_one(0x1.af21048f59645p+0, 0x1.b366ba883f63ep-2);
+    failed += test_one(0x1.a80b018b0e3aep+0, 0x1.bc139bc8ece8ap-2);
+    failed += test_one(0x1.ad640f835904bp+0, 0x1.b5846a350ee7bp-2);
+    failed += test_one(0x1.affffffffffffp+0, 0x1.b2580deb35032p-2);
+// subdomain 1:22 (1.6875..1.71875)
+    failed += test_one(0x1.bp+0, 0x1.b2580deb35031p-2);
+    failed += test_one(0x1.b61467ddd4f6ep+0, 0x1.ab05e300857d7p-2);
+    failed += test_one(0x1.b1bd9a5a956f2p+0, 0x1.b03cbdada6084p-2);
+    failed += test_one(0x1.b489d90782739p+0, 0x1.acde6fd956e54p-2);
+    failed += test_one(0x1.b43b7623ac5bdp+0, 0x1.ad3c8753ab75p-2);
+    failed += test_one(0x1.b7fffffffffffp+0, 0x1.a8bba1e3f8a29p-2);
+// subdomain 1:23 (1.71875..1.75)
+    failed += test_one(0x1.b8p+0, 0x1.a8bba1e3f8a28p-2);
+    failed += test_one(0x1.bfb048977886ap+0, 0x1.9fad6441211fcp-2);
+    failed += test_one(0x1.bc201b6891004p+0, 0x1.a3d9db1f80076p-2);
+    failed += test_one(0x1.bbfffd93e0d54p+0, 0x1.a3ffa9bfb57c4p-2);
+    failed += test_one(0x1.bd63b920f3b9p+0, 0x1.a25d9ba362bbcp-2);
+    failed += test_one(0x1.bffffffffffffp+0, 0x1.9f50833eac1bp-2);
+// subdomain 1:24 (1.75..1.78125)
+    failed += test_one(0x1.cp+0, 0x1.9f50833eac1afp-2);
+    failed += test_one(0x1.c3a4219f6d758p+0, 0x1.9b1881f40a19bp-2);
+    failed += test_one(0x1.c18801f457478p+0, 0x1.9d88f47e7ff9dp-2);
+    failed += test_one(0x1.c765b9111f6d8p+0, 0x1.96ca4060c5a8p-2);
+    failed += test_one(0x1.c37ae62d194b4p+0, 0x1.9b480b23b414dp-2);
+    failed += test_one(0x1.c7fffffffffffp+0, 0x1.961a8d00f6e5bp-2);
+// subdomain 1:25 (1.78125..1.8125)
+    failed += test_one(0x1.c8p+0, 0x1.961a8d00f6e5ap-2);
+    failed += test_one(0x1.c9aeddf3a4a63p+0, 0x1.94318cbd2f509p-2);
+    failed += test_one(0x1.c80984b21ee2cp+0, 0x1.960fb89dda20ep-2);
+    failed += test_one(0x1.c96fd2de91de7p+0, 0x1.9478f1363e66dp-2);
+    failed += test_one(0x1.cf19fdf9e95f2p+0, 0x1.8e1c82bf9faf1p-2);
+    failed += test_one(0x1.cffffffffffffp+0, 0x1.8d1ce88752f4cp-2);
+// subdomain 1:26 (1.8125..1.84375)
+    failed += test_one(0x1.dp+0, 0x1.8d1ce88752f4bp-2);
+    failed += test_one(0x1.d3df1d01b710ap+0, 0x1.88d80a81300d3p-2);
+    failed += test_one(0x1.d6596a89863acp+0, 0x1.8623f646462fdp-2);
+    failed += test_one(0x1.d633f12871567p+0, 0x1.864cb0593d4e4p-2);
+    failed += test_one(0x1.d6a7f57880adfp+0, 0x1.85ceaae546565p-2);
+    failed += test_one(0x1.d7fffffffffffp+0, 0x1.845a1a179d965p-2);
+// subdomain 1:27 (1.84375..1.875)
+    failed += test_one(0x1.d8p+0, 0x1.845a1a179d964p-2);
+    failed += test_one(0x1.db487268fde8ep+0, 0x1.80d334405f3b2p-2);
+    failed += test_one(0x1.dd6ecf6d8782dp+0, 0x1.7e898b35398a7p-2);
+    failed += test_one(0x1.dc732fac24bb1p+0, 0x1.7f94c0d821165p-2);
+    failed += test_one(0x1.db6bd053fe90fp+0, 0x1.80ad6f739c45bp-2);
+    failed += test_one(0x1.dffffffffffffp+0, 0x1.7bd40da6b8edp-2);
+// subdomain 1:28 (1.875..1.90625)
+    failed += test_one(0x1.ep+0, 0x1.7bd40da6b8ecfp-2);
+    failed += test_one(0x1.e54e5711bee74p+0, 0x1.764f03511819bp-2);
+    failed += test_one(0x1.e7a70e1ecb78ap+0, 0x1.73e6e7321fa6cp-2);
+    failed += test_one(0x1.e1348990e6815p+0, 0x1.7a90adfb525bap-2);
+    failed += test_one(0x1.e2e5a502973e4p+0, 0x1.78cd223f89b29p-2);
+    failed += test_one(0x1.e7fffffffffffp+0, 0x1.738c23a7a78a7p-2);
+// subdomain 1:29 (1.90625..1.9375)
+    failed += test_one(0x1.e8p+0, 0x1.738c23a7a78a6p-2);
+    failed += test_one(0x1.eba3c1532c3d9p+0, 0x1.6fdc7c9ecc5e2p-2);
+    failed += test_one(0x1.ed441173f7714p+0, 0x1.6e3b17155fd49p-2);
+    failed += test_one(0x1.eb338598a4d96p+0, 0x1.704d75c4f4c9ep-2);
+    failed += test_one(0x1.ecf6d3643b626p+0, 0x1.6e8855fa877d6p-2);
+    failed += test_one(0x1.effffffffffffp+0, 0x1.6b833dbedf72cp-2);
+// subdomain 1:30 (1.9375..1.96875)
+    failed += test_one(0x1.fp+0, 0x1.6b833dbedf72bp-2);
+    failed += test_one(0x1.f15e9e140a925p+0, 0x1.6a2974af4199ap-2);
+    failed += test_one(0x1.f71a0d3830da1p+0, 0x1.64967356adcdap-2);
+    failed += test_one(0x1.f6e51aff81d85p+0, 0x1.64c95ee799684p-2);
+    failed += test_one(0x1.f794b5b8939a8p+0, 0x1.6420a624d06cp-2);
+    failed += test_one(0x1.f7fffffffffffp+0, 0x1.63b9cb38fa8d9p-2);
+// subdomain 1:31 (1.96875..2)
+    failed += test_one(0x1.f8p+0, 0x1.63b9cb38fa8d8p-2);
+    failed += test_one(0x1.fefc3769ebce5p+0, 0x1.5d2122a31f2f9p-2);
+    failed += test_one(0x1.facea0bbdbeafp+0, 0x1.610d5d3a0c6e1p-2);
+    failed += test_one(0x1.fcaf94afd5bddp+0, 0x1.5f47a9a62121ep-2);
+    failed += test_one(0x1.ff63fe1dbfae8p+0, 0x1.5cc09ea3d00c5p-2);
+    failed += test_one(0x1.fffffffffffffp+0, 0x1.5c2fd528534ddp-2);
+// subdomain 2:0 (2..2.0625)
+    failed += test_one(0x1p+1, 0x1.5c2fd528534ddp-2);
+    failed += test_one(0x1.068a2c93a246ep+1, 0x1.506441e68558bp-2);
+    failed += test_one(0x1.038fa17de469fp+1, 0x1.55aed2ffe1f0ap-2);
+    failed += test_one(0x1.07a2418a80ef3p+1, 0x1.4e7b616e84228p-2);
+    failed += test_one(0x1.042c57407d9a3p+1, 0x1.54959f5883dc2p-2);
+    failed += test_one(0x1.07fffffffffffp+1, 0x1.4dd8c912667c4p-2);
+// subdomain 2:1 (2.0625..2.125)
+    failed += test_one(0x1.08p+1, 0x1.4dd8c912667c2p-2);
+    failed += test_one(0x1.0cbf80027232dp+1, 0x1.45cb09ecd79e8p-2);
+    failed += test_one(0x1.0816b8ee8a69ap+1, 0x1.4db173c3e0603p-2);
+    failed += test_one(0x1.0d61b4b9b3c7ap+1, 0x1.44be5f5818586p-2);
+    failed += test_one(0x1.0c2b5828ba0dap+1, 0x1.46c1c153f7059p-2);
+    failed += test_one(0x1.0ffffffffffffp+1, 0x1.407813a0ab1edp-2);
+// subdomain 2:2 (2.125..2.1875)
+    failed += test_one(0x1.1p+1, 0x1.407813a0ab1ecp-2);
+    failed += test_one(0x1.1132c89edf373p+1, 0x1.3e8bb830c75dbp-2);
+    failed += test_one(0x1.12b233ce9842dp+1, 0x1.3c2bc87710d1ep-2);
+    failed += test_one(0x1.143d39cc26e1cp+1, 0x1.39c1fb8b8b654p-2);
+    failed += test_one(0x1.128b9cafd89d2p+1, 0x1.3c6899926dbbep-2);
+    failed += test_one(0x1.17fffffffffffp+1, 0x1.3403fb7e4c282p-2);
+// subdomain 2:3 (2.1875..2.25)
+    failed += test_one(0x1.18p+1, 0x1.3403fb7e4c281p-2);
+    failed += test_one(0x1.184f416b0276ep+1, 0x1.338d334569a31p-2);
+    failed += test_one(0x1.1a932b597fb8fp+1, 0x1.3032394963e01p-2);
+    failed += test_one(0x1.1c8783519faebp+1, 0x1.2d5b4c58dd338p-2);
+    failed += test_one(0x1.1bc17db3652e7p+1, 0x1.2e796ff77f6bap-2);
+    failed += test_one(0x1.1ffffffffffffp+1, 0x1.2870319d9764cp-2);
+// subdomain 2:4 (2.25..2.3125)
+    failed += test_one(0x1.2p+1, 0x1.2870319d9764bp-2);
+    failed += test_one(0x1.27f78244cab55p+1, 0x1.1db9c383444ecp-2);
+    failed += test_one(0x1.210e4aee240dp+1, 0x1.26f9106ca985ep-2);
+    failed += test_one(0x1.261b26d21df96p+1, 0x1.202863a1df2b4p-2);
+    failed += test_one(0x1.220adb1e618fep+1, 0x1.259dd2cde5cf7p-2);
+    failed += test_one(0x1.27fffffffffffp+1, 0x1.1daec30bef4a2p-2);
+// subdomain 2:5 (2.3125..2.375)
+    failed += test_one(0x1.28p+1, 0x1.1daec30bef4a1p-2);
+    failed += test_one(0x1.29b700f713d6ap+1, 0x1.1b7a81e3034cbp-2);
+    failed += test_one(0x1.291b7afe85b88p+1, 0x1.1c4162527d6c9p-2);
+    failed += test_one(0x1.2b444d48ba669p+1, 0x1.19837aad9c507p-2);
+    failed += test_one(0x1.2f2f1f4d757ep+1, 0x1.14ad3c855a883p-2);
+    failed += test_one(0x1.2ffffffffffffp+1, 0x1.13b0df55eb666p-2);
+// subdomain 2:6 (2.375..2.4375)
+    failed += test_one(0x1.3p+1, 0x1.13b0df55eb665p-2);
+    failed += test_one(0x1.3777a2102ce9p+1, 0x1.0b0073e6ba0e9p-2);
+    failed += test_one(0x1.31009d31dd081p+1, 0x1.127d66e0d11d9p-2);
+    failed += test_one(0x1.3111572ef394bp+1, 0x1.12697545521fp-2);
+    failed += test_one(0x1.31c34234f32b3p+1, 0x1.11960db00c11ap-2);
+    failed += test_one(0x1.37fffffffffffp+1, 0x1.0a6775e9288bdp-2);
+// subdomain 2:7 (2.4375..2.5)
+    failed += test_one(0x1.38p+1, 0x1.0a6775e9288bcp-2);
+    failed += test_one(0x1.3f6e4ae6c487cp+1, 0x1.025be001f3226p-2);
+    failed += test_one(0x1.381636ef90401p+1, 0x1.0a4e9b7b4c721p-2);
+    failed += test_one(0x1.3861c607190ccp+1, 0x1.09fa38165cb6ap-2);
+    failed += test_one(0x1.3a2160fdee4ccp+1, 0x1.080ae34a7c1edp-2);
+    failed += test_one(0x1.3ffffffffffffp+1, 0x1.01c3ae396eba1p-2);
+// subdomain 2:8 (2.5..2.5625)
+    failed += test_one(0x1.4p+1, 0x1.01c3ae396ebap-2);
+    failed += test_one(0x1.45945c45dcfd3p+1, 0x1.f82f01700cc61p-3);
+    failed += test_one(0x1.42dae7f494851p+1, 0x1.fda76017428a2p-3);
+    failed += test_one(0x1.41b6313b39bacp+1, 0x1.fffd259d758e9p-3);
+    failed += test_one(0x1.401e069559d3ep+1, 0x1.01a469d40c2d1p-2);
+    failed += test_one(0x1.47fffffffffffp+1, 0x1.f36e7e7bfda4bp-3);
+// subdomain 2:9 (2.5625..2.625)
+    failed += test_one(0x1.48p+1, 0x1.f36e7e7bfda49p-3);
+    failed += test_one(0x1.49144d490bc22p+1, 0x1.f15837af2e834p-3);
+    failed += test_one(0x1.4f9f211f99f85p+1, 0x1.e51960ab1f79ep-3);
+    failed += test_one(0x1.4d8d7e88a81e2p+1, 0x1.e8e5e2ec736d4p-3);
+    failed += test_one(0x1.4ab1f90b3fe07p+1, 0x1.ee418d35df199p-3);
+    failed += test_one(0x1.4ffffffffffffp+1, 0x1.e469566f84141p-3);
+// subdomain 2:10 (2.625..2.6875)
+    failed += test_one(0x1.5p+1, 0x1.e469566f8414p-3);
+    failed += test_one(0x1.50a485cfe1e7ep+1, 0x1.e33fa35d0091dp-3);
+    failed += test_one(0x1.5338dc18e7935p+1, 0x1.dea4c9712ad01p-3);
+    failed += test_one(0x1.54d7a86aac173p+1, 0x1.dbcd2287d233ep-3);
+    failed += test_one(0x1.534a851aa693ap+1, 0x1.de859b56c5f11p-3);
+    failed += test_one(0x1.57fffffffffffp+1, 0x1.d65ec9634eb74p-3);
+// subdomain 2:11 (2.6875..2.75)
+    failed += test_one(0x1.58p+1, 0x1.d65ec9634eb72p-3);
+    failed += test_one(0x1.5dda63f3e9627p+1, 0x1.ccaa3da2c8ae4p-3);
+    failed += test_one(0x1.5ef23cd17a84p+1, 0x1.cae7060710dc8p-3);
+    failed += test_one(0x1.5f1f1e3545cbep+1, 0x1.ca9f062c22eb8p-3);
+    failed += test_one(0x1.5ee4b13d1b79cp+1, 0x1.cafcc5f0004a1p-3);
+    failed += test_one(0x1.5ffffffffffffp+1, 0x1.c937c2d31b1c3p-3);
+// subdomain 2:12 (2.75..2.8125)
+    failed += test_one(0x1.6p+1, 0x1.c937c2d31b1c2p-3);
+    failed += test_one(0x1.660eaa1bc36bp+1, 0x1.bfccd06240082p-3);
+    failed += test_one(0x1.65af7bf106dd2p+1, 0x1.c05d8c559d66cp-3);
+    failed += test_one(0x1.6365d827044bap+1, 0x1.c3e1515bf205ep-3);
+    failed += test_one(0x1.6269cbc411453p+1, 0x1.c569853573273p-3);
+    failed += test_one(0x1.67fffffffffffp+1, 0x1.bcdf3ebf6093p-3);
+// subdomain 2:13 (2.8125..2.875)
+    failed += test_one(0x1.68p+1, 0x1.bcdf3ebf6092fp-3);
+    failed += test_one(0x1.6f802b20c2164p+1, 0x1.b1f6a91c04ep-3);
+    failed += test_one(0x1.6fa6be50a609fp+1, 0x1.b1c026005c32fp-3);
+    failed += test_one(0x1.6c9216011d07fp+1, 0x1.b626da99bf43dp-3);
+    failed += test_one(0x1.6fb302072892cp+1, 0x1.b1aed4601f584p-3);
+    failed += test_one(0x1.6ffffffffffffp+1, 0x1.b1423f7f85a47p-3);
+// subdomain 2:14 (2.875..2.9375)
+    failed += test_one(0x1.7p+1, 0x1.b1423f7f85a46p-3);
+    failed += test_one(0x1.76ff275423382p+1, 0x1.a7a66033ca5e5p-3);
+    failed += test_one(0x1.76f6dfd49d83p+1, 0x1.a7b1765c459aep-3);
+    failed += test_one(0x1.756ff4ca157abp+1, 0x1.a9bfddae608a2p-3);
+    failed += test_one(0x1.72950c99efeb9p+1, 0x1.ada7ca5209d03p-3);
+    failed += test_one(0x1.77fffffffffffp+1, 0x1.a64fb5828b1b2p-3);
+// subdomain 2:15 (2.9375..3)
+    failed += test_one(0x1.78p+1, 0x1.a64fb5828b1b1p-3);
+    failed += test_one(0x1.7cb7e1c336facp+1, 0x1.a0247a46d62f1p-3);
+    failed += test_one(0x1.79a1d058cd062p+1, 0x1.a4277d0b801fcp-3);
+    failed += test_one(0x1.7d29bd627a396p+1, 0x1.9f924b2b96b29p-3);
+    failed += test_one(0x1.790ec66fbaedep+1, 0x1.a4e9198a111d3p-3);
+    failed += test_one(0x1.7ffffffffffffp+1, 0x1.9bf85e103885p-3);
+// subdomain 2:16 (3..3.0625)
+    failed += test_one(0x1.8p+1, 0x1.9bf85e103884fp-3);
+    failed += test_one(0x1.8006ed2976332p+1, 0x1.9befa957ab76dp-3);
+    failed += test_one(0x1.80eb0d0598db2p+1, 0x1.9ad1d41d3ece3p-3);
+    failed += test_one(0x1.83d23a1b98694p+1, 0x1.973a9bd9cf7bap-3);
+    failed += test_one(0x1.835652410e9d1p+1, 0x1.97d29c2664407p-3);
+    failed += test_one(0x1.87fffffffffffp+1, 0x1.922e9d06cce2cp-3);
+// subdomain 2:17 (3.0625..3.125)
+    failed += test_one(0x1.88p+1, 0x1.922e9d06cce2bp-3);
+    failed += test_one(0x1.8aa83b6b03384p+1, 0x1.8f0b8a738bce6p-3);
+    failed += test_one(0x1.8c8179ca5a40ap+1, 0x1.8ce509616867ap-3);
+    failed += test_one(0x1.881af094799e6p+1, 0x1.920e8a3d777eap-3);
+    failed += test_one(0x1.8ca6ffa18ca53p+1, 0x1.8cb9abc8b7d0ap-3);
+    failed += test_one(0x1.8ffffffffffffp+1, 0x1.88e65498e1f31p-3);
+// subdomain 2:18 (3.125..3.1875)
+    failed += test_one(0x1.9p+1, 0x1.88e65498e1f3p-3);
+    failed += test_one(0x1.9551a6c3ae9b4p+1, 0x1.82fcb8916e2dbp-3);
+    failed += test_one(0x1.91447eed2b181p+1, 0x1.8778f916cd304p-3);
+    failed += test_one(0x1.95d3d2e88f5bp+1, 0x1.826ea9393f749p-3);
+    failed += test_one(0x1.97036803d98cap+1, 0x1.812519efa0e04p-3);
+    failed += test_one(0x1.97fffffffffffp+1, 0x1.8014bd3a251dfp-3);
+// subdomain 2:19 (3.1875..3.25)
+    failed += test_one(0x1.98p+1, 0x1.8014bd3a251dep-3);
+    failed += test_one(0x1.9b3d9ee822a8cp+1, 0x1.7ca1c4c4c71c5p-3);
+    failed += test_one(0x1.9e678dd46434fp+1, 0x1.795472dedbe7ap-3);
+    failed += test_one(0x1.9a0d99077276ap+1, 0x1.7de34d93319fap-3);
+    failed += test_one(0x1.989585c93a56fp+1, 0x1.7f744c0df2eb3p-3);
+    failed += test_one(0x1.9ffffffffffffp+1, 0x1.77b03f396165cp-3);
+// subdomain 2:20 (3.25..3.3125)
+    failed += test_one(0x1.ap+1, 0x1.77b03f396165bp-3);
+    failed += test_one(0x1.a7cdc5262953dp+1, 0x1.6fe16552d3e6p-3);
+    failed += test_one(0x1.a1423de0cfb41p+1, 0x1.76678dda6c0b8p-3);
+    failed += test_one(0x1.a248710893ab4p+1, 0x1.755deb4cb06bfp-3);
+    failed += test_one(0x1.a7966bffa3737p+1, 0x1.70178cc200b8p-3);
+    failed += test_one(0x1.a7fffffffffffp+1, 0x1.6fb04ef9cd725p-3);
+// subdomain 2:21 (3.3125..3.375)
+    failed += test_one(0x1.a8p+1, 0x1.6fb04ef9cd724p-3);
+    failed += test_one(0x1.ad7d54dbe95afp+1, 0x1.6a69356c699a9p-3);
+    failed += test_one(0x1.ae3cdd24f229cp+1, 0x1.69b4543435dbcp-3);
+    failed += test_one(0x1.aa852fb101127p+1, 0x1.6d3eba6d220a7p-3);
+    failed += test_one(0x1.ad075b4020814p+1, 0x1.6ad9016086164p-3);
+    failed += test_one(0x1.affffffffffffp+1, 0x1.680d4c517f587p-3);
+// subdomain 2:22 (3.375..3.4375)
+    failed += test_one(0x1.bp+1, 0x1.680d4c517f586p-3);
+    failed += test_one(0x1.b29ecd38ed23fp+1, 0x1.659ffc9116adcp-3);
+    failed += test_one(0x1.b73c000b2a083p+1, 0x1.616fb3b9550f9p-3);
+    failed += test_one(0x1.b0c6e3c0b04eep+1, 0x1.6754211f00bbp-3);
+    failed += test_one(0x1.b592aef86c034p+1, 0x1.62eea8410125ap-3);
+    failed += test_one(0x1.b7fffffffffffp+1, 0x1.60c0654312de9p-3);
+// subdomain 2:23 (3.4375..3.5)
+    failed += test_one(0x1.b8p+1, 0x1.60c0654312de8p-3);
+    failed += test_one(0x1.bf58ea212a07fp+1, 0x1.5a52922c6f61cp-3);
+    failed += test_one(0x1.bd71796e1b735p+1, 0x1.5bf6db4b36da9p-3);
+    failed += test_one(0x1.bbe79fc31b928p+1, 0x1.5d4d97e371a22p-3);
+    failed += test_one(0x1.bc01fc731ee55p+1, 0x1.5d369054a5c98p-3);
+    failed += test_one(0x1.bffffffffffffp+1, 0x1.59c37c104e688p-3);
+// subdomain 2:24 (3.5..3.5625)
+    failed += test_one(0x1.cp+1, 0x1.59c37c104e687p-3);
+    failed += test_one(0x1.c121e50511f81p+1, 0x1.58cc671322684p-3);
+    failed += test_one(0x1.c390c32132c31p+1, 0x1.56be7fd910d53p-3);
+    failed += test_one(0x1.c53e30c80b70fp+1, 0x1.5557d18c58db9p-3);
+    failed += test_one(0x1.c1ee1e40e1eb5p+1, 0x1.581f3a233ec93p-3);
+    failed += test_one(0x1.c7fffffffffffp+1, 0x1.5311107e47894p-3);
+// subdomain 2:25 (3.5625..3.625)
+    failed += test_one(0x1.c8p+1, 0x1.5311107e47893p-3);
+    failed += test_one(0x1.cc15504b759a8p+1, 0x1.4fc11afd0f27dp-3);
+    failed += test_one(0x1.c9b2fbbc0b0a4p+1, 0x1.51ae0abcd50bfp-3);
+    failed += test_one(0x1.c89d4ff7b45c4p+1, 0x1.52904f7eafe66p-3);
+    failed += test_one(0x1.cdababfab5a05p+1, 0x1.4e7c38ee55911p-3);
+    failed += test_one(0x1.cffffffffffffp+1, 0x1.4ca42c0cec45dp-3);
+// subdomain 2:26 (3.625..3.6875)
+    failed += test_one(0x1.dp+1, 0x1.4ca42c0cec45cp-3);
+    failed += test_one(0x1.d51e4e9472964p+1, 0x1.48aa2760f5be4p-3);
+    failed += test_one(0x1.d4594e4790849p+1, 0x1.49418dc648fd7p-3);
+    failed += test_one(0x1.d2d251d6d8e16p+1, 0x1.4a6fc236ea4dbp-3);
+    failed += test_one(0x1.d2e1b9d6556e9p+1, 0x1.4a63ce9ca752p-3);
+    failed += test_one(0x1.d7fffffffffffp+1, 0x1.467850d829e2dp-3);
+// subdomain 2:27 (3.6875..3.75)
+    failed += test_one(0x1.d8p+1, 0x1.467850d829e2cp-3);
+    failed += test_one(0x1.dbe42afd734b3p+1, 0x1.438e21c94f443p-3);
+    failed += test_one(0x1.dc9e8df010113p+1, 0x1.4304156e6dd58p-3);
+    failed += test_one(0x1.d86ad3aae35f5p+1, 0x1.46279d4eb803fp-3);
+    failed += test_one(0x1.dab85a54af81bp+1, 0x1.446d38385f28ap-3);
+    failed += test_one(0x1.dffffffffffffp+1, 0x1.40896ad509324p-3);
+// subdomain 2:28 (3.75..3.8125)
+    failed += test_one(0x1.ep+1, 0x1.40896ad509323p-3);
+    failed += test_one(0x1.e2f93399c8ba9p+1, 0x1.3e63a6fb873a9p-3);
+    failed += test_one(0x1.e089c1a744c5ep+1, 0x1.402558310d793p-3);
+    failed += test_one(0x1.e34a47444fc47p+1, 0x1.3e298de3d8829p-3);
+    failed += test_one(0x1.e422f453d169ep+1, 0x1.3d8eb79092e4fp-3);
+    failed += test_one(0x1.e7fffffffffffp+1, 0x1.3ad3c31e7aed5p-3);
+// subdomain 2:29 (3.8125..3.875)
+    failed += test_one(0x1.e8p+1, 0x1.3ad3c31e7aed4p-3);
+    failed += test_one(0x1.ec07318572ec9p+1, 0x1.3808628c9a327p-3);
+    failed += test_one(0x1.e821ec5c8755ap+1, 0x1.3abc0374e479bp-3);
+    failed += test_one(0x1.edfa07851e59ap+1, 0x1.36b319cfc9262p-3);
+    failed += test_one(0x1.ee41cea7ad4b4p+1, 0x1.36823edf426dcp-3);
+    failed += test_one(0x1.effffffffffffp+1, 0x1.3553f50a3ecdap-3);
+// subdomain 2:30 (3.875..3.9375)
+    failed += test_one(0x1.fp+1, 0x1.3553f50a3ecd9p-3);
+    failed += test_one(0x1.f431370f4300dp+1, 0x1.3286ac2c93f7dp-3);
+    failed += test_one(0x1.f5ce6ded927d5p+1, 0x1.31762001e1af6p-3);
+    failed += test_one(0x1.f309f082667afp+1, 0x1.334aa7d9fead3p-3);
+    failed += test_one(0x1.f7658cba6e729p+1, 0x1.306b8876ffc4p-3);
+    failed += test_one(0x1.f7fffffffffffp+1, 0x1.3006e4c4d8083p-3);
+// subdomain 2:31 (3.9375..4)
+    failed += test_one(0x1.f8p+1, 0x1.3006e4c4d8082p-3);
+    failed += test_one(0x1.fcb19ca514e79p+1, 0x1.2d012278c3d49p-3);
+    failed += test_one(0x1.fc999cec575e2p+1, 0x1.2d106e3cfbfbep-3);
+    failed += test_one(0x1.ffc1562175fa5p+1, 0x1.2b1116d54127dp-3);
+    failed += test_one(0x1.ffa846d3d53a3p+1, 0x1.2b20d8ce488b4p-3);
+    failed += test_one(0x1.fffffffffffffp+1, 0x1.2ae9b73ad6f13p-3);
+// subdomain 3:0 (4..4.125)
+    failed += test_one(0x1p+2, 0x1.2ae9b73ad6f12p-3);
+    failed += test_one(0x1.02c504d37879bp+2, 0x1.2779e799021e4p-3);
+    failed += test_one(0x1.012e05466d2d7p+2, 0x1.297056d1c7284p-3);
+    failed += test_one(0x1.06db7c3791c37p+2, 0x1.228d47a14939bp-3);
+    failed += test_one(0x1.07e7d82cca3fdp+2, 0x1.215107138162dp-3);
+    failed += test_one(0x1.07fffffffffffp+2, 0x1.2134b2d55614fp-3);
+// subdomain 3:1 (4.125..4.25)
+    failed += test_one(0x1.08p+2, 0x1.2134b2d55614ep-3);
+    failed += test_one(0x1.0aac473413e18p+2, 0x1.1e1b76fbb13a6p-3);
+    failed += test_one(0x1.0eeb0a866f48fp+2, 0x1.19535c8e74aafp-3);
+    failed += test_one(0x1.0f8815455f273p+2, 0x1.18a5fad884399p-3);
+    failed += test_one(0x1.0d0e38b394e85p+2, 0x1.1b6729a5b153ep-3);
+    failed += test_one(0x1.0ffffffffffffp+2, 0x1.18222b2f41997p-3);
+// subdomain 3:2 (4.25..4.375)
+    failed += test_one(0x1.1p+2, 0x1.18222b2f41996p-3);
+    failed += test_one(0x1.14cb577e73288p+2, 0x1.12f9642918fabp-3);
+    failed += test_one(0x1.1596a06ee1a71p+2, 0x1.12237bb7e5a15p-3);
+    failed += test_one(0x1.1567e4b79ef71p+2, 0x1.12548a11d7c3ep-3);
+    failed += test_one(0x1.1603a1f05f9c8p+2, 0x1.11b155c16121dp-3);
+    failed += test_one(0x1.17fffffffffffp+2, 0x1.0fa2066482e3dp-3);
+// subdomain 3:3 (4.375..4.5)
+    failed += test_one(0x1.18p+2, 0x1.0fa2066482e3cp-3);
+    failed += test_one(0x1.1cf81b533505bp+2, 0x1.0a9dd07e1ff73p-3);
+    failed += test_one(0x1.1d021a08e8425p+2, 0x1.0a93eb21e29e8p-3);
+    failed += test_one(0x1.1fc50a3db24e6p+2, 0x1.07df6d1ffc652p-3);
+    failed += test_one(0x1.1beea84c71f1ep+2, 0x1.0ba5b95ba7e41p-3);
+    failed += test_one(0x1.1ffffffffffffp+2, 0x1.07a653881e8a4p-3);
+// subdomain 3:4 (4.5..4.625)
+    failed += test_one(0x1.2p+2, 0x1.07a653881e8a4p-3);
+    failed += test_one(0x1.21a628ad3a938p+2, 0x1.061060fa4c7afp-3);
+    failed += test_one(0x1.2768d7c096431p+2, 0x1.00ad034df5a08p-3);
+    failed += test_one(0x1.271f1588aac62p+2, 0x1.00f09d1f7cbedp-3);
+    failed += test_one(0x1.237440798a8efp+2, 0x1.0459c4c91e384p-3);
+    failed += test_one(0x1.27fffffffffffp+2, 0x1.0022ebeeae2c5p-3);
+// subdomain 3:5 (4.625..4.75)
+    failed += test_one(0x1.28p+2, 0x1.0022ebeeae2c4p-3);
+    failed += test_one(0x1.2c670606ac3f5p+2, 0x1.f85fb867fed14p-4);
+    failed += test_one(0x1.2ccfbd5df5c5p+2, 0x1.f7a717429edd8p-4);
+    failed += test_one(0x1.29ef687885603p+2, 0x1.fcc4fecd446d9p-4);
+    failed += test_one(0x1.29802038312b1p+2, 0x1.fd8d5998ddbf5p-4);
+    failed += test_one(0x1.2ffffffffffffp+2, 0x1.f21a50dd0d76bp-4);
+// subdomain 3:6 (4.75..4.875)
+    failed += test_one(0x1.3p+2, 0x1.f21a50dd0d76ap-4);
+    failed += test_one(0x1.33a7bc5793cabp+2, 0x1.ebe4ac3ff2863p-4);
+    failed += test_one(0x1.33a54b350bde2p+2, 0x1.ebe8c4abdd8adp-4);
+    failed += test_one(0x1.32715c2c9cd18p+2, 0x1.edef6920b864fp-4);
+    failed += test_one(0x1.361ed982084c6p+2, 0x1.e7cb518c86247p-4);
+    failed += test_one(0x1.37fffffffffffp+2, 0x1.e4b74b2348edfp-4);
+// subdomain 3:7 (4.875..5)
+    failed += test_one(0x1.38p+2, 0x1.e4b74b2348eddp-4);
+    failed += test_one(0x1.3bfcf39b22d4bp+2, 0x1.de5087059a19p-4);
+    failed += test_one(0x1.3944ecfe11385p+2, 0x1.e2a8e194daef3p-4);
+    failed += test_one(0x1.3b608e0fc9901p+2, 0x1.df48ae0175cc8p-4);
+    failed += test_one(0x1.39f4541197234p+2, 0x1.e18e9c919dd56p-4);
+    failed += test_one(0x1.3ffffffffffffp+2, 0x1.d80c2650f5808p-4);
+// subdomain 3:8 (5..5.125)
+    failed += test_one(0x1.4p+2, 0x1.d80c2650f5807p-4);
+    failed += test_one(0x1.46eb59ef8a80bp+2, 0x1.cd9ff720292dp-4);
+    failed += test_one(0x1.4606a65e45fa2p+2, 0x1.cef1a84f13c28p-4);
+    failed += test_one(0x1.47547f2431082p+2, 0x1.cd055f23675f4p-4);
+    failed += test_one(0x1.41b4dff819a38p+2, 0x1.d56eaeaa50748p-4);
+    failed += test_one(0x1.47fffffffffffp+2, 0x1.cc0a19538d894p-4);
+// subdomain 3:9 (5.125..5.25)
+    failed += test_one(0x1.48p+2, 0x1.cc0a19538d893p-4);
+    failed += test_one(0x1.4d0b20651c0ccp+2, 0x1.c4c9031ffc823p-4);
+    failed += test_one(0x1.4d76db2834417p+2, 0x1.c430c34db344ep-4);
+    failed += test_one(0x1.4b6278c4d04bbp+2, 0x1.c7252aeabdb7p-4);
+    failed += test_one(0x1.48316b1596952p+2, 0x1.cbc1e5f9de518p-4);
+    failed += test_one(0x1.4ffffffffffffp+2, 0x1.c0a3f0f383f64p-4);
+// subdomain 3:10 (5.25..5.375)
+    failed += test_one(0x1.5p+2, 0x1.c0a3f0f383f63p-4);
+    failed += test_one(0x1.5292402bb80a7p+2, 0x1.bd1923845bcc6p-4);
+    failed += test_one(0x1.51b6d4a9556f1p+2, 0x1.be45c7d7db5f7p-4);
+    failed += test_one(0x1.55713d5b97996p+2, 0x1.b935bfdbf65c1p-4);
+    failed += test_one(0x1.55173f87a7e17p+2, 0x1.b9aeab487d1acp-4);
+    failed += test_one(0x1.57fffffffffffp+2, 0x1.b5cdd959fb3f7p-4);
+// subdomain 3:11 (5.375..5.5)
+    failed += test_one(0x1.58p+2, 0x1.b5cdd959fb3f5p-4);
+    failed += test_one(0x1.5a681e5d4bd0fp+2, 0x1.b2a5dbd0e90a6p-4);
+    failed += test_one(0x1.5ab80e3195507p+2, 0x1.b23de5f34c679p-4);
+    failed += test_one(0x1.5b85386a27166p+2, 0x1.b133fac9b21b2p-4);
+    failed += test_one(0x1.5f9cd41cbf388p+2, 0x1.abfa21eafd93bp-4);
+    failed += test_one(0x1.5ffffffffffffp+2, 0x1.ab7d3064369dep-4);
+// subdomain 3:12 (5.5..5.625)
+    failed += test_one(0x1.6p+2, 0x1.ab7d3064369dcp-4);
+    failed += test_one(0x1.61ae216771148p+2, 0x1.a9629ff66fa85p-4);
+    failed += test_one(0x1.67df9a6c63a05p+2, 0x1.a1cf442008442p-4);
+    failed += test_one(0x1.637b24c7c5b36p+2, 0x1.a7275bfdea271p-4);
+    failed += test_one(0x1.6673962df55b7p+2, 0x1.a38648a09fed8p-4);
+    failed += test_one(0x1.67fffffffffffp+2, 0x1.a1a85f19788b3p-4);
+// subdomain 3:13 (5.625..5.75)
+    failed += test_one(0x1.68p+2, 0x1.a1a85f19788b2p-4);
+    failed += test_one(0x1.6bafdb03c2682p+2, 0x1.9d47b76d45adbp-4);
+    failed += test_one(0x1.6ab4b7c59c378p+2, 0x1.9e6f8ddeffc88p-4);
+    failed += test_one(0x1.6b3782d932c4dp+2, 0x1.9dd54567ee04p-4);
+    failed += test_one(0x1.6ccabbedecf3ep+2, 0x1.9bfc7e5463bfp-4);
+    failed += test_one(0x1.6ffffffffffffp+2, 0x1.9846b8f564c7ep-4);
+// subdomain 3:14 (5.75..5.875)
+    failed += test_one(0x1.7p+2, 0x1.9846b8f564c7dp-4);
+    failed += test_one(0x1.742f480c08ef9p+2, 0x1.9389aa21a62ecp-4);
+    failed += test_one(0x1.7076ce5c5482cp+2, 0x1.97bec4130076cp-4);
+    failed += test_one(0x1.7138f82d3369cp+2, 0x1.96e158c8d46b4p-4);
+    failed += test_one(0x1.73f1503682467p+2, 0x1.93cf0d7d44e57p-4);
+    failed += test_one(0x1.77fffffffffffp+2, 0x1.8f505fff23c8bp-4);
+// subdomain 3:15 (5.875..6)
+    failed += test_one(0x1.78p+2, 0x1.8f505fff23c89p-4);
+    failed += test_one(0x1.7caa6a7b3371dp+2, 0x1.8a44f4294f4f7p-4);
+    failed += test_one(0x1.7de4d0d346d88p+2, 0x1.88f683a7f9e53p-4);
+    failed += test_one(0x1.7f6d521587eedp+2, 0x1.87582386a9ba1p-4);
+    failed += test_one(0x1.79372d5be3177p+2, 0x1.8dfcb326b6664p-4);
+    failed += test_one(0x1.7ffffffffffffp+2, 0x1.86be2cdaf4954p-4);
+// subdomain 3:16 (6..6.125)
+    failed += test_one(0x1.8p+2, 0x1.86be2cdaf4953p-4);
+    failed += test_one(0x1.818b468f399edp+2, 0x1.8521a73f171adp-4);
+    failed += test_one(0x1.874749c9ec7f6p+2, 0x1.7f435fa66f574p-4);
+    failed += test_one(0x1.80a9a5e62c79ep+2, 0x1.860cb36a842d1p-4);
+    failed += test_one(0x1.8727940fe5191p+2, 0x1.7f6356600f866p-4);
+    failed += test_one(0x1.87fffffffffffp+2, 0x1.7e899a2d0b106p-4);
+// subdomain 3:17 (6.125..6.25)
+    failed += test_one(0x1.88p+2, 0x1.7e899a2d0b105p-4);
+    failed += test_one(0x1.8ca045912481fp+2, 0x1.79f34bafb4479p-4);
+    failed += test_one(0x1.8979b141f95e3p+2, 0x1.7d0ff52200383p-4);
+    failed += test_one(0x1.8ca2f98a8870dp+2, 0x1.79f0a5e754912p-4);
+    failed += test_one(0x1.8b29432f55497p+2, 0x1.7b640b8557fcbp-4);
+    failed += test_one(0x1.8ffffffffffffp+2, 0x1.76acb2c4af944p-4);
+// subdomain 3:18 (6.25..6.375)
+    failed += test_one(0x1.9p+2, 0x1.76acb2c4af943p-4);
+    failed += test_one(0x1.93b3ba9439c9p+2, 0x1.73255965ab1a3p-4);
+    failed += test_one(0x1.920110950d0b3p+2, 0x1.74c181c9e4ed8p-4);
+    failed += test_one(0x1.9210e396052b7p+2, 0x1.74b270416687bp-4);
+    failed += test_one(0x1.93d5659ed3ccdp+2, 0x1.7305933304eb2p-4);
+    failed += test_one(0x1.97fffffffffffp+2, 0x1.6f22021fd0ab5p-4);
+// subdomain 3:19 (6.375..6.5)
+    failed += test_one(0x1.98p+2, 0x1.6f22021fd0ab4p-4);
+    failed += test_one(0x1.9a14e631a7ac3p+2, 0x1.6d387c3d8ad01p-4);
+    failed += test_one(0x1.9bf95be211a61p+2, 0x1.6b7fec571ec21p-4);
+    failed += test_one(0x1.9c995ada0d32bp+2, 0x1.6aef5900235e2p-4);
+    failed += test_one(0x1.9c2c9b0472b98p+2, 0x1.6b5190ed58338p-4);
+    failed += test_one(0x1.9ffffffffffffp+2, 0x1.67e486eb3a245p-4);
+// subdomain 3:20 (6.5..6.625)
+    failed += test_one(0x1.ap+2, 0x1.67e486eb3a244p-4);
+    failed += test_one(0x1.a6ec88ea39d7p+2, 0x1.61db1e8c99605p-4);
+    failed += test_one(0x1.a2c49e6af7c37p+2, 0x1.657457b76313dp-4);
+    failed += test_one(0x1.a03759af3f0e3p+2, 0x1.67b3761db960ep-4);
+    failed += test_one(0x1.a53be5f75e92bp+2, 0x1.634f745f30068p-4);
+    failed += test_one(0x1.a7fffffffffffp+2, 0x1.60efa733a1aefp-4);
+// subdomain 3:21 (6.625..6.75)
+    failed += test_one(0x1.a8p+2, 0x1.60efa733a1aeep-4);
+    failed += test_one(0x1.ab385b9348b51p+2, 0x1.5e3658114e749p-4);
+    failed += test_one(0x1.abff8ced4c968p+2, 0x1.5d8f7b71f16d3p-4);
+    failed += test_one(0x1.acb7ba9aaefd4p+2, 0x1.5cf5c19f88544p-4);
+    failed += test_one(0x1.ac57b72d06432p+2, 0x1.5d45d3ed30926p-4);
+    failed += test_one(0x1.affffffffffffp+2, 0x1.5a3f2608964e2p-4);
+// subdomain 3:22 (6.75..6.875)
+    failed += test_one(0x1.bp+2, 0x1.5a3f2608964e2p-4);
+    failed += test_one(0x1.b7a67a035fab9p+2, 0x1.5415d8a8853f2p-4);
+    failed += test_one(0x1.b51a08236b3ddp+2, 0x1.561cf5b6d4b1ep-4);
+    failed += test_one(0x1.b39729b7abe2dp+2, 0x1.5753bd1920aecp-4);
+    failed += test_one(0x1.b6fb6a4644fep+2, 0x1.549d58dc52ef4p-4);
+    failed += test_one(0x1.b7fffffffffffp+2, 0x1.53cf1a5cca8d9p-4);
+// subdomain 3:23 (6.875..7)
+    failed += test_one(0x1.b8p+2, 0x1.53cf1a5cca8d9p-4);
+    failed += test_one(0x1.bfed8170cf6acp+2, 0x1.4da9f9263db95p-4);
+    failed += test_one(0x1.bfbe368208a02p+2, 0x1.4dcdf9e54d32bp-4);
+    failed += test_one(0x1.bee4973daf97p+2, 0x1.4e740b257c57p-4);
+    failed += test_one(0x1.b8e277ebbaceep+2, 0x1.531ca92e22c68p-4);
+    failed += test_one(0x1.bffffffffffffp+2, 0x1.4d9be6f7ad9aep-4);
+// subdomain 3:24 (7..7.125)
+    failed += test_one(0x1.cp+2, 0x1.4d9be6f7ad9adp-4);
+    failed += test_one(0x1.c3487caa80adp+2, 0x1.4b2158cfa90f5p-4);
+    failed += test_one(0x1.c1cc9a0e4c4cp+2, 0x1.4c3ef844e1be7p-4);
+    failed += test_one(0x1.c71b5250cae6p+2, 0x1.484a40d1c79aep-4);
+    failed += test_one(0x1.c182453997df4p+2, 0x1.4c7715ba7372fp-4);
+    failed += test_one(0x1.c7fffffffffffp+2, 0x1.47a233533aa33p-4);
+// subdomain 3:25 (7.125..7.25)
+    failed += test_one(0x1.c8p+2, 0x1.47a233533aa32p-4);
+    failed += test_one(0x1.c9b614c458ca3p+2, 0x1.46622689a43f5p-4);
+    failed += test_one(0x1.ca4cf535e0da4p+2, 0x1.45f47eb4cd3edp-4);
+    failed += test_one(0x1.c99923686beedp+2, 0x1.4677381b79597p-4);
+    failed += test_one(0x1.cd192a9b1a9eap+2, 0x1.43efe7bc4f279p-4);
+    failed += test_one(0x1.cffffffffffffp+2, 0x1.41dee5469ecddp-4);
+// subdomain 3:26 (7.25..7.375)
+    failed += test_one(0x1.dp+2, 0x1.41dee5469ecddp-4);
+    failed += test_one(0x1.d46c6e0af347ap+2, 0x1.3ec56da9247ebp-4);
+    failed += test_one(0x1.d76765d63c68fp+2, 0x1.3cb77b48079c3p-4);
+    failed += test_one(0x1.d2b4f7c7a2dd6p+2, 0x1.3ff78254baafp-4);
+    failed += test_one(0x1.d4448a5e466fdp+2, 0x1.3ee11d9138698p-4);
+    failed += test_one(0x1.d7fffffffffffp+2, 0x1.3c4f1b631241p-4);
+// subdomain 3:27 (7.375..7.5)
+    failed += test_one(0x1.d8p+2, 0x1.3c4f1b631240fp-4);
+    failed += test_one(0x1.daaafdc6229cfp+2, 0x1.3a7f456c6459fp-4);
+    failed += test_one(0x1.da7eb9d6147f7p+2, 0x1.3a9d2b906130ep-4);
+    failed += test_one(0x1.d92b1d071f289p+2, 0x1.3b834f29abbd7p-4);
+    failed += test_one(0x1.df7eb32f3359dp+2, 0x1.3745913f29136p-4);
+    failed += test_one(0x1.dffffffffffffp+2, 0x1.36f027ec300ecp-4);
+// subdomain 3:28 (7.5..7.625)
+    failed += test_one(0x1.ep+2, 0x1.36f027ec300ebp-4);
+    failed += test_one(0x1.e6200b54920ep+2, 0x1.32f2e12f53eb7p-4);
+    failed += test_one(0x1.e31d1058ef641p+2, 0x1.34e5b24f09622p-4);
+    failed += test_one(0x1.e77acfd7b4901p+2, 0x1.321496e499887p-4);
+    failed += test_one(0x1.e35667ac3eb02p+2, 0x1.34c0609da77fdp-4);
+    failed += test_one(0x1.e7fffffffffffp+2, 0x1.31bf8c5861ea5p-4);
+// subdomain 3:29 (7.625..7.75)
+    failed += test_one(0x1.e8p+2, 0x1.31bf8c5861ea4p-4);
+    failed += test_one(0x1.eb5ac505ba6fp+2, 0x1.2f9fa9770bf6ep-4);
+    failed += test_one(0x1.e836128b46b84p+2, 0x1.319d136d24248p-4);
+    failed += test_one(0x1.eb4ed1b37179ep+2, 0x1.2fa72da19dd4p-4);
+    failed += test_one(0x1.ec29b6249349dp+2, 0x1.2f1dbcda5d715p-4);
+    failed += test_one(0x1.effffffffffffp+2, 0x1.2cbaf548b5715p-4);
+// subdomain 3:30 (7.75..7.875)
+    failed += test_one(0x1.fp+2, 0x1.2cbaf548b5714p-4);
+    failed += test_one(0x1.f4d392b7ee2a4p+2, 0x1.29c853c8d1af7p-4);
+    failed += test_one(0x1.f23c00b956c72p+2, 0x1.2b5bbd6f16075p-4);
+    failed += test_one(0x1.f6660fbd1449fp+2, 0x1.28d5b7e091688p-4);
+    failed += test_one(0x1.f2f2e47a774c2p+2, 0x1.2aec1fc8e97eap-4);
+    failed += test_one(0x1.f7fffffffffffp+2, 0x1.27e036e9c203fp-4);
+// subdomain 3:31 (7.875..8)
+    failed += test_one(0x1.f8p+2, 0x1.27e036e9c203ep-4);
+    failed += test_one(0x1.fbffb93184285p+2, 0x1.25820ee1c9184p-4);
+    failed += test_one(0x1.fbad19ea0f16cp+2, 0x1.25b29dc50e962p-4);
+    failed += test_one(0x1.fb272739fa186p+2, 0x1.26017954a56bdp-4);
+    failed += test_one(0x1.ff3e2cfad74a4p+2, 0x1.239d7b03d7297p-4);
+    failed += test_one(0x1.fffffffffffffp+2, 0x1.232d49b13b245p-4);
+// subdomain 4:0 (8..8.25)
+    failed += test_one(0x1p+3, 0x1.232d49b13b244p-4);
+    failed += test_one(0x1.0235fcce0026fp+3, 0x1.20a4ca851f02cp-4);
+    failed += test_one(0x1.0612081050fdp+3, 0x1.1c538fd595885p-4);
+    failed += test_one(0x1.07fedda2305d8p+3, 0x1.1a38a3c2c0b11p-4);
+    failed += test_one(0x1.02928d5850bfp+3, 0x1.203bd03a1666ep-4);
+    failed += test_one(0x1.07fffffffffffp+3, 0x1.1a37689d8180ep-4);
+// subdomain 4:1 (8.25..8.5)
+    failed += test_one(0x1.08p+3, 0x1.1a37689d8180dp-4);
+    failed += test_one(0x1.0e70e4bb2f263p+3, 0x1.13656a244953cp-4);
+    failed += test_one(0x1.0fdfd450c1914p+3, 0x1.11ec5f857e459p-4);
+    failed += test_one(0x1.0eb54db48bacap+3, 0x1.131ecfa01d53ep-4);
+    failed += test_one(0x1.0d0e0917b682bp+3, 0x1.14d5f39900624p-4);
+    failed += test_one(0x1.0ffffffffffffp+3, 0x1.11cb829673eep-4);
+// subdomain 4:2 (8.5..8.75)
+    failed += test_one(0x1.1p+3, 0x1.11cb829673edfp-4);
+    failed += test_one(0x1.12623e3941427p+3, 0x1.0f61f5254f1acp-4);
+    failed += test_one(0x1.15aaaedb8af3ep+3, 0x1.0c212cf9fef69p-4);
+    failed += test_one(0x1.13f94be05444ep+3, 0x1.0dcc162fc3706p-4);
+    failed += test_one(0x1.154450d33a933p+3, 0x1.0c858885e32e6p-4);
+    failed += test_one(0x1.17fffffffffffp+3, 0x1.09dd6b768893dp-4);
+// subdomain 4:3 (8.75..9)
+    failed += test_one(0x1.18p+3, 0x1.09dd6b768893cp-4);
+    failed += test_one(0x1.1fd1555ede424p+3, 0x1.028ccb59f3998p-4);
+    failed += test_one(0x1.1de18b0b8d32ep+3, 0x1.0452f7c4c52ddp-4);
+    failed += test_one(0x1.1e0c2b202323fp+3, 0x1.042bac94515f9p-4);
+    failed += test_one(0x1.1bab2d890992dp+3, 0x1.06618800c9a5ap-4);
+    failed += test_one(0x1.1ffffffffffffp+3, 0x1.02625d9c4913cp-4);
+// subdomain 4:4 (9..9.25)
+    failed += test_one(0x1.2p+3, 0x1.02625d9c4913bp-4);
+    failed += test_one(0x1.2299519e6bdbap+3, 0x1.000b5d8517dabp-4);
+    failed += test_one(0x1.201cd3fb23457p+3, 0x1.02482ed0d6ea3p-4);
+    failed += test_one(0x1.2527d2c22fbdap+3, 0x1.fb9151c2cdd58p-5);
+    failed += test_one(0x1.27a87a6d81b01p+3, 0x1.f73824edc1599p-5);
+    failed += test_one(0x1.27fffffffffffp+3, 0x1.f6a18eede0088p-5);
+// subdomain 4:5 (9.25..9.5)
+    failed += test_one(0x1.28p+3, 0x1.f6a18eede0086p-5);
+    failed += test_one(0x1.2f73f52b7c955p+3, 0x1.ea24a12f409aap-5);
+    failed += test_one(0x1.2dbdf52eb9157p+3, 0x1.ecf451c93bfadp-5);
+    failed += test_one(0x1.2be47e3e5b43fp+3, 0x1.f007ae8d0d4f3p-5);
+    failed += test_one(0x1.29a1c4036e4dap+3, 0x1.f3d79f879cbf8p-5);
+    failed += test_one(0x1.2ffffffffffffp+3, 0x1.e94042d3bf9dep-5);
+// subdomain 4:6 (9.5..9.75)
+    failed += test_one(0x1.3p+3, 0x1.e94042d3bf9dcp-5);
+    failed += test_one(0x1.32574d1cebd43p+3, 0x1.e57858541dcb1p-5);
+    failed += test_one(0x1.3030ab49fb6c1p+3, 0x1.e8f117690c94ap-5);
+    failed += test_one(0x1.301b2b6e29361p+3, 0x1.e9140d4f88664p-5);
+    failed += test_one(0x1.3059da40010d5p+3, 0x1.e8ae2d631fbd2p-5);
+    failed += test_one(0x1.37fffffffffffp+3, 0x1.dc9194e7a0fb5p-5);
+// subdomain 4:7 (9.75..10)
+    failed += test_one(0x1.38p+3, 0x1.dc9194e7a0fb4p-5);
+    failed += test_one(0x1.3b9ac3e6c9e69p+3, 0x1.d711648fd04e7p-5);
+    failed += test_one(0x1.3b355414d03cap+3, 0x1.d7aa96fdb6aa6p-5);
+    failed += test_one(0x1.3b40e03b34778p+3, 0x1.d799215a5be32p-5);
+    failed += test_one(0x1.3f2da9f9e86a4p+3, 0x1.d1bd1b254d82p-5);
+    failed += test_one(0x1.3ffffffffffffp+3, 0x1.d087d4b795d36p-5);
+// subdomain 4:8 (10..10.25)
+    failed += test_one(0x1.4p+3, 0x1.d087d4b795d35p-5);
+    failed += test_one(0x1.40db5034724c5p+3, 0x1.cf471196f92eap-5);
+    failed += test_one(0x1.46f2beaf9d753p+3, 0x1.c68f7c1366878p-5);
+    failed += test_one(0x1.4775e91a93984p+3, 0x1.c5d7a01696395p-5);
+    failed += test_one(0x1.43339765dd077p+3, 0x1.cbe1f26143d27p-5);
+    failed += test_one(0x1.47fffffffffffp+3, 0x1.c516b0cec8dafp-5);
+// subdomain 4:9 (10.25..10.5)
+    failed += test_one(0x1.48p+3, 0x1.c516b0cec8daep-5);
+    failed += test_one(0x1.4aab7a6a83c0dp+3, 0x1.c16528562f463p-5);
+    failed += test_one(0x1.4b5071ef22ec6p+3, 0x1.c0834199826bdp-5);
+    failed += test_one(0x1.48b50ecd58fe6p+3, 0x1.c41ab1ffe7b42p-5);
+    failed += test_one(0x1.4898ced484bd6p+3, 0x1.c441f0de1cbf7p-5);
+    failed += test_one(0x1.4ffffffffffffp+3, 0x1.ba330ba07236dp-5);
+// subdomain 4:10 (10.5..10.75)
+    failed += test_one(0x1.5p+3, 0x1.ba330ba07236bp-5);
+    failed += test_one(0x1.57e46a8b6972dp+3, 0x1.aff5c82f3f272p-5);
+    failed += test_one(0x1.57da7b152c2f2p+3, 0x1.b0025fa7dbd3cp-5);
+    failed += test_one(0x1.559b2ba4d7e3ep+3, 0x1.b2e07124c56f1p-5);
+    failed += test_one(0x1.506c5fdb98404p+3, 0x1.b9a346d877486p-5);
+    failed += test_one(0x1.57fffffffffffp+3, 0x1.afd2d6ac0977bp-5);
+// subdomain 4:11 (10.75..11)
+    failed += test_one(0x1.58p+3, 0x1.afd2d6ac0977ap-5);
+    failed += test_one(0x1.5997e2cd446b1p+3, 0x1.add0b3caa8f87p-5);
+    failed += test_one(0x1.5d9eca926249p+3, 0x1.a8d26b1f0bc8cp-5);
+    failed += test_one(0x1.5e9194c818214p+3, 0x1.a7a9b231588cep-5);
+    failed += test_one(0x1.5c76df733766bp+3, 0x1.aa3e48958834bp-5);
+    failed += test_one(0x1.5ffffffffffffp+3, 0x1.a5ecf2d347adcp-5);
+// subdomain 4:12 (11..11.25)
+    failed += test_one(0x1.6p+3, 0x1.a5ecf2d347adbp-5);
+    failed += test_one(0x1.617d86b389b2p+3, 0x1.a421bd85bbd18p-5);
+    failed += test_one(0x1.611c470154515p+3, 0x1.a4966ac4db8c1p-5);
+    failed += test_one(0x1.61b134f077e55p+3, 0x1.a3e3d6a5505dbp-5);
+    failed += test_one(0x1.6406b704d0049p+3, 0x1.a11d5184405cap-5);
+    failed += test_one(0x1.67fffffffffffp+3, 0x1.9c79150b65551p-5);
+// subdomain 4:13 (11.25..11.5)
+    failed += test_one(0x1.68p+3, 0x1.9c79150b6555p-5);
+    failed += test_one(0x1.6c82de1b863ddp+3, 0x1.9753ebd88c041p-5);
+    failed += test_one(0x1.6cdeec31f62b4p+3, 0x1.96ec59196b98ep-5);
+    failed += test_one(0x1.691a83a2966f7p+3, 0x1.9b33c9f69a953p-5);
+    failed += test_one(0x1.6dc30a80295a4p+3, 0x1.95ec9326eee71p-5);
+    failed += test_one(0x1.6ffffffffffffp+3, 0x1.936faeb9d84a4p-5);
+// subdomain 4:14 (11.5..11.75)
+    failed += test_one(0x1.7p+3, 0x1.936faeb9d84a3p-5);
+    failed += test_one(0x1.74d922213ce65p+3, 0x1.8e26946ee716ep-5);
+    failed += test_one(0x1.73440e337119ep+3, 0x1.8fdc45ce4bc71p-5);
+    failed += test_one(0x1.7037f2e35a42p+3, 0x1.9331e91682b79p-5);
+    failed += test_one(0x1.72c394b3c68c2p+3, 0x1.9067e178efa42p-5);
+    failed += test_one(0x1.77fffffffffffp+3, 0x1.8ac9d92be9ab2p-5);
+// subdomain 4:15 (11.75..12)
+    failed += test_one(0x1.78p+3, 0x1.8ac9d92be9ab1p-5);
+    failed += test_one(0x1.7ce0aa72b9db2p+3, 0x1.85b236ac7554bp-5);
+    failed += test_one(0x1.7f3efcee619c5p+3, 0x1.83454c32591a7p-5);
+    failed += test_one(0x1.7ccfb5c77c808p+3, 0x1.85c3b08c0036bp-5);
+    failed += test_one(0x1.7e374511a260ep+3, 0x1.8452685501ef3p-5);
+    failed += test_one(0x1.7ffffffffffffp+3, 0x1.828143b17c97ep-5);
+    return failed;
+}
+
+// clang-format on
+//--- End of auto-generated test cases
