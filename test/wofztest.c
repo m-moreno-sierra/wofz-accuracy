@@ -33,7 +33,7 @@ int main()
     result_t result = {0, 0};
     /* w(z), computed with WolframAlpha
                      ... note that WolframAlpha is problematic
-                     some of the above inputs, so I had to
+                     some of the above inputs, so I [SGJ] had to
                      use the continued-fraction expansion
                      in WolframAlpha in some cases, or switch
                      to Maple */

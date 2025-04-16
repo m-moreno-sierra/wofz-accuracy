@@ -31,9 +31,9 @@ using std::isfinite;
 #include <assert.h>
 #include <math.h>
 #endif
-#include "defs.h" // defines _cerf_cmplx, CMPLX, NaN, Inf
 #include <float.h>
 #include <stdio.h>
+#include "defs.h" // defines _cerf_cmplx, CMPLX, NaN, Inf
 
 
 typedef struct {
