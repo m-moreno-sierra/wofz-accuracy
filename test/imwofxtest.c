@@ -33,9 +33,9 @@ int test_one(double x, double fref)
     double fappr = im_w_of_x(x);
     double relerr = fabs((fappr-fref) / fref) / pow(2.,-53);
     if (relerr > ppapp_maxrelerr) {
-	printf("x=%23.16e -> fref=%23.16e fappr=%23.16e relerr/eps=%8g tol=%8g\n",
-	       x, fref, fappr, relerr, ppapp_maxrelerr);
-	return 1;
+        printf("x=%23.16e -> fref=%23.16e fappr=%23.16e relerr/eps=%8g tol=%8g\n",
+               x, fref, fappr, relerr, ppapp_maxrelerr);
+        return 1;
     }
     return 0;
 }
@@ -46,8 +46,8 @@ int test_one(double x, double fref)
 int main() {
     int failed = run_tests();
     if (failed) {
-	printf("test_computation: %d test cases failed\n", failed);
-	return 1;
+        printf("test_computation: %d test cases failed\n", failed);
+        return 1;
     }
     return 0;
 }

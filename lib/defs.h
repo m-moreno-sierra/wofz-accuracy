@@ -46,12 +46,12 @@
 inline double frexp2(double value, int* eptr)
 {
     union {
-	double v;
-	struct {
+        double v;
+        struct {
             unsigned long long mantissa : 52;
             unsigned long long exponent : 11;
-	    unsigned long long sign : 1;
-	} s;
+            unsigned long long sign : 1;
+        } s;
     } u;
 
     u.v = value;
