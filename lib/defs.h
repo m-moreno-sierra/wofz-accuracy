@@ -32,12 +32,7 @@
 #define alignas _Alignas // as defined in C++ and in C23
 #endif
 
-#ifdef CERF_NO_IEEE754 // This flag can be set via CMake option -DCERF_IEEE754=OFF
-// Fall back to frexp from math.h. To be used for non-standard processor architectures
-// for which our accelerated function frexp2 does not work.
-#define frexp2 frexp
-
-#else
+#ifdef CERF_IEEE754 // This flag can be set via CMake option -DCERF_IEEE754=ON
 //! Simpler replacement for frexp from math.h, assuming that 0 < value < inf.
 //!
 //! Adapted from https://github.com/dioptre/newos/blob/master/lib/libm/arch/sh4/frexp.c.
@@ -59,4 +54,8 @@ inline double frexp2(double value, int* eptr)
     u.s.exponent = 1022;
     return u.v;
 }
+#else
+// Fall back to frexp from math.h. To be used for non-standard processor architectures
+// for which our accelerated function frexp2 does not work.
+#define frexp2 frexp
 #endif
