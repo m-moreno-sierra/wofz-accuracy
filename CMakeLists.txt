@@ -33,7 +33,7 @@ else()
 endif()
 
 set(CERF_SOVERSION                 2) # API version
-set(CERF_VERSION ${CERF_SOVERSION}.4) # minor version
+set(CERF_VERSION ${CERF_SOVERSION}.5) # minor version
 
 include(GNUInstallDirs)
 
