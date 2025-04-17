@@ -45,35 +45,31 @@ windows:
     - build/*zip
     expire_in: 10 days
 
+.debian_build: &debian_build
+  - cmake --version
+  - ${CC} --version
+  - pwd && ls
+  - mkdir build
+  - cd build
+  - cmake -DWERROR=ON ..
+  - make -j6
+  - ctest -j6 --output-on-failure
+
 Debian_clang:
   tags:
   - Debian
   before_script:
     - export CC=clang; export CXX=clang++
-    - cmake --version
-    - clang --version
   stage: build
-  script: &native_scr
-    - pwd && ls
-    - mkdir build
-    - cd build
-    - cmake -DWERROR=ON ..
-    - make -j6
-    - ctest -j6 --output-on-failure
+  script:
+    - *debian_build
     - if [ "$CI_COMMIT_REF_NAME" == "main" ]; then make install; fi
 
 Debian_gcc:
   tags:
   - Debian
-  before_script: &debian_clang
+  before_script:
     - export CC=gcc; export CXX=g++
-    - cmake --version
-    - clang --version
   stage: build
   script:
-    - pwd && ls
-    - mkdir build
-    - cd build
-    - cmake -DWERROR=ON ..
-    - make -j6
-    - ctest -j6 --output-on-failure
+    - *debian_build
