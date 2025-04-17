@@ -1,19 +1,12 @@
-set(lib cerf)
-set(intf "c_interface")
-if (${CERF_CPP})
-    set(lib cerfcpp)
-    set(intf "cxx_interface")
-endif()
-message(STATUS
-    "libcerf/lib: build library ${lib}, CERF_CPP=${CERF_CPP}, shared=${BUILD_SHARED_LIBS}")
+message(STATUS "build library ${lib}, shared=${BUILD_SHARED_LIBS}")
 
-set(cerf_LIBRARY ${lib} PARENT_SCOPE)
+set(src_files ../lib/erfcx.c ../lib/err_fcts.c ../lib/im_w_of_x.c ../lib/w_of_z.c ../lib/width.c)
+set(inc_files ../lib/cerf.h)
 
-set(src_files erfcx.c err_fcts.c im_w_of_x.c w_of_z.c width.c)
-set(inc_files cerf.h)
-
-if (${CERF_CPP})
+if (CERF_TARGET_CPP)
     set_property(SOURCE ${src_files} PROPERTY LANGUAGE CXX)
+else()
+    set_property(SOURCE ${src_files} PROPERTY LANGUAGE C)
 endif()
 
 add_library(${lib} ${src_files})
@@ -23,7 +16,7 @@ set_target_properties(
     OUTPUT_NAME ${lib}
     VERSION ${CERF_VERSION}
     SOVERSION ${CERF_SOVERSION})
-if (${CERF_CPP})
+if (CERF_TARGET_CPP)
     set_target_properties(${lib} PROPERTIES LINKER_LANGUAGE CXX)
 endif()
 

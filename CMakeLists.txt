@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(PreventInSourceBuilds)
@@ -12,8 +12,11 @@ endif()
 if(NOT DEFINED LIB_RUN)
     option(LIB_RUN "Build executables for command-line computation" ON)
 endif()
+if(NOT DEFINED CERF_C)
+    option(CERF_C "Build C library libcerf" ON)
+endif()
 if(NOT DEFINED CERF_CPP)
-    option(CERF_CPP "Build libcerf as native C++" OFF)
+    option(CERF_CPP "Build C++ libcerfcpp" ON)
 endif()
 if(NOT DEFINED CERF_IEEE754)
     option(CERF_IEEE754 "Assume IEEE754 floating-point layout" ON)
@@ -21,24 +24,18 @@ if(NOT DEFINED CERF_IEEE754)
     # It is unclear though whether the remainder of the code will work on non-IEEE754 machines.
 endif()
 
-if(CERF_CPP)
-    project(cerfcpp CXX)
-    message("Build C++ library libcerfcpp")
-    # add_compile_definitions(CERF_AS_CPP) # requires CMake 3.13, therefore more explicitly:
-    if(MSVC)
-        add_compile_options(/DCERF_AS_CPP)
-    else()
-        add_compile_options(-DCERF_AS_CPP)
-    endif()
-    set(CMAKE_CXX_STANDARD 11)
-else()
-    message("Build C library libcerf")
-    project(cerf C)
+project(cerf LANGUAGES NONE)
+if (CERF_C)
+    enable_language(C)
     set(CMAKE_C_STANDARD 11)
 endif()
+if (CERF_CPP)
+    enable_language(CXX)
+    set(CMAKE_CXX_STANDARD 17)
+endif()
 
-set(CERF_SOVERSION                 2) # API version
-set(CERF_VERSION ${CERF_SOVERSION}.6) # minor version
+set(CERF_SOVERSION                 3) # API version
+set(CERF_VERSION ${CERF_SOVERSION}.0) # minor version
 
 include(GNUInstallDirs)
 
@@ -50,9 +47,6 @@ if (CERF_IEEE754)
 endif()
 
 if(MSVC)
-    if (NOT CERF_CPP)
-        message(FATAL_ERROR "Under MSVC, only CERF_CPP=ON is supported")
-    endif()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP") # parallel compilation
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS}")
     set(MS_NOWARN "/wd4018 /wd4068 /wd4101 /wd4244 /wd4267 /wd4305 /wd4715 /wd4996")
@@ -95,11 +89,19 @@ configure_file(var/libcerf.pc.in libcerf.pc @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libcerf.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig/")
 
-add_subdirectory(lib)
-add_subdirectory(test)
+if(CERF_CPP)
+    add_subdirectory(libcpp)
+    add_subdirectory(testcpp)
+endif()
+if(CERF_C)
+    add_subdirectory(libc)
+    add_subdirectory(testc)
+endif()
+
 if(LIB_RUN)
     add_subdirectory(run)
 endif()
+
 if(LIB_MAN)
     add_subdirectory(man)
 endif()
