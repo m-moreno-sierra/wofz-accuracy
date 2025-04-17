@@ -1,7 +1,5 @@
 file(GLOB tests ../test/*test.c)
 
-add_compile_definitions("CERF_AS_CPP=ON")
-
 foreach(src ${tests})
     set_property(SOURCE ${src} PROPERTY LANGUAGE CXX)
     get_filename_component(test ${src} NAME_WE)

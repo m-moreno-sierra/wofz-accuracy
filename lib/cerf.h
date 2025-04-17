@@ -47,7 +47,7 @@
 #ifndef __CERF_H
 #  define __CERF_H
 
-#  ifdef CERF_AS_CPP
+#  ifdef __cplusplus
 #    include <complex>
      typedef std::complex<double> _cerf_cmplx;
 #  else
@@ -58,32 +58,12 @@
      typedef double complex _cerf_cmplx;
 #  endif
 
-#  undef __BEGIN_DECLS
-#  undef __END_DECLS
-#  ifdef CERF_AS_CPP
-#    ifndef __cplusplus
-       impossible_case
-#    endif
-#    define __BEGIN_DECLS
-#    define __END_DECLS
-#  else
-#    ifdef __cplusplus // this include file called from C++ while library is compiled as C
-#      define __BEGIN_DECLS extern "C" {
-#      define __END_DECLS }
-#    else
-#      define __BEGIN_DECLS
-#      define __END_DECLS
-#    endif
-#  endif
-
-__BEGIN_DECLS
-
 #if _WIN32
-#define EXPORT __declspec(dllexport)
-#define IMPORT __declspec(dllimport)
+#  define EXPORT __declspec(dllexport)
+#  define IMPORT __declspec(dllimport)
 #else
-#define EXPORT
-#define IMPORT
+#  define EXPORT
+#  define IMPORT
 #endif
 
 // compute w(z) = exp(-z^2) erfc(-iz), Faddeeva's scaled complex error function
@@ -116,5 +96,4 @@ EXPORT double voigt(double x, double sigma, double gamma);
 // compute the full width at half maximum of the Voigt function
 EXPORT double voigt_hwhm(double sigma, double gamma);
 
-__END_DECLS
 #endif /* __CERF_H__ */

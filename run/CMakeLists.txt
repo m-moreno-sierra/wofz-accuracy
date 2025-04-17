@@ -16,7 +16,6 @@ if (CERF_C)
     endforeach()
 
 else()
-    add_compile_definitions("CERF_AS_CPP=ON")
     foreach(app ${apps})
         set_property(SOURCE ${app}.c PROPERTY LANGUAGE CXX)
         add_executable(${app} ${app}.c)
