@@ -23,10 +23,13 @@
  *   ../CHANGELOG
  */
 
+#ifdef __cplusplus
+#include <cassert>
+#else
+#include <assert.h>
+#endif
 #include "cerf.h"
 #include "testtool.h"
-
-const double errBound = 1e-13;
 
 int main()
 {

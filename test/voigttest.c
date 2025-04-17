@@ -24,6 +24,11 @@
  *   man 3 voigt
  */
 
+#ifdef __cplusplus
+#include <cassert>
+#else
+#include <assert.h>
+#endif
 #include "cerf.h"
 #include "testtool.h"
 
