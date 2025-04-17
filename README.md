@@ -6,7 +6,7 @@ This is the home page of **libcerf**, a self-contained numeric library that prov
 
 ## Synopsis
 
-In the following, "complex" stands for the C99 data type "double _Complex":
+In the following, `complex` stands for either the C data type `double complex` from <complex.h> or the C++ data type `std::complex<double>` from <complex>.
 
   * complex [cerf](http://apps.jcns.fz-juelich.de/man/cerf.html) (complex): The complex error function erf(z).
   * complex [cerfc](http://apps.jcns.fz-juelich.de/man/cerf.html) (complex): The complex complementary error function erfc(z) = 1 - erf(z).
@@ -24,6 +24,8 @@ In the following, "complex" stands for the C99 data type "double _Complex":
 ## Accuracy
 
 By construction, it is expected that the relative accuracy is generally better than 1E-13. This has been confirmed by comparison with high-precision Maple computations and with a *long double* computation using Fourier transform representation and double-exponential transform.
+
+Accuracy of the real functions erfcx and im_w_of_x has been greatly improved in release 2.5, it is now 1E-15 or better.
 
 ## Copyright and Citation
 
@@ -56,13 +58,20 @@ After unpacking the source, go to the source directory and do:
 
   mkdir build
   cd build
-  cmake ..
+  cmake .. [CERF_C=OFF] [CERF_CPP=OFF]
   make
+  ctest
   make install
 
-To test, run the programs in directory test/.
+This process builds two libraries that represent the application binary interface (ABI) for
+the programming languages C and C++:
+* libcerf (C ABI),
+* libcerfcpp (C++ ABI).
+Two disable one of them, use one of the `cmake` options indicated above.
 
-The library has been developed using gcc-4.7. Reports about successful compilation with older versions of gcc would be welcome. For correct support of complex numbers it seems that at least gcc-4.3 is required. Compilation with gcc-4.2 works after removing of the "-Werror" flag from *configure*.
+Support for complex numbers by Microsoft Visual C is so deficient that
+compilation of libcerf as C is not possible.
+Therefore, under Visual Studio the option `CERF_C=OFF` is obligatory.
 
 ## Binary packages
 
@@ -75,30 +84,6 @@ The library has been developed using gcc-4.7. Reports about successful compilati
     * [MacPorts::libcerf](http://www.macports.org/ports.php?by=name&substr=libcerf), by Mojca Miklavec
   * Cross platform:
     * [vcpkg CMake packager](https://github.com/microsoft/vcpkg/tree/master/ports/libcerf), by Alexander Täschner
-
-# Code structure
-
-The code consists of
-- the library's C source (directory lib/),
-- test code (directory test/),
-- manual pages (directory man/),
-- build utilities (aclocal.m4, build-aux/, config*, m4/, Makefile*).
-
-## Compilation
-
-The library libcerf is written in C. It can be compiled as C code (default) or as C++ code (with option -DCERF_CPP=ON). Compilation as C++ is useful especially under MS Windows because as per 2018 the C compiler of Visual Studio does not support C90, nor any newer language standard, and is unable to cope with complex numbers.
-
-Otherwise, the library is self-contained, and installation should be
-straightforward, using the usual command sequence
-
-    mkdir build
-    cd build
-    cmake ..
-    make
-    ctest
-    make install
-
-For more details see the file INSTALL.
 
 ## Language bindings
 
