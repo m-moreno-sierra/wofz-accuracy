@@ -32,7 +32,7 @@ windows:
   script:
     - mkdir -Force "build"
     - cd build
-    - cmake -G "Visual Studio 17 2022" -A x64 -T host=x64 -DLIB_MAN=OFF -DCMAKE_INSTALL_PREFIX=C:\opt\x64 -B. ..
+    - cmake -G "Visual Studio 17 2022" -A x64 -T host=x64 -DLIB_MAN=OFF -DCERF_C=OFF -DCMAKE_INSTALL_PREFIX=C:\opt\x64 -B. ..
     - cmake --build . --config Release
     - Get-Location
     - dir

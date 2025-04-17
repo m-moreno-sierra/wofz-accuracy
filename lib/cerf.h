@@ -52,7 +52,10 @@
      typedef std::complex<double> _cerf_cmplx;
 #  else
 #    include <complex.h>
-     typedef double _Complex _cerf_cmplx;
+#    if _WIN32
+#      error Compilation under C not supported by MSVC (arithmetic operators missing)
+#    endif
+     typedef double complex _cerf_cmplx;
 #  endif
 
 #  undef __BEGIN_DECLS
