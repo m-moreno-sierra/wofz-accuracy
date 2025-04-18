@@ -88,9 +88,7 @@ endif()
 
 include(CTest)
 
-configure_file(var/libcerf.pc.in libcerf.pc @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libcerf.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig/")
+set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
 if(CERF_CPP)
     add_subdirectory(libcpp)
@@ -100,6 +98,7 @@ if(CERF_C)
     add_subdirectory(libc)
     add_subdirectory(testc)
 endif()
+include("cmake/installCerf.cmake")
 
 if(LIB_RUN)
     add_subdirectory(run)
