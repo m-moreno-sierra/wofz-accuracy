@@ -4,8 +4,15 @@ libdir=@CMAKE_INSTALL_FULL_LIBDIR@
 includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
 
 Name: libcerf
-Description: Complex error function library
+Description: Complex error function library, C ABI
 Version: @CERF_VERSION@
 Libs: -L${libdir} -lcerf
+Libs.private: -lm
+Cflags: -I${includedir}
+
+Name: libcerfcpp
+Description: Complex error function library, C++ ABI
+Version: @CERF_VERSION@
+Libs: -L${libdir} -lcerfcpp
 Libs.private: -lm
 Cflags: -I${includedir}
