@@ -2,7 +2,7 @@ message(STATUS "build library ${lib}, shared=${BUILD_SHARED_LIBS}")
 
 set(src_files ../lib/erfcx.c ../lib/err_fcts.c ../lib/im_w_of_x.c ../lib/w_of_z.c ../lib/width.c)
 
-if (CERF_TARGET_CPP)
+if(CERF_TARGET_CPP)
     set_property(SOURCE ${src_files} PROPERTY LANGUAGE CXX)
 else()
     set_property(SOURCE ${src_files} PROPERTY LANGUAGE C)
@@ -15,7 +15,7 @@ set_target_properties(
     OUTPUT_NAME ${lib}
     VERSION ${CERF_VERSION}
     SOVERSION ${CERF_SOVERSION})
-if (CERF_TARGET_CPP)
+if(CERF_TARGET_CPP)
     set_target_properties(${lib} PROPERTIES LINKER_LANGUAGE CXX)
 endif()
 
