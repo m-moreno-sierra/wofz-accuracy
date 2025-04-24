@@ -20,7 +20,7 @@ if(NOT DEFINED CERF_CPP)
 endif()
 if(NOT DEFINED CERF_IEEE754)
     option(CERF_IEEE754 "Assume IEEE754 floating-point layout" ON)
-    # This switch allows us to fall back to frexp from libc instead of using our own frexp2.
+    # Use our frexp2 instead of frexp from libc.
     # It is unclear though whether the remainder of the code will work on non-IEEE754 machines.
 endif()
 
