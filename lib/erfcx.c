@@ -134,7 +134,7 @@ double erfcx(double x) {
         return 2 * exp(x * x) - chebInterpolant(-x);
     }
 
-    if (x <= 12)
+    if (x < 12)
         return chebInterpolant(x);
 
     /* else */ {
