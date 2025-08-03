@@ -1,5 +1,9 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
+libcerf-3.1, released 3aug25:
+  - Fix function value erfcx(12), bug reported by Thomas Höring
+  - Improved test coverage of erfcx and imwofx
+
 libcerf-3.0, released 24apr25:
   - Important changes to the application binary interfaces (ABIs):
     - CMake builds both libcerf (C ABI) and libcerfcpp (C++ ABI), unless option

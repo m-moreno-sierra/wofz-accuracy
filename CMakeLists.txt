@@ -38,7 +38,7 @@ if (CERF_CPP)
 endif()
 
 set(CERF_SOVERSION                 3) # API version
-set(CERF_VERSION ${CERF_SOVERSION}.0) # minor version
+set(CERF_VERSION ${CERF_SOVERSION}.1) # minor version
 
 include(GNUInstallDirs)
 
