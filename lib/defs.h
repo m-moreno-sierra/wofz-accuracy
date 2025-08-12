@@ -43,9 +43,15 @@ inline double frexp2(double value, int* eptr)
     union {
         double v;
         struct {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
             unsigned long long mantissa : 52;
             unsigned long long exponent : 11;
             unsigned long long sign : 1;
+#else
+            unsigned long long sign : 1;
+            unsigned long long exponent : 11;
+            unsigned long long mantissa : 52;
+#endif
         } s;
     } u;
 
