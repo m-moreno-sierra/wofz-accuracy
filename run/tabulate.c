@@ -29,7 +29,7 @@ void tabulate(double x) {
     printf( "    RTEST(result, 1e-13, im_w_of_x(%24.15e), %24.15e);\n", x, im_w_of_x(x) );
 }
 
-int main()
+int main(void)
 {
     tabulate(0);
     printf("\n    // rough logarithmic grid\n");

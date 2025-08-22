@@ -47,7 +47,7 @@ int test_one(double x, double fref)
 //! Program run_computation.
 //! Writes a table of some representative x and f(x), the latter computed in polynomial approximation.
 
-int main() {
+int main(void) {
     int failed = run_tests();
     if (failed) {
         printf("test_computation: %d test cases failed\n", failed);

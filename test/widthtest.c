@@ -54,7 +54,7 @@ void widtest(result_t* result, double limit, double sigma, double gamma)
 }
 
 
-int main()
+int main(void)
 {
     result_t result = {0, 0};
     const int N = 100;
