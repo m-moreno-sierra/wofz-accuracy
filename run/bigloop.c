@@ -30,7 +30,7 @@
 #include <stdio.h>
 #define size_t long int
 
-int main()
+int main(void)
 {
     const size_t N = 1<<29; // number of function calls
     const size_t n = N>>7;  // number of sweeps through the x range

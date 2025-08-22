@@ -31,7 +31,7 @@
 #include "cerf.h"
 #include "testtool.h"
 
-int main()
+int main(void)
 {
     result_t result = {0, 0};
 

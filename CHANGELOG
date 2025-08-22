@@ -1,5 +1,8 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
+libcerf-3.2
+  - Insert 'void' in function prototypes, as requested by clang 19
+
 libcerf-3.1, released 3aug25:
   - Fix function value erfcx(12), bug reported by Thomas Höring
   - Improved test coverage of erfcx and imwofx

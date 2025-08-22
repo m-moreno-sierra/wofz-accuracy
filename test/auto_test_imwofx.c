@@ -17,7 +17,7 @@ static const double ppapp_maxrelerr = 2.2; // maximum expected relative error
 
 int test_one(double x, double fref);
 
-int run_tests()
+int run_tests(void)
 {
     int failed = 0;
 // subdomain 0:0 (0.125..0.132812)
