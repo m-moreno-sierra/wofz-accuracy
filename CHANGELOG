@@ -1,6 +1,9 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
-libcerf-3.2
+libcerf-3.2, released 22aug25:
+  - Support frexp under IEEE754 machines with big endian (e.g. S390);
+    auto-detect endianness; if necessary require -DENDIAN_IS_LITTLE=0|1
+    (thanks to Dan Horák, Christoph Junghans, Rolando Mas)
   - Insert 'void' in function prototypes, as requested by clang 19
 
 libcerf-3.1, released 3aug25:

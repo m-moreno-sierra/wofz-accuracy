@@ -47,6 +47,14 @@ SET(CERF_COMPILE_OPTIONS "" CACHE
 
 if (CERF_IEEE754)
     add_compile_definitions(CERF_IEEE754)
+    if(DEFINED ENDIAN_IS_LITTLE)
+        # Normalize value to 0 or 1
+        if(ENDIAN_IS_LITTLE)
+            add_compile_definitions(ENDIAN_IS_LITTLE=1)
+        else()
+            add_compile_definitions(ENDIAN_IS_LITTLE=0)
+        endif()
+    endif()
 endif()
 
 if(MSVC)
