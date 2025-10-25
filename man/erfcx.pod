@@ -62,7 +62,7 @@ Please report bugs to the authors.
 
 Copyright (c) 2012 Massachusetts Institute of Technology
 
-Copyright (c) 2013 Forschungszentrum Juelich GmbH
+Copyright (c) 2013-2025 Forschungszentrum Juelich GmbH
 
 Software: MIT License.
 
