@@ -1,0 +1,15 @@
+This directory contains high-precision code for evaluating
+certain functions. The code can be used
+- for verification of standard double-accuracy code,
+- for generating reference values in tests, and
+- for deriving coefficients in polynomial expansions.
+
+For background, see
+- forthcoming paper by Wuttke and Kleinsorge, available
+  upon request, and
+- software project PPAPP, https://jugit.fz-juelich.de/mlz/ppapp,
+  in particular R/userManual/userManual.pdf.
+
+The code in the present directory is meant to be compiled
+from a ppapp/build directory, using ppapp/CMakeLists.txt,
+as described in the PPAPP user manual, Sect 2.1.
