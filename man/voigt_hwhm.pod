@@ -40,16 +40,20 @@ B<voigt(3)>
 
 Homepage: http://apps.jcns.fz-juelich.de/libcerf
 
-=head1 AUTHORS
+=head1 REFERENCE
+
+Joachim Wuttke, Power series for the half width of the Voigt function
+(in preparation; manuscript available upon request)
+
+=head1 AUTHOR
 
 Joachim Wuttke <j.wuttke@fz-juelich.de>, Forschungszentrum Juelich,
-  based on the w_of_z implementation by Steven G. Johnson, http://math.mit.edu/~stevenj, Massachusetts Institute of Technology.
 
-Please report bugs to the authors.
+Please report bugs to the author.
 
 =head1 COPYING
 
-Copyright (c) 2018 Forschungszentrum Juelich GmbH
+Copyright (c) 2018-25 Forschungszentrum Juelich GmbH
 
 Software: MIT License.
 
