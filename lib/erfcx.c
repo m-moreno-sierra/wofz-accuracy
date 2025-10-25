@@ -54,7 +54,7 @@
  */
 
 #include "cerf.h"
-#include "defs.h" // defines _cerf_cmplx, NaN, C, cexp, ...
+#include "defs.h" // defines frexp2
 #include <math.h>
 #include <stdalign.h>
 #include <stdio.h>
@@ -65,7 +65,7 @@
 //! Returns polynomial approximation to f(x), using auto-tabulated expansion coefficients.
 //! Code taken from https://jugit.fz-juelich.de/mlz/ppapp.
 
-static double chebInterpolant(double x)
+static double chebApproximant(double x)
 {
     // Application-specific constants:
     static const int loff = (ppapp_j0 + 1) * (1 << ppapp_M) + ppapp_l0; // precomputed offset
@@ -131,11 +131,11 @@ double erfcx(double x) {
             return HUGE_VAL;
         if (x < -6.1)
             return 2 * exp(x * x);
-        return 2 * exp(x * x) - chebInterpolant(-x);
+        return 2 * exp(x * x) - chebApproximant(-x);
     }
 
     if (x < 12)
-        return chebInterpolant(x);
+        return chebApproximant(x);
 
     /* else */ {
         // Use asymptotic expansion

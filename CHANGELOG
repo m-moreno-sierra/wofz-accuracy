@@ -1,5 +1,8 @@
 == Revision history of libcerf, maintained by Joachim Wuttke ==
 
+libcerf-3.3, released 25oct25:
+  - voigt_hwhm reimplemented using series expansions for better accuracy
+
 libcerf-3.2, released 22aug25:
   - Support frexp under IEEE754 machines with big endian (e.g. S390);
     auto-detect endianness; if necessary require -DENDIAN_IS_LITTLE=0|1

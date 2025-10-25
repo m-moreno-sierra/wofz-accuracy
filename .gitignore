@@ -40,3 +40,4 @@ man/*.html
 
 build/
 debug/
+__pycache__

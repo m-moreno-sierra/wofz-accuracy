@@ -52,7 +52,7 @@
  */
 
 #include "cerf.h"
-#include "defs.h" // defines _cerf_cmplx, NaN, C, cexp, ...
+#include "defs.h" // defines frexp2
 #include <math.h>
 #include <stdalign.h>
 #include "auto_cheb_imwofx.c"
@@ -60,7 +60,7 @@
 //! Returns polynomial approximation to f(x), using auto-tabulated expansion coefficients.
 //! Code taken from https://jugit.fz-juelich.de/mlz/ppapp.
 
-static double chebInterpolant(double x)
+static double chebApproximant(double x)
 {
     // Application-specific constants:
     static const int loff = (ppapp_j0 + 1) * (1 << ppapp_M) + ppapp_l0; // precomputed offset
@@ -152,9 +152,9 @@ double im_w_of_x(double x) {
     }
 
     if (ax < 12.) {
-        // Intermediate range: Use Chebyshev interpolants.
+        // Intermediate range: Use Chebyshev approximants.
 
-        return copysign(chebInterpolant(ax), x);
+        return copysign(chebApproximant(ax), x);
     }
 
     /* else */ {
