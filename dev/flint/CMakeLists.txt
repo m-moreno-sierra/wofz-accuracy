@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(OpenMP REQUIRED)
 
-find_package(cerf CONFIG REQUIRED COMPONENTS shared C)
-get_property(Cerf_LIBRARIES TARGET cerf::cerf PROPERTY LOCATION)
+find_package(cerf CONFIG REQUIRED COMPONENTS shared CXX)
+get_property(Cerf_LIBRARIES TARGET cerf::cerfcpp PROPERTY LOCATION)
 message(STATUS "cerf: version = ${cerf_VERSION}, lib=${Cerf_LIBRARIES}")
 
 add_executable(d2grid d2grid.cpp terms.cpp wn.cpp)

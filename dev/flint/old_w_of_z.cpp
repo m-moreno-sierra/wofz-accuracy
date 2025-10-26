@@ -84,10 +84,8 @@
 #define FADDEEVA(name) Faddeeva::name
 #define FADDEEVA_RE(name) Faddeeva::name
 
-extern "C" {
 double im_w_of_x(double x);
 double erfcx(double x); // special case for real x
-}
 
 // for analysing the algorithm:
  int faddeeva_algorithm;
