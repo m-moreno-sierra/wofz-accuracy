@@ -1,0 +1,516 @@
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <cmath>
+#include <cstdio>
+#include <fstream>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <map>
+#include <regex>
+#include <set>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <tuple>
+#include <vector>
+#include "terms.h"
+#include "wn.h"
+
+using std::vector;
+
+#define SQR(x) ((x)*(x))
+
+static const double R = 7;
+
+
+struct Coord {
+    int x;
+    int y;
+};
+
+struct Tile;
+
+struct Ball {
+    int ix;
+    int iy;
+    int d2;
+    double cx;
+    double cy;
+    vector<Tile*> covered_tiles;
+};
+
+typedef vector<Ball*> Ranges;
+
+struct Tile {
+    int jx;
+    int jy;
+    int status; // <-1: not in domain; -1: yet uncovered; else: index in Covers
+    vector<Ball*> covering_balls;
+    double wgt;
+    int Nk;
+};
+
+std::string hexfloat(double x)
+{
+    return x>=0 ? std::format("0x{:a}", x) : std::format("-0x{:a}", -x);
+}
+
+// Function to compute polyomino pattern
+std::map<int,vector<int>> polyominoPattern(int sx, int sy, const std::set<int>& d2set)
+{
+    std::map<int,vector<int>> ret;
+    for (int d2 : d2set) {
+	vector<int> rows;
+	int nj2 = int(std::sqrt(d2)) + 1;
+	for (int k = 2 - sx; k < nj2; k += 2) {
+	    double dx = std::sqrt(d2 - k * k) / 2.0 - sy / 2.0;
+	    int row = 2 * int(dx) + sy;
+	    if (row > 0) {
+		if (k > sx)
+		    rows.insert(rows.begin(), row);
+		rows.push_back(row);
+	    }
+	}
+	ret[d2] = rows;
+    }
+    return ret;
+}
+
+void read_d2_file(const std::string& fname, Ranges& RR, int& NTayMax, double& inv_a, double& delta)
+{
+    std::ifstream file(fname);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open file: " + fname);
+    }
+
+    std::string line;
+    std::smatch match;
+
+    std::getline(file, line); // Skip header line
+
+    std::getline(file, line);
+    if (!std::regex_match(line, match, std::regex("# N_Taylor = (\\d+)")))
+        throw std::runtime_error("Failed to match N_Taylor");
+    NTayMax = std::stoi(match[1]);
+
+    std::getline(file, line);
+    if (!std::regex_match(line, match, std::regex("# delta = (\\d+)")))
+        throw std::runtime_error("Failed to match delta");
+    delta = std::stod(match[1]);
+
+    std::getline(file, line);
+    if (!std::regex_match(line, match, std::regex("# M_recenter = (\\d+)")))
+        throw std::runtime_error("Failed to match M_recenter");
+
+    std::getline(file, line);
+    if (!std::regex_match(line, match, std::regex("# 1/a = ([0-9.]+)")))
+        throw std::runtime_error("Failed to match 1/a");
+
+    inv_a = std::stod(match[1]);
+
+    std::string data;
+    while (std::getline(file, line))
+        if (line[0] != '#')
+            data += line + "\n";
+    file.close();
+
+    std::istringstream s(data);
+    std::string block;
+
+    int ix = 0;
+    while (std::getline(s, block, '\n')) {
+        if (block.empty())
+            continue;
+
+        std::istringstream block_stream(block);
+        std::string first_line;
+        std::getline(block_stream, first_line);
+        double x = std::stod(first_line);
+
+        if (x == 0) {
+            ix = 0;
+        } else {
+            ix++;
+            if (std::round(2 * inv_a * x) != ix)
+                throw std::runtime_error(std::format("Invalid x entry: x={}, 2x/a={}, ix={}",
+						     x, 2 * inv_a * x, ix));
+        }
+
+        std::string line;
+        int iy = 0;
+
+        while (std::getline(s, line)) {
+	    if (line=="")
+		break;
+
+            double y, cx, cy;
+            int d2;
+            std::string sx, sy;
+
+	    int n = sscanf(line.c_str(), "%lg %i %lg %lg", &y, &d2, &cx, &cy);
+            if (n != 4)
+                throw std::runtime_error("Invalid data line '"+line+"'");
+            if (ix == 0 && iy == 0) {
+                // First entry, no check needed
+            } else {
+                if (std::round(2 * inv_a * y) != iy)
+		    throw std::runtime_error(std::format("Invalid y entry: y={}, 2y/a={}, iy={}",
+						     y, 2 * inv_a * y, iy));
+            }
+	    if (d2)
+		RR.emplace_back(new Ball{ix, iy, d2, cx, cy, {}});
+            iy++;
+        }
+    }
+}
+
+void initialize_tiles(double inv_a, vector<Tile*>& VT, vector<vector<Tile*>>& XY2T)
+{
+    const int n = int(R*inv_a) + 1;
+    XY2T.resize(n);
+    for (int jx=0; jx<n; ++jx) {
+	XY2T[jx].resize(n);
+	for (int jy=0; jy<n; ++jy) {
+	    if (SQR(jx+1)+SQR(jy+1) < .053*SQR(inv_a))
+		XY2T[jx][jy] = nullptr; // Maclaurin
+	    else if ((SQR(jy)+SQR(jx)) >= SQR(R)*SQR(inv_a))
+		XY2T[jx][jy] = nullptr; // asymptotic expansion
+	    else {
+		VT.emplace_back(new Tile{jx, jy, -1, {}, 1., -1});
+		XY2T[jx][jy] = VT.back();
+		assert(XY2T[jx][jy]->status == -1);
+		assert(XY2T[jx][jy]->jx == jx);
+		assert(XY2T[jx][jy]->jy == jy);
+	    }
+	}
+    }
+}
+
+Tile* tile_at(int jx, int jy, const vector<vector<Tile*>>& XY2T)
+{
+    if (jx<0 || jx>=XY2T.size())
+	return nullptr;
+    const vector<Tile*>& xy2t = XY2T.at(jx);
+    if (jy<0 || jy>=xy2t.size())
+	return nullptr;
+    return xy2t.at(jy);
+}
+
+static const double slice_angle = 17.5;
+
+bool near_x_axis(const Tile* t)
+{
+    return slice_angle * t->jy <= t->jx;
+}
+
+bool near_y_axis(const Tile* t)
+{
+    return slice_angle * t->jx <= t->jy;
+}
+
+void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
+{
+    // Squared coverage diameters occuring in ranges:
+    std::set<int> d2set;
+    for (const Ball* b : RR)
+	d2set.insert(b->d2);
+
+    // Polyomino shape for sx, sy, d2
+    vector<vector<std::map<int,vector<int>>>> P(2, vector<std::map<int,vector<int>>>(2));
+    P[0][0] = polyominoPattern(0, 0, d2set);
+    P[0][1] = polyominoPattern(0, 1, d2set);
+    P[1][0] = polyominoPattern(1, 0, d2set);
+    P[1][1] = polyominoPattern(1, 1, d2set);
+
+    // Tiles covered by disk
+    for (Ball* b : RR) {
+	assert(b->d2 > 0);
+	const int mx = b->ix/2;
+	const int my = b->iy/2;
+	const vector<int>& pat = P[b->ix%2][b->iy%2][b->d2];
+	const int lx = pat.size();
+	assert(b->covered_tiles.size()==0);
+	for (int nx=0; nx<lx; ++nx) {
+	    int jx = mx + nx - lx/2;
+	    int ly = pat[nx];
+	    for (int ny=0; ny<ly; ++ny) {
+		int jy = my + ny - ly/2;
+		if (Tile* t = tile_at(jx, jy, XY2T)) {
+		    assert(t->status == -1);
+		    // exclude disk centers that are just a bit away from the axes
+		    if (!((b->ix!=0 && near_y_axis(t)) || (b->iy!=0 && near_x_axis(t)))) {
+			b->covered_tiles.push_back(t);
+			t->covering_balls.push_back(b);
+		    }
+		}
+	    }
+	}
+    }
+}
+
+int count_uncovered(const vector<Tile*>& VT)
+{
+    int ret = 0;
+    for (const Tile* t: VT)
+	if (t->status == -1)
+	    ++ret;
+    return ret;
+}
+
+int add_cover(vector<const Ball*>& Covers, const Ball* bsel)
+{
+    assert(bsel);
+    int ret = 0;
+    for (Tile* t : bsel->covered_tiles) {
+	assert(t);
+	if (t->status == -1) {
+	    t->status = Covers.size();
+	    ++ret;
+	} else {
+	    int ixo = Covers[t->status]->ix; // old cover
+	    int iyo = Covers[t->status]->iy;
+	    int ixn = bsel->ix; // new cover
+	    int iyn = bsel->iy;
+	    if (!((ixo==0 && ixn!=0) || (iyo==0 && iyn!=0))) {
+		// choose disk with center closest to tile center
+		int ixj = 2*t->jx+1; // tile
+		int iyj = 2*t->jy+1;
+		if (SQR(ixn-ixj)+SQR(iyn-iyj) < SQR(ixo-ixj)+SQR(iyo-iyj))
+		    t->status = Covers.size();
+	    }
+	}
+    }
+    Covers.push_back(bsel);
+    return ret;
+}
+
+// Main function
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <file with x blocks with y tau d2 lines> <nAlgo>\n";
+        std::cerr << "nAlgo: 0: greedy, 1: constraint, 2: merit\n";
+        return 1;
+    }
+    const std::string filename = argv[1];
+    const int algo = std::stod(argv[2]);
+
+    int NTayMax;
+    double inv_a, delta;
+    Ranges RR;
+    read_d2_file(filename, RR, NTayMax, inv_a, delta);
+    std::cout << "1/a: " << inv_a << std::endl;
+    std::cout << "delta: " << delta << std::endl;
+
+    vector<Tile*> VT;
+    vector<vector<Tile*>> XY2T;
+    initialize_tiles(inv_a, VT, XY2T);
+    const int Nax = XY2T.size();
+    int nUncovered = count_uncovered(VT);
+    std::cout << "initially uncovered: " << nUncovered << std::endl;
+
+    initialize_ranges(XY2T, RR);
+    std::cout << "available ranges: " << RR.size() << std::endl;
+    vector<const Ball*> Covers;
+    int ncov;
+
+    // --- Covering algorithm:
+
+    if (algo<=1) {
+	if (algo==1) {
+	    for (Tile* t : VT)
+		t->wgt = SQR(t->jx) + SQR(t->jy+inv_a);
+	    sort(VT.begin(), VT.end(), [](Tile* p, Tile*q) { return p->wgt < q->wgt; });
+	}
+	auto t0 = VT.begin();
+	while (nUncovered > 0) {
+	    const Ball* bsel = nullptr;
+	    int ncov = 0;
+	    vector<Ball*>& B = RR;
+	    if (algo==1) {
+		while ((*t0)->status!=-1) ++t0;
+		assert(t0 < VT.end());
+		B = (*t0)->covering_balls;
+	    }
+	    for (const Ball* b : B) {
+		int nb = 0;
+		for (const Tile* t : b->covered_tiles)
+		    if (t->status==-1)
+			++nb;
+		if (nb > ncov) {
+		    ncov = nb;
+		    bsel = b;
+		}
+	    }
+	    if (!bsel)
+		throw std::runtime_error(std::format("found no cover for {},{}",
+						     (*t0)->jx, (*t0)->jy));
+	    nUncovered -= add_cover(Covers, bsel);
+	    assert(nUncovered == count_uncovered(VT));
+	}
+
+    } else if (algo==2) {
+	for (Tile* t : VT)
+	    t->wgt = exp(-5*hypot(t->jx, t->jy+inv_a)/inv_a);
+	while (nUncovered > 0) {
+	    const Ball* bsel = nullptr;
+	    double maxsum = 0;
+	    for (const Ball* b : RR) {
+		double sum = 0;
+		for (const Tile* t : b->covered_tiles)
+		    if (t->status==-1)
+			sum += t->wgt;
+		if (sum > maxsum) {
+		    maxsum = sum;
+		    bsel = b;
+		}
+	    }
+	    assert(bsel);
+	    nUncovered -= add_cover(Covers, bsel);
+	    assert(nUncovered == count_uncovered(VT));
+	}
+    } else
+	assert(0);
+
+    // --- Compute required Taylor truncation index per tile
+    int nbmax = int(log2(NTayMax));
+    for (int jx = 0; jx < Nax; ++jx) {
+	assert(XY2T[jx].size() == Nax);
+	for (int jy = 0; jy < Nax; ++jy) {
+	    Tile* t = XY2T[jx][jy];
+	    if (!t || t->status < 0)
+		continue;
+	    const Ball* b = Covers[t->status];
+	    const std::vector<Coeff> WN = w_n_vector(b->cx, b->cy);
+	    const double wmi = abs(wofz((jx+1)/inv_a, (jy+1)/inv_a));
+	    const double tx = (jx+0.5)/inv_a;
+	    const double ty = (jy+0.5)/inv_a;
+	    const double tau = hypot(fabs(tx-b->cx)+0.5/inv_a, fabs(ty-b->cy)+0.5/inv_a);
+	    const std::complex<double> cz(b->cx, b->cy);
+	    int Nk = NTayMax;
+	    for (int nb = nbmax; nb >= 0; --nb) {
+		int ntmp = Nk - (1<<nb);
+		if (ntmp < 0)
+		    break;
+		const double te = truncation_error(cz, ntmp, tau, WN);
+		if (std::isinf(te))
+		    continue;
+		const double re = rounding_error(cz, ntmp, tau, WN);
+		const double err = (te+re) / wmi;
+		if (err <= delta)
+		    Nk = ntmp;
+	    }
+	    t->Nk = Nk;
+	}
+    }
+
+    // --- Store results:
+    std::cout << "done with " << Covers.size() << " covers"<<std::endl;
+    std::cout << "delta: " << delta << std::endl;
+
+
+    auto now = std::time(nullptr);
+
+    {
+	std::string fname = "/tmp/w_taylor_centers.tab";
+        std::ofstream f(fname);
+        if (!f)
+	    throw std::runtime_error("Failed to open " + fname);
+        f << "# Created by " << argv
+          << " on " << std::put_time(std::localtime(&now), "%H:%M:%S") << "\n";
+        f << "# " << Covers.size() << " expansion centers approximately at b-lattice points:\n";
+        for (const Ball* b : Covers)
+            f << std::setw(3) << b->ix << " " << std::setw(3) << b->iy << "\n";
+	std::cout << "wrote " << fname << std::endl;
+    }
+
+    {
+	std::string fname = "/tmp/w_taylor_cover.c";
+        std::ofstream f(fname);
+        if (!f)
+	    throw std::runtime_error("Failed to open " + fname);
+        f << "// Created by " << argv
+          << " on " << std::put_time(std::localtime(&now), "%H:%M:%S") << "\n";
+        const std::string typ = (Covers.size() < 128) ? "signed char" : "short";
+        f << "static const double inverseA = " << inv_a << ";\n";
+        f << "static const int nXcover = " << Nax << ";\n";
+        f << "alignas(64) static const " << typ << " Cover[" << (Nax * Nax) << "] = {\n";
+        for (int jx = 0; jx < Nax; ++jx) {
+	    assert(XY2T[jx].size() == Nax);
+            for (int jy = 0; jy < Nax; ++jy) {
+		const Tile* t = XY2T[jx][jy];
+                f << std::setw(2) << (t ? t->status : -2) << ",";
+	    }
+            f << "\n";
+        }
+        f << "};\n";
+	std::cout << "wrote " << fname << std::endl;
+    }
+
+    {
+	std::string fname = "/tmp/w_taylor_tiles.c";
+        std::ofstream f(fname);
+        if (!f)
+	    throw std::runtime_error("Failed to open " + fname);
+        f << "// Created by " << argv
+          << " on " << std::put_time(std::localtime(&now), "%H:%M:%S") << "\n";
+        const std::string typ = (Covers.size() < 128) ? "signed char" : "short";
+        f << "static const double inverseA = " << inv_a << ";\n";
+        f << "static const int nXcover = " << Nax << ";\n";
+        f << "alignas(64) static const " << typ << " Tiles[" << (2* Nax * Nax) << "] = {\n";
+        for (int jx = 0; jx < Nax; ++jx) {
+	    assert(XY2T[jx].size() == Nax);
+            for (int jy = 0; jy < Nax; ++jy) {
+		const Tile* t = XY2T[jx][jy];
+                f << std::setw(2) << (t ? t->status : -2) << ",";
+                f << std::setw(2) << (t ? t->Nk : -2) << ",";
+	    }
+            f << "\n";
+        }
+        f << "};\n";
+	std::cout << "wrote " << fname << std::endl;
+    }
+
+    {
+	std::string fname = "/tmp/w_taylor_Nk.tab";
+        std::ofstream f(fname);
+        if (!f)
+	    throw std::runtime_error("Failed to open " + fname);
+        f << "# Created by " << argv
+          << " on " << std::put_time(std::localtime(&now), "%H:%M:%S") << "\n";
+        for (int jx = 0; jx < Nax; ++jx) {
+	    assert(XY2T[jx].size() == Nax);
+            for (int jy = 0; jy < Nax; ++jy) {
+		const Tile* t = XY2T[jx][jy];
+                f << std::setw(2) << (t ? t->Nk : -2) << " ";
+	    }
+            f << "\n";
+        }
+	std::cout << "wrote " << fname << std::endl;
+    }
+
+    {
+	std::string fname = "/tmp/w_taylor_coeffs.c";
+        std::ofstream f(fname);
+        if (!f)
+	    throw std::runtime_error("Failed to open " + fname);
+        f << "// Created by " << "<your_command_line_arguments_here>"
+          << " on " << std::put_time(std::localtime(&now), "%H:%M:%S") << "\n";
+        f << "static const int NTay = " << NTayMax << ";\n";
+        f << "alignas(64) static const double TaylorCoeffs[2 * " << (NTayMax + 1)
+          << " * " << Covers.size() << "] = {\n";
+        for (const Ball* b : Covers) {
+	    f << std::format("0x{:a}, 0x{:a}, ", b->cx, b->cy);
+	    std::vector<Coeff> WN = w_n_vector(b->cx, b->cy, NTayMax);
+	    assert(NTayMax <= WN.size());
+	    for (const Coeff& wn : WN)
+		f << hexfloat(wn.fn.real()) << ", " << hexfloat(wn.fn.imag()) << ", ";
+	    f << "\n";
+        }
+        f << "};\n";
+	std::cout << "wrote " << fname << std::endl;
+    }
+
+    return 0;
+}

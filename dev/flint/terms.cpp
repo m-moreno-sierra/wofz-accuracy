@@ -1,0 +1,81 @@
+#include <cassert>
+#include <complex>
+#include <iostream>
+#include <vector>
+#include "terms.h"
+#include "wn.h"
+
+namespace {
+
+double taylor_remainder(double tau, int N0, int N1, const std::vector<Coeff>& WN)
+{
+    assert(N1 <= WN.size());
+    assert(tau > 0);
+    double ret = 0;
+    double tn = pow(tau, N0);
+    for (int n=N0; n<N1; ++n) {
+	ret += WN[n].abs * tn;
+	tn *= tau;
+    }
+    return ret;
+}
+
+} // namespace
+
+
+std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
+{
+    std::vector<std::vector<double>> ret;
+    const double R=7;
+    const double jrmax = R*(inv_b/2) + sqrt(d2max)/2;
+
+    for (int jx = 0; jx <= jrmax; ++jx) {
+	std::vector<double> wm;
+	for (int jy = 0; jx*jx+jy*jy <= jrmax*jrmax; ++jy)
+	    wm.emplace_back(abs(wofz(jx/(inv_b/2), jy/(inv_b/2))));
+	ret.emplace_back(wm);
+    }
+    return ret;
+}
+
+double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
+{
+    double ret = std::numeric_limits<double>::infinity();
+    for (int dix = ix%2; dix < sqrt(d2); dix += 2) {
+        int diy = iy%2 + int((sqrt(d2-dix*dix)-iy%2)/2);
+        ret = std::min(ret, W.at((ix+dix)/2).at((iy+diy)/2));
+    }
+    return ret;
+}
+
+double truncation_error(std::complex<double> z, int N, double tau, const std::vector<Coeff>& WN)
+{
+    if (tau==0)
+	return 0;
+    static const double eps = pow(2, -53);
+    const double te = taylor_remainder(tau, N, N+10, WN);
+    const double tee = taylor_remainder(tau, N+10, N+20, WN);
+    if (te > 1e5*eps)
+	return std::numeric_limits<double>::infinity();
+    if (tee > 1e-3*te) {
+	std::cerr << "z = " << z << std::endl;
+	std::cerr << "w[N] = " << WN[N].fn << std::endl;
+	std::cerr << "te = " << te << std::endl;
+	std::cerr << "tee = " << tee << std::endl;
+	throw std::runtime_error("Truncation error of truncation error too large");
+    }
+    return te / eps;
+}
+
+double rounding_error(std::complex<double> z, int N, double tau, const std::vector<Coeff>& WN)
+{
+    const double lambda1 = z.real() ? sqrt(5)+1 : 2.; // lambda + 1
+    double re = 0;
+    double tn = 1;
+    for (int n=0; n<N; ++n) {
+	const int cn = (n==0 || n==N-1) ? 1 : 2;
+	re += WN[n].abs * tn * (WN[n].rel_rounding_err + cn + n*lambda1);
+	tn *= tau;
+    }
+    return re;
+}
