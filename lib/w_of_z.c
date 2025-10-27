@@ -37,7 +37,7 @@
  *
  * Authors:
  *   Steven G. Johnson, Massachusetts Institute of Technology, 2012
- *   Joachim Wuttke, Forschungszentrum Jülich, 2013, 2024
+ *   Joachim Wuttke, Forschungszentrum Jülich, 2013, 2025
  *
  * Website:
  *   http://apps.jcns.fz-juelich.de/libcerf
