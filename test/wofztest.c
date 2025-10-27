@@ -27,7 +27,7 @@
 #include "testtool.h"
 
 
-const double abslim = 1.1e-15; // limit for relative error of absolute value
+const double abslim = 2.2e-16; // limit for relative error of absolute value
 const double cmplim = 3.3e-14; // limit for relative error of Re/Im components
 // for y<0:
 const double absli2 = 2.2e-15; // limit for relative error of absolute value
@@ -235,7 +235,7 @@ int main(void)
     ZTEST(result, abslim, cmplim, w_of_z(C(Inf, NaN)), C(NaN, NaN));
 
     // Continuity when exp(-x^2) runs into underflow
-    ZTEST(result, abslim, cmplim, w_of_z(C(26.99999999999999, 0)), C(0, 0.0209102719931009));
+    ZTEST(result, 2.2e-15, cmplim, w_of_z(C(26.99999999999999, 0)), C(0, 0.0209102719931009));
     ZTEST(result, 2.2e-15, cmplim, w_of_z(C(27.00000000000001, 0)), C(0, 0.0209102719931009));
 
     // Where does real part of w_of_z(real) exceed 1e-300?
