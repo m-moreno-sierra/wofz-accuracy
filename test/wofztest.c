@@ -26,8 +26,8 @@
 #include "cerf.h"
 #include "testtool.h"
 
-const double abslim = 2e-14; // limit for relative error of absolute value
-const double cmplim = 1e-13; // limit for relative error of Re/Im components
+const double abslim = 2.2e-15; // limit for relative error of absolute value
+const double cmplim = 4.4e-14; // limit for relative error of Re/Im components
 
 int main(void)
 {
