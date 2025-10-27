@@ -13,8 +13,8 @@
  *   ../LICENSE
  *
  * Authors:
- *   Steven G. Johnson, Massachusetts Institute of Technology, 2012
- *   Joachim Wuttke, Forschungszentrum Jülich, 2013
+ *   Steven G. Johnson, Massachusetts Institute of Technology, 2012, core author
+ *   Joachim Wuttke, Forschungszentrum Jülich, 2013, package maintainer
  *
  * Website:
  *   http://apps.jcns.fz-juelich.de/libcerf
@@ -23,11 +23,6 @@
  *   ../CHANGELOG
  */
 
-#ifdef __cplusplus
-#include <cassert>
-#else
-#include <assert.h>
-#endif
 #include "cerf.h"
 #include "testtool.h"
 
@@ -65,7 +60,7 @@ int main(void)
         C(0.0615698507236323685519612934241429530190806818395,
           -0.00676005783716575013073036218018565206070072304635));
     ZTEST(
-        result, 1e-13, w_of_z(C(-0.0000000234545, 1.1234)),
+        result, 1e-15, w_of_z(C(-0.0000000234545, 1.1234)),
         C(0.3960793007699874918961319170187598400134746631,
           -5.593152259116644920546186222529802777409274656e-9));
     ZTEST(
