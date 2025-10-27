@@ -81,7 +81,6 @@ EXPORT int cerf_nofterms;
 /******************************************************************************/
 
 _cerf_cmplx w_of_z(_cerf_cmplx z) {
-    SET_INFO(-1, -1);
 
     const double x = creal(z);
     const double xa = fabs(x);
@@ -91,7 +90,7 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
     const double ispi = 0.5641895835477562869; // 1 / sqrt(pi)
 
 // ------------------------------------------------------------------------------
-// Case |y| << |x|                                                     [ALGO 3??]
+// Case |y| << |x|
 // ------------------------------------------------------------------------------
 
 //   If |y| << |x|, we get |Re w| << |Im w|, which implies that an algorithm
@@ -105,7 +104,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 
     if (ya < 1e-9 * xa) {
 	const double wi = im_w_of_x(x);
-	SET_ALGO(cerf_algorithm + 300);
         const double e2 = xa > 27. ? 0. : exp(-xa*xa); // prevent underflow
 	if (ya == 0)
 	    return C(e2, wi); // also works for x=+-inf
@@ -113,7 +111,7 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
     }
 
 // ------------------------------------------------------------------------------
-// Case |x| << |y|                                                     [ALGO 4??]
+// Case |x| << |y|
 // ------------------------------------------------------------------------------
 
 //   If |x| << |y|, we get |Im w| << |Re w|, which implies that an algorithm
@@ -127,20 +125,18 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 
     if (xa < 1e-9 * ya) {
 	const double wr = erfcx(y);
-	SET_ALGO(cerf_algorithm + 400);
 	if (xa == 0)
 	    return C(wr, 0); // also works for y=+inf
 	return C(wr, x*(2*(ispi - y*wr)));
     }
 
 // ------------------------------------------------------------------------------
-// Case |z| -> 0: Maclaurin series                                     [ALGO 210]
+// Case |z| -> 0: Maclaurin series
 // ------------------------------------------------------------------------------
 
     if (z2 < .053) {
         if (z2 < .00689) {
             if (z2 < 4e-7) {
-		SET_INFO(210, 5);
                 return ((((
                               + C(+5.0000000000000000e-01, 0) ) * z // z^4
                           + C(0, -7.5225277806367508e-01) ) * z // z^3
@@ -149,7 +145,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
                     + 1.;
             }
 
-	    SET_INFO(210, 14);
             return (((((((((((((
                                    + C(0, +5.3440090793734269e-04) ) * z // z^13
                                + C(+1.3888888888888889e-03, 0) ) * z // z^12
@@ -167,7 +162,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
                 + 1.;
         }
 
-	SET_INFO(210, 20);
 	return (((((((((((((((((((
 				   + C(0, -8.8239572002038009e-07) ) * z // z^19
 				 + C(-2.7557319223985893e-06, 0) ) * z // z^18
@@ -192,7 +186,7 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
     }
 
 // ------------------------------------------------------------------------------
-// Case |z| -> infty: Asymptotic expansion                        [ALGO 100, 22?]
+// Case |z| -> infty: Asymptotic expansion
 // ------------------------------------------------------------------------------
 
     if (z2 >= 49) {
@@ -202,15 +196,12 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 	if (z2 > 4.6e16) {
 	    // Scale to prevent overflow.
 	    if (xa > ya) {
-		SET_INFO(222, 1);
 		const double yax = ya / xs;
 		const double denom = 0.56418958354775629 / (xs + yax*ya);
 		ret = C(denom*yax, denom);
 	    } else if (isinf(ya)) {
-		SET_INFO(100, 1);
 		return ((isnan(xa) || y < 0) ? C(NaN, NaN) : C(0, 0));
 	    } else {
-		SET_INFO(224, 1);
 		const double xya = xs / ya;
 		const double denom = 0.56418958354775629 / (xya*xs + ya);
 		ret = C(denom, denom*xya);
@@ -219,7 +210,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 	} else {
             if (z2 > 120) {
 		if (z2 > 28000) {
-		    SET_INFO(220, 4);
 		    ret = ((((
 				 + 1.0578554691520430e+00) / (z*z) // n=3
 			     + 4.2314218766081724e-01) / (z*z) // n=2
@@ -227,7 +217,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 			   + 5.6418958354775628e-01) / C(ya,-xs); // n=0
 
 		} else {
-		    SET_INFO(220, 12);
 		    ret = ((((((((((((
 					 + 3.7877040075087948e+06) / (z*z) // n=11
 				     + 3.6073371500083758e+05) / (z*z) // n=10
@@ -244,7 +233,6 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
 		}
 
             } else {
-		SET_INFO(220, 23);
                 ret = (((((((((((((((((((((((
 					      + 7.5846930433244938e+19) / (z*z) // n=22
 					     + 3.5277642061974395e+18) / (z*z) // n=21
@@ -274,24 +262,20 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
         if (y < 0) {
             // Use w(z) = 2.0*exp(-z*z) - w(-z),
             // but be careful of overflow in exp(-z*z) = exp(-(xs*xs-ya*ya) -2*i*xs*ya)
-	    SET_ALGO(cerf_algorithm + 1);
             return 2.0 * cexp(C((ya - xs) * (xs + ya), 2*xs*y)) - ret;
         } else
             return ret;
     }
 
 // ------------------------------------------------------------------------------
-// Taylor around some z                                                [ALGO 9??]
+// Taylor around some z
 // ------------------------------------------------------------------------------
 
-    if (isnan(xa)) {
-	SET_INFO(105, 1);
+    if (isnan(xa))
 	return C(xa, xa);
-    }
-    if (isnan(y)) {
-	SET_INFO(106, 1);
+
+    if (isnan(y))
 	return C(y, y);
-    }
 
     const int iTile = 2 * ((int)(inverseA*xa)*nXcover + (int)(inverseA*ya));
     const int kP = Tiles[iTile];
@@ -302,11 +286,9 @@ _cerf_cmplx w_of_z(_cerf_cmplx z) {
     _cerf_cmplx ret = C(T[2*Nk], T[2*Nk+1]);
     for (int k = Nk-1; k >= 1; --k)
 	ret = ret * dz + C(T[2*k], T[2*k+1]);
-    SET_INFO(900, kP);
 
 
     if (y < 0) {
-	SET_ALGO(cerf_algorithm + 1);
 	if (x < 0)
 	    return 2.0 * cexp(C((y - x) * (x + y), -2*x*y)) - ret;
 	return 2.0 * cexp(C((y - x) * (x + y), -2*x*y)) - C(creal(ret), -cimag(ret));
