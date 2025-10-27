@@ -69,17 +69,23 @@ void rtest(result_t* result, double limit, double computed, double expected, con
 }
 
 // Test whether complex numbers 'computed' and 'expected' agree within relative error bound 'limit'
-void ztest(
-    result_t* result, double limit, _cerf_cmplx computed, _cerf_cmplx expected, const char* name)
+void ztest(result_t* result, double abs_limit, double component_limit,
+           _cerf_cmplx computed, _cerf_cmplx expected, const char* name)
 {
     ++result->total;
     const double re_r = relerr(creal(computed), creal(expected));
     const double re_i = relerr(cimag(computed), cimag(expected));
-    if (re_r > limit || re_i > limit) {
+    const double re_a = cabs(computed - expected) / (cabs(expected) + 1e-300);
+    if (re_r > component_limit || re_i > component_limit || re_a > abs_limit) {
         printf("failure in subtest %i: %s\n", result->total, name);
-        printf("- fct value %20.15g%+20.15g\n", creal(computed), cimag(computed));
-        printf("- expected  %20.15g%+20.15g\n", creal(expected), cimag(expected));
-        printf("=> error %6.2g or %6.2g above limit %6.2g\n", re_r, re_i, limit);
+        printf("- fct value %21.16e%+21.16e*i\n", creal(computed), cimag(computed));
+        printf("- expected  %21.16e%+21.16e*i\n", creal(expected), cimag(expected));
+        if (re_r > component_limit)
+            printf("=> real(f) has error %6.2g above limit %6.2g\n", re_r, component_limit);
+        if (re_i > component_limit)
+            printf("=> imag(f) has error %6.2g above limit %6.2g\n", re_i, component_limit);
+        if (re_a > abs_limit)
+            printf("=> abs(f) has error %6.2g above limit %6.2g\n", re_a, abs_limit);
         ++result->failed;
     }
 }
@@ -89,5 +95,5 @@ void ztest(
     rtest(&result, limit, function_val, expected_val, #function_val);
 
 // Wrap ztest; use preprocessor stringification to print the calling 'function_val' verbatim
-#define ZTEST(result, limit, function_val, expected_val)                                           \
-    ztest(&result, limit, function_val, expected_val, #function_val);
+#define ZTEST(result, abs_limit, component_limit, function_val, expected_val) \
+    ztest(&result, abs_limit, component_limit, function_val, expected_val, #function_val);
