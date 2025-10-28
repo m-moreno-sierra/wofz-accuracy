@@ -1,3 +1,22 @@
+//  ************************************************************************************************
+//
+//  Project:   Code generating code for Taylor expansion on square tiles
+//
+//  Reference: Joachim Wuttke,
+//             Code generation for computing an analytical function with near machine precision
+//             on square tiles, with application to the Faddeeva function
+//             (in preparation, available upon request)
+//
+//  File:      terms.cpp
+//
+//  Purpose:   Provides function based on the high-precision reference function.
+//
+//  License:   GNU General Public License, version 3 or higher (see src/LICENSE)
+//  Copyright: Forschungszentrum Jülich GmbH 2025
+//  Author:    Joachim Wuttke <j.wuttke@fz-juelich.de>
+//
+//  ************************************************************************************************
+
 #include <cassert>
 #include <complex>
 #include <iostream>
