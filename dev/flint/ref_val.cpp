@@ -1,3 +1,22 @@
+//  ************************************************************************************************
+//
+//  Project:   Code generating code for Taylor expansion on square tiles
+//
+//  Reference: Joachim Wuttke,
+//             Code generation for computing an analytical function with near machine precision
+//             on square tiles, with application to the Faddeeva function
+//             (in preparation, available upon request)
+//
+//  File:      ref_val.cpp
+//
+//  Purpose:   Program ref_val prints high-precision reference value for given z=x+iy.
+//
+//  License:   GNU General Public License, version 3 or higher (see src/LICENSE)
+//  Copyright: Forschungszentrum Jülich GmbH 2025
+//  Author:    Joachim Wuttke <j.wuttke@fz-juelich.de>
+//
+//  ************************************************************************************************
+
 #include <cassert>
 #include <iostream>
 #include <cstdio>
@@ -7,6 +26,9 @@
 #include <future>
 #include <limits>
 #include "wn.h"
+
+//! Program ref_val prints high-precision reference function value f(z)
+//! for z=x+iy given by command-line arguments x, y.
 
 int main(int argc, char *argv[])
 {
