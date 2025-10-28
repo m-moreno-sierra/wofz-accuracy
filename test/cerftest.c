@@ -31,8 +31,12 @@
 #include "cerf.h"
 #include "testtool.h"
 
-const double abslim = 4.0e-15; // limit for relative error of absolute value
-const double cmplim = 4.4e-14; // limit for relative error of Re/Im components
+const double abslim = 2.3e-16; // limit for relative error of absolute value
+const double cmplim = 7.3e-14; // limit for relative error of Re/Im components
+
+// for y<0:
+const double absli2 = 9.0e-15; // limit for relative error of absolute value
+const double cmpli2 = 7.3e-14; // limit for relative error of Re/Im components
 
 int main(void)
 {
@@ -48,20 +52,6 @@ int main(void)
     ZTEST(
         result, abslim, cmplim, cerf(C(-1, 2)),
         C(0.5366435657785650339917955593141927494421, -5.049143703447034669543036958614140565553));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(1, -2)),
-        C(-0.5366435657785650339917955593141927494421, 5.049143703447034669543036958614140565553));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(-1, -2)),
-        C(0.5366435657785650339917955593141927494421, 5.049143703447034669543036958614140565553));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(9, -28)),
-        C(0.3359473673830576996788000505817956637777e304,
-          -0.1999896139679880888755589794455069208455e304));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(21, -33)),
-        C(0.3584459971462946066523939204836760283645e278,
-          0.3818954885257184373734213077678011282505e280));
     ZTEST(
         result, abslim, cmplim, cerf(C(1e3, 1e3)),
         C(0.9996020422657148639102150147542224526887,
@@ -81,19 +71,9 @@ int main(void)
         C(0.007099365669981359632319829148438283865814,
           0.6149347012854211635026981277569074001219));
     ZTEST(
-        result, abslim, cmplim, cerf(C(4.9e-4, -0.5e1)),
-        C(0.3981176338702323417718189922039863062440e8,
-          -0.8298176341665249121085423917575122140650e10));
-    ZTEST(result, abslim, cmplim, cerf(C(-4.9e-5, -0.5e2)), C(-Inf, -Inf));
-    ZTEST(
         result, abslim, cmplim, cerf(C(5.1e-3, 0.5)),
         C(0.007389128308257135427153919483147229573895,
           0.6149332524601658796226417164791221815139));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(5.1e-4, -0.5e1)),
-        C(0.4143671923267934479245651547534414976991e8,
-          -0.8298168216818314211557046346850921446950e10));
-    ZTEST(result, abslim, cmplim, cerf(C(-5.1e-5, -0.5e2)), C(-Inf, -Inf));
     ZTEST(
         result, abslim, cmplim, cerf(C(1e-6, 2e-6)),
         C(0.1128379167099649964175513742247082845155e-5,
@@ -118,10 +98,6 @@ int main(void)
         result, abslim, cmplim, cerf(C(7e-2, 7e-2)),
         C(0.07924380404615782687930591956705225541145,
           0.07872776218046681145537914954027729115247));
-    ZTEST(
-        result, abslim, cmplim, cerf(C(7e-2, -7e-4)),
-        C(0.07885775828512276968931773651224684454495,
-          -0.0007860046704118224342390725280161272277506));
     ZTEST(
         result, abslim, cmplim, cerf(C(-9e-2, 7e-4)),
         C(-0.1012806432747198859687963080684978759881,
@@ -153,20 +129,6 @@ int main(void)
         result, abslim, cmplim, cerfc(C(-1, 2)),
         C(0.4633564342214349660082044406858072505579, 5.049143703447034669543036958614140565553));
     ZTEST(
-        result, abslim, cmplim, cerfc(C(1, -2)),
-        C(1.536643565778565033991795559314192749442, -5.049143703447034669543036958614140565553));
-    ZTEST(
-        result, abslim, cmplim, cerfc(C(-1, -2)),
-        C(0.4633564342214349660082044406858072505579, -5.049143703447034669543036958614140565553));
-    ZTEST(
-        result, abslim, cmplim, cerfc(C(9, -28)),
-        C(-0.3359473673830576996788000505817956637777e304,
-          0.1999896139679880888755589794455069208455e304));
-    ZTEST(
-        result, abslim, cmplim, cerfc(C(21, -33)),
-        C(-0.3584459971462946066523939204836760283645e278,
-          -0.3818954885257184373734213077678011282505e280));
-    ZTEST(
         result, abslim, cmplim, cerfc(C(1e3, 1e3)),
         C(0.0003979577342851360897849852457775473112748,
           -0.00002801044116908227889681753993542916894856));
@@ -196,6 +158,52 @@ int main(void)
     ZTEST(result, abslim, cmplim, cerfc(C(NaN, Inf)), C(NaN, NaN));
     ZTEST(result, abslim, cmplim, cerfc(C(Inf, NaN)), C(NaN, NaN));
     ZTEST(result, abslim, cmplim, cerfc(C(88, 0)), C(0, 0));
+
+    // y<0:
+
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(1, -2)),
+        C(-0.5366435657785650339917955593141927494421, 5.049143703447034669543036958614140565553));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(-1, -2)),
+        C(0.5366435657785650339917955593141927494421, 5.049143703447034669543036958614140565553));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(9, -28)),
+        C(0.3359473673830576996788000505817956637777e304,
+          -0.1999896139679880888755589794455069208455e304));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(21, -33)),
+        C(0.3584459971462946066523939204836760283645e278,
+          0.3818954885257184373734213077678011282505e280));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(4.9e-4, -0.5e1)),
+        C(0.3981176338702323417718189922039863062440e8,
+          -0.8298176341665249121085423917575122140650e10));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(7e-2, -7e-4)),
+        C(0.07885775828512276968931773651224684454495,
+          -0.0007860046704118224342390725280161272277506));
+    ZTEST(result, absli2, cmpli2, cerf(C(-4.9e-5, -0.5e2)), C(-Inf, -Inf));
+    ZTEST(
+        result, absli2, cmpli2, cerf(C(5.1e-4, -0.5e1)),
+        C(0.4143671923267934479245651547534414976991e8,
+          -0.8298168216818314211557046346850921446950e10));
+    ZTEST(result, absli2, cmpli2, cerf(C(-5.1e-5, -0.5e2)), C(-Inf, -Inf));
+
+    ZTEST(
+        result, absli2, cmpli2, cerfc(C(1, -2)),
+        C(1.536643565778565033991795559314192749442, -5.049143703447034669543036958614140565553));
+    ZTEST(
+        result, absli2, cmpli2, cerfc(C(-1, -2)),
+        C(0.4633564342214349660082044406858072505579, -5.049143703447034669543036958614140565553));
+    ZTEST(
+        result, absli2, cmpli2, cerfc(C(9, -28)),
+        C(-0.3359473673830576996788000505817956637777e304,
+          0.1999896139679880888755589794455069208455e304));
+    ZTEST(
+        result, absli2, cmpli2, cerfc(C(21, -33)),
+        C(-0.3584459971462946066523939204836760283645e278,
+          -0.3818954885257184373734213077678011282505e280));
 
     /***************   cerfi   *****************/
 
