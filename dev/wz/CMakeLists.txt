@@ -9,7 +9,7 @@
 ##
 ##  File:      CMakeLists.txt
 ##
-##  License:   GNU General Public License, version 3 or higher (see src/LICENSE)
+##  License:   MIT License (file LICENSE in toplevel directory)
 ##  Copyright: Forschungszentrum Jülich GmbH 2025
 ##  Author:    Joachim Wuttke <j.wuttke@fz-juelich.de>
 ##
