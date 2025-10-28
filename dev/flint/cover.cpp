@@ -1,3 +1,22 @@
+//  ************************************************************************************************
+//
+//  Project:   Code generating code for Taylor expansion on square tiles
+//
+//  Reference: Joachim Wuttke,
+//             Code generation for computing an analytical function with near machine precision
+//             on square tiles, with application to the Faddeeva function
+//             (in preparation, available upon request)
+//
+//  File:      cover.cpp
+//
+//  Purpose:   Provides program cover.
+//
+//  License:   GNU General Public License, version 3 or higher (see src/LICENSE)
+//  Copyright: Forschungszentrum Jülich GmbH 2025
+//  Author:    Joachim Wuttke <j.wuttke@fz-juelich.de>
+//
+//  ************************************************************************************************
+
 #include <algorithm>
 #include <cassert>
 #include <chrono>
@@ -286,7 +305,8 @@ int add_cover(vector<const Ball*>& Covers, const Ball* bsel)
     return ret;
 }
 
-// Main function
+
+//! Main function
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0] << " <file with x blocks with y tau d2 lines> <nAlgo>\n";
