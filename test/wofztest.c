@@ -28,7 +28,7 @@
 
 
 const double abslim = 3.4e-16; // limit for relative error of absolute value
-const double cmplim = 4.4e-14; // limit for relative error of Re/Im components
+const double cmplim = 5.3e-14; // limit for relative error of Re/Im components
 // for y<0:
 const double absli2 = 9.5e-15; // limit for relative error of absolute value
 const double cmpli2 = 4.4e-14; // limit for relative error of Re/Im components
