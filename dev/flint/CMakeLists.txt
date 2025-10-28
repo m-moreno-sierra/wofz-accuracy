@@ -31,7 +31,7 @@ add_executable(d2grid d2grid.cpp terms.cpp wn.cpp)
 add_executable(runat runat.cpp terms.cpp wn.cpp)
 add_executable(cover cover.cpp terms.cpp wn.cpp)
 add_executable(worst_per_tile worst_per_tile.cpp wn.cpp)
-add_executable(statistics statistics.cpp relerr.cpp wn.cpp old_w_of_z.cpp)
+add_executable(statistics statistics.cpp relerr.cpp wn.cpp)
 #add_executable(wminat wminat.cpp terms.cpp wn.cpp)
 
 target_link_libraries(ref_val PRIVATE flint)
