@@ -1,6 +1,23 @@
-#include <assert.h>
-#include <iostream>
-#include <stdio.h>
+//  ************************************************************************************************
+//
+//  Project:   Code generating code for Taylor expansion on square tiles
+//
+//  Reference: Joachim Wuttke,
+//             Code generation for computing an analytical function with near machine precision
+//             on square tiles, with application to the Faddeeva function
+//             (in preparation, available upon request)
+//
+//  File:      relerr.cpp
+//
+//  Purpose:   Provides function relerr_wofz.
+//
+//  License:   GNU General Public License, version 3 or higher (see src/LICENSE)
+//  Copyright: Forschungszentrum Jülich GmbH 2025
+//  Author:    Joachim Wuttke <j.wuttke@fz-juelich.de>
+//
+//  ************************************************************************************************
+
+#include <cassert>
 #include <flint/arb.h>
 #include <flint/acb.h>
 #include <flint/acb_hypgeom.h>
@@ -8,11 +25,11 @@
 #include "relerr.h"
 #include "wn.h"
 
-std::complex<double> old_w_of_z(std::complex<double> z);
-
 void my_acb_wofz(acb_t W, const acb_t Z, slong prec);
 
-double relerr_wofz(bool old, double x, double y)
+//! Returns relative error between high-precision and target code.
+
+double relerr_wofz(double x, double y)
 {
     acb_t Z;  acb_init(Z);
     arb_t E;  arb_init(E);
@@ -36,9 +53,7 @@ double relerr_wofz(bool old, double x, double y)
     assert(wx==0 || xbits==-1 || xbits>53);
     assert(wy==0 || xbits==-1 || xbits>53);
 
-    const std::complex<double> w2 = old ?
-	old_w_of_z({x, y}) :
-	w_of_z(std::complex<double>{x, y});
+    const std::complex<double> w2 = w_of_z(std::complex<double>{x, y});
     arb_set_d(acb_realref(W2), w2.real());
     arb_set_d(acb_imagref(W2), w2.imag());
 

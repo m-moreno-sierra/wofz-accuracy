@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	    } else
 		assert(0);
 
-	    const double relerr = relerr_wofz(region==4 || region==5, x, y);
+	    const double relerr = relerr_wofz(x, y);
 
 	    const int k = int(relerr / dx);
 	    ++idraws;
