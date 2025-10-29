@@ -41,7 +41,7 @@ std::complex<double> Ref::fref(double x, double y)
     int ybits = arb_rel_accuracy_bits(E);
 
     assert(wx==0 || xbits==-1 || xbits>53);
-    assert(wy==0 || xbits==-1 || xbits>53);
+    assert(wy==0 || ybits==-1 || ybits>53);
 
     acb_clear(Z);
     arb_clear(E);
@@ -75,7 +75,7 @@ std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
 	const double wy = arf_get_d(arb_midref(E), ARF_RND_NEAR);
 	const int ybits = arb_rel_accuracy_bits(E);
 	assert(wx==0 || xbits==-1 || xbits>53);
-	assert(wy==0 || xbits==-1 || xbits>53);
+        assert(wy==0 || ybits==-1 || ybits>53);
 
 	// Absolute value of w_n:
 	const double awn = hypot(wx,wy);

@@ -65,8 +65,7 @@ void HP::acb_fcoeffs(std::vector<acb_t>& V, const acb_t Z, slong prec)
     assert(V.size() > 0);
     acb_fref(V[0], Z, prec);
 
-    for(int n = 1; n<V.size(); ++n) {
-	const acb_t& T2 = n==1 ? T1 : V[n-2];
+    for(size_t n = 1; n<V.size(); ++n) {
 	acb_mul(V[n], V[n-1], Z, prec);
 	acb_add(V[n], V[n], n==1 ? T1 : V[n-2], prec);
 	acb_mul_si(V[n], V[n], -2, prec);

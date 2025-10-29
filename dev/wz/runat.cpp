@@ -52,8 +52,6 @@ int main(int argc, char *argv[])
     printf("# 1/a = %g\n", inv_a);
     printf("# z = %g + i %g\n", x, y);
 
-    const double R = 7;
-    const double inv_b = 2 * inv_a;
     const double tau = sqrt(d2)/(2*inv_a);
     const std::complex<double> z{x, y};
     const std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);

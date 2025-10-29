@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
     std::vector<::OneCenter> VR(I.size());
 
     #pragma omp parallel for
-    for (int i=0; i<VR.size(); ++i) {
+    for (size_t i=0; i<VR.size(); ++i) {
 	const auto [ix, iy] = I[i];
 	double x = ix / inv_b;
 	double y = iy / inv_b;
@@ -166,7 +166,6 @@ int main(int argc, char *argv[])
 
 	// Determine maximum d2 (with rho<=delta) for lattice point z.
 	int itau = 0;
-	int imin = 0;
 	double minerr = std::numeric_limits<double>::infinity();
 	std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
 	for (int n = nSlb; n>=0; --n) {

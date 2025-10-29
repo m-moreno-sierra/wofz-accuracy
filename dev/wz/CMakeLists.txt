@@ -19,6 +19,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(cerf_flint CXX)
 set(CMAKE_CXX_STANDARD 20)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror -Wno-sign-compare)
 
 find_package(OpenMP REQUIRED)
 
@@ -41,5 +42,3 @@ target_link_libraries(runat PRIVATE flint)
 target_link_libraries(worst_per_tile PRIVATE flint ${Cerf_LIBRARIES} OpenMP::OpenMP_CXX)
 target_link_libraries(statistics PRIVATE flint ${Cerf_LIBRARIES} OpenMP::OpenMP_CXX)
 #target_link_libraries(wminat PRIVATE flint)
-
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)

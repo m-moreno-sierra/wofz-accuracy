@@ -33,8 +33,8 @@
 int main(int argc, char *argv[])
 {
     if (argc != 3) {
-        fprintf(stderr, "Print a reference value f(z) for given z=x+iy.\n", argv[0]);
-        fprintf(stderr, "Usage: x y\n", argv[0]);
+        fprintf(stderr, "Print a reference value f(z) for given z=x+iy.\n");
+        fprintf(stderr, "Usage: %s x y\n", argv[0]);
         return 1;
     }
     char *endptr;

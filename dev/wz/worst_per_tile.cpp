@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	const double x = jx/inv_a;
 	for (int jy=0; jy<ntot; ++jy) {
 	    const double y = jy/inv_a;
-	    result.push_back(Result{x, y, 0});
+	    result.emplace_back(Result{x, y, 0, x, y});
 	}
     }
 

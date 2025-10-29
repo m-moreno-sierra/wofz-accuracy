@@ -48,7 +48,7 @@ double relerr_wofz(double x, double y)
     int ybits = arb_rel_accuracy_bits(E);
 
     assert(wx==0 || xbits==-1 || xbits>53);
-    assert(wy==0 || xbits==-1 || xbits>53);
+    assert(wy==0 || ybits==-1 || ybits>53);
 
     const std::complex<double> w2 = w_of_z(std::complex<double>{x, y});
     arb_set_d(acb_realref(W2), w2.real());
