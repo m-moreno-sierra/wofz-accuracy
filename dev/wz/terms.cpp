@@ -42,21 +42,6 @@ double taylor_remainder(double tau, int N0, int N1, const std::vector<Coeff>& WN
 } // namespace
 
 
-std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
-{
-    std::vector<std::vector<double>> ret;
-    const double R=7;
-    const double jrmax = R*(inv_b/2) + sqrt(d2max)/2;
-
-    for (int jx = 0; jx <= jrmax; ++jx) {
-	std::vector<double> wm;
-	for (int jy = 0; jx*jx+jy*jy <= jrmax*jrmax; ++jy)
-	    wm.emplace_back(abs(wofz(jx/(inv_b/2), jy/(inv_b/2))));
-	ret.emplace_back(wm);
-    }
-    return ret;
-}
-
 double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
 {
     double ret = std::numeric_limits<double>::infinity();

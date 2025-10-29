@@ -25,10 +25,12 @@
 #include <iostream>
 #include <limits>
 #include <set>
-#include "terms.h"
 #include <omp.h>
+#include "terms.h"
 
 #define SQR(x) ((x)*(x))
+
+namespace {
 
 //! Returns list of squared polyomino circumcircle diameters for given parities pi_x, pi_y.
 //! This is Algorithm 1 of the reference paper.
@@ -65,6 +67,24 @@ double double_neighbor(double x, int n)
 			-std::numeric_limits<double>::infinity());
     return ret;
 }
+
+std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
+{
+    std::vector<std::vector<double>> ret;
+    const double R=7;
+    const double jrmax = R*(inv_b/2) + sqrt(d2max)/2;
+
+    for (int jx = 0; jx <= jrmax; ++jx) {
+	std::vector<double> wm;
+	for (int jy = 0; jx*jx+jy*jy <= jrmax*jrmax; ++jy)
+	    wm.emplace_back(abs(wofz(jx/(inv_b/2), jy/(inv_b/2))));
+	ret.emplace_back(wm);
+    }
+    return ret;
+}
+
+} // namespace
+
 
 int main(int argc, char *argv[])
 {
@@ -111,14 +131,14 @@ int main(int argc, char *argv[])
 
     // D2 sequences start with 0. Otherwise as in paper.
     const std::vector<std::vector<int>> S {
-	sorted_diameters(0, 0, d2max),
-	sorted_diameters(0, 1, d2max),
-	sorted_diameters(1, 1, d2max) };
+	::sorted_diameters(0, 0, d2max),
+	::sorted_diameters(0, 1, d2max),
+	::sorted_diameters(1, 1, d2max) };
     assert(S[0][4]==40);
     assert(S[1][4]==25);
     assert(S[2][4]==26);
 
-    const std::vector<std::vector<double>> WW = wOnGrid(inv_b, d2max);
+    const std::vector<std::vector<double>> WW = ::wOnGrid(inv_b, d2max);
 
     std::vector<std::pair<int,int>> I; // List of grid points within domain.
     for (int ix = 0;; ++ix) {
@@ -149,7 +169,7 @@ int main(int argc, char *argv[])
 	double x = ix / inv_b;
 	double y = iy / inv_b;
 	std::complex<double> z{x, y};
-	const std::vector<int>& Si = S[iSref(ix%2, iy%2)];
+	const std::vector<int>& Si = S[::iSref(ix%2, iy%2)];
 	const int nS = Si.size();
 	const int nSlb = int(log2(nS));
 
@@ -186,13 +206,13 @@ int main(int argc, char *argv[])
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
 		continue;
-	    double xd = double_neighbor(x, idx);
+	    double xd = ::double_neighbor(x, idx);
 	    for (int idy=-M; idy<=M; ++idy) {
 		if (idx==0 and idy==0)
 		    continue;
 		if (iy==0 && idy!=0)
 		    continue;
-		double yd = double_neighbor(y, idy);
+		double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
 		WN = w_n_vector(xd, yd);
 		const double te = truncation_error(zd, N, tau, WN);
