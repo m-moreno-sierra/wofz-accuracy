@@ -20,8 +20,6 @@
 #include "relerr.h"
 #include <cassert>
 #include <flint/arb.h>
-#include <flint/acb.h>
-#include <flint/acb_hypgeom.h>
 #include <cerf.h>
 #include "hp_fref.h"
 #include "wn.h"

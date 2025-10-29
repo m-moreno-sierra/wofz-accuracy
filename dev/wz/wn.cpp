@@ -18,12 +18,8 @@
 //  ************************************************************************************************
 
 #include "wn.h"
-#include <assert.h>
-#include <iostream>
-#include <stdio.h>
+#include <cassert>
 #include <flint/arb.h>
-#include <flint/acb.h>
-#include <flint/acb_hypgeom.h>
 #include "hp_fref.h"
 
 std::complex<double> wofz(double x, double y)
@@ -91,8 +87,6 @@ std::vector<Coeff> w_n_vector(double x, double y, int N)
 	acb_abs(E, F, 53);
 	const double rre = arf_get_d(arb_midref(E), ARF_RND_NEAR) / awn / pow(2, -53);
 
-	//printf("w_%i(z) = ", n);
-	//acb_printd(V[n], 12); printf(" [%i,%i bits]\n", xbits, ybits);
 	ret[n] = {{wx, wy}, awn, rre};
     }
 
