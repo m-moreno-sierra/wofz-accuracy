@@ -194,8 +194,6 @@ int main(int argc, char *argv[])
         OneCenter c = {ix, iy, 0, x, y};
 	std::complex<double> z{x, y};
 	const std::vector<int>& Si = S[::iSref(ix%2, iy%2)];
-	const int nS = Si.size();
-	const int nSlb = int(log2(nS));
 
 	// Determine maximum d2 (with rho<=delta) for lattice point z.
         auto [itau, minerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
@@ -227,32 +225,12 @@ int main(int argc, char *argv[])
 		}
 	    }
 	}
-	x = z.real();
-	y = z.imag();
 
 	// Determine maximum d2 (with rho<=delta) for z determined above.
-	itau = 0;
-	const std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
-	for (int n = nSlb; n>=0; --n) {
-	    int itmp = itau + (1 << n);
-	    if (itmp >= nS)
-		continue;
-	    const int d2 = Si[itmp];
-	    const double tau = sqrt(d2) / inv_b;
-	    const double te = Terms::truncation_error(z, N, tau, WN);
-	    if (std::isinf(te))
-		continue;
-	    const double re = Terms::rounding_error(z, N, tau, WN);
-	    const double wmi = Terms::wmin(ix, iy, d2, WW);
-	    const double err = (te+re) / wmi;
-	    if (err <= delta) {
-		itau = itmp;
-	    }
-	}
-	if (itau >= nS-1)
-	    throw std::runtime_error("increase d2max!");
+        OneCenter c2 = {ix, iy, 0, z.real(), z.imag()};
+        auto [itau2, dummy] = ::max_d2(N, delta, inv_b, c2, Si, WW);
 
-	VR[i] = {ix, iy, Si[itau], x, y};
+	VR[i] = {ix, iy, Si[itau2], x, y};
     }
 
     // Print list of results, divided in blocks with same x.
