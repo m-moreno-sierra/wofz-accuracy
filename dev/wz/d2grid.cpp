@@ -95,6 +95,10 @@ struct OneCenter {
     double y; //!< exact y coordinate of expansion center.
 };
 
+//! Determines maximum d2 (with rho<=delta) for given expansion center c.
+//! Return values:
+//! - itau, index in Si such that d2_max = Si[itau].
+//! - maxerr, maximum error within d2, in units of delta.
 std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCenter& c,
                                const std::vector<int>& Si, const std::vector<std::vector<double>>& WW)
 {
@@ -102,7 +106,7 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
     const int nS = Si.size();
     const int nSlb = int(log2(nS));
     int itau = 0;
-    double minerr = std::numeric_limits<double>::infinity();
+    double maxerr = std::numeric_limits<double>::infinity();
     std::vector<Ref::Coeff> WN = Ref::fn_vector(c.x, c.y);
     for (int n = nSlb; n>=0; --n) {
         int itmp = itau + (1 << n);
@@ -118,13 +122,13 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
         double err = (te+re) / wmi;
         if (err <= delta) {
             itau = itmp;
-            minerr = err;
+            maxerr = err;
         }
     }
     if (itau >= nS-1)
         throw std::runtime_error("increase d2max!");
-    assert(minerr <= delta || itau == 0);
-    return {itau, minerr};
+    assert(maxerr <= delta || itau == 0);
+    return {itau, maxerr};
 }
 
 } // namespace
@@ -196,7 +200,7 @@ int main(int argc, char *argv[])
 	const std::vector<int>& Si = S[::iSref(ix%2, iy%2)];
 
 	// Determine maximum d2 (with rho<=delta) for lattice point z.
-        auto [itau, minerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
+        auto [itau, maxerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
 
 	// Determine nearby zd with minimum rho at d2 determined above.
 	const int d2 = Si[itau];
@@ -219,8 +223,8 @@ int main(int argc, char *argv[])
 		    continue;
 		const double re = Terms::rounding_error(zd, N, tau, WN);
 		double err = (te+re) / wmi;
-		if (err < minerr) {
-		    minerr = err;
+		if (err < maxerr) {
+		    maxerr = err;
 		    z = zd;
 		}
 	    }
