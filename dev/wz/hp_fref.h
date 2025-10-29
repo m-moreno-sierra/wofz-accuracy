@@ -24,6 +24,8 @@
 #include <flint/acb.h>
 #include <vector>
 
+//! The reference function in arbitrary high precision, using data types from FLINT/Arb.
+
 namespace HP {
 
 //! Computes 'F' := f_ref('Z') with a precision of 'prec' decimal digits.

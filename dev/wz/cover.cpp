@@ -402,8 +402,8 @@ int main(int argc, char *argv[]) {
 	    if (!t || t->status < 0)
 		continue;
 	    const Ball* b = Covers[t->status];
-	    const std::vector<Coeff> WN = w_n_vector(b->cx, b->cy);
-	    const double wmi = abs(wofz((jx+1)/inv_a, (jy+1)/inv_a));
+	    const std::vector<Ref::Coeff> WN = Ref::fn_vector(b->cx, b->cy);
+	    const double wmi = abs(Ref::fref((jx+1)/inv_a, (jy+1)/inv_a));
 	    const double tx = (jx+0.5)/inv_a;
 	    const double ty = (jy+0.5)/inv_a;
 	    const double tau = hypot(fabs(tx-b->cx)+0.5/inv_a, fabs(ty-b->cy)+0.5/inv_a);
@@ -522,9 +522,9 @@ int main(int argc, char *argv[]) {
           << " * " << Covers.size() << "] = {\n";
         for (const Ball* b : Covers) {
 	    f << std::format("0x{:a}, 0x{:a}, ", b->cx, b->cy);
-	    std::vector<Coeff> WN = w_n_vector(b->cx, b->cy, NTayMax);
+	    std::vector<Ref::Coeff> WN = Ref::fn_vector(b->cx, b->cy, NTayMax);
 	    assert(NTayMax <= WN.size());
-	    for (const Coeff& wn : WN)
+	    for (const Ref::Coeff& wn : WN)
 		f << hexfloat(wn.fn.real()) << ", " << hexfloat(wn.fn.imag()) << ", ";
 	    f << "\n";
         }

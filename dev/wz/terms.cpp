@@ -26,7 +26,7 @@
 
 namespace {
 
-double taylor_remainder(double tau, int N0, int N1, const std::vector<Coeff>& WN)
+double taylor_remainder(double tau, int N0, int N1, const std::vector<Ref::Coeff>& WN)
 {
     assert(N1 <= WN.size());
     assert(tau > 0);
@@ -52,7 +52,7 @@ double Terms::wmin(int ix, int iy, int d2, const std::vector<std::vector<double>
     return ret;
 }
 
-double Terms::truncation_error(std::complex<double> z, int N, double tau, const std::vector<Coeff>& WN)
+double Terms::truncation_error(std::complex<double> z, int N, double tau, const std::vector<Ref::Coeff>& WN)
 {
     if (tau==0)
 	return 0;
@@ -71,7 +71,7 @@ double Terms::truncation_error(std::complex<double> z, int N, double tau, const 
     return te / eps;
 }
 
-double Terms::rounding_error(std::complex<double> z, int N, double tau, const std::vector<Coeff>& WN)
+double Terms::rounding_error(std::complex<double> z, int N, double tau, const std::vector<Ref::Coeff>& WN)
 {
     const double lambda1 = z.real() ? sqrt(5)+1 : 2.; // lambda + 1
     double re = 0;

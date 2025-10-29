@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     double y = strtod(argv[2], &endptr);
     assert(*endptr == '\0');
 
-    const std::complex<double> fz = wofz(x, y);
+    const std::complex<double> fz = Ref::fref(x, y);
 
     std::cout << std::format("f(z) = {:21.16e} + i {:21.16e}", fz.real(), fz.imag()) << std::endl;
 

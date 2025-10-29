@@ -23,14 +23,21 @@
 #include <complex>
 #include <vector>
 
+//! The reference function in standard double precision.
+
+namespace Ref {
+
+//! A complex Taylor coefficient, its absolute value and its relative rounding error.
 struct Coeff {
     std::complex<double> fn;
     double abs;
     double rel_rounding_err;
 };
 
-std::complex<double> wofz(double x, double y);
+std::complex<double> fref(double x, double y);
 
-std::vector<Coeff> w_n_vector(double x, double y, int N=53);
+std::vector<Coeff> fn_vector(double x, double y, int N=53);
+
+} // namespace Ref
 
 #endif // CERF_FLINT_WN_H

@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     const double inv_b = 2 * inv_a;
     const double tau = sqrt(d2)/(2*inv_a);
     const std::complex<double> z{x, y};
-    const std::vector<Coeff> WN = w_n_vector(x, y);
+    const std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
 
     const double te = Terms::truncation_error(z, N, tau, WN);
     const double re = Terms::rounding_error(z, N, tau, WN);

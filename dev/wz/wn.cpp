@@ -22,7 +22,7 @@
 #include <flint/arb.h>
 #include "hp_fref.h"
 
-std::complex<double> wofz(double x, double y)
+std::complex<double> Ref::fref(double x, double y)
 {
     acb_t Z;  acb_init(Z);
     arb_t E;  arb_init(E);
@@ -50,7 +50,7 @@ std::complex<double> wofz(double x, double y)
     return {wx, wy};
 }
 
-std::vector<Coeff> w_n_vector(double x, double y, int N)
+std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
 {
     acb_t Z;  acb_init(Z);
     acb_t F;  acb_init(F);

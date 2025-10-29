@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 	for (int i=0; i<npt; ++i) {
 	    double x = res.x + rdis(reng);
 	    double y = res.y + rdis(reng);
-	    const std::complex<double> wref = wofz(x, y);
+	    const std::complex<double> wref = Ref::fref(x, y);
 	    const std::complex<double> wlib = w_of_z(std::complex<double>{x, y});
 	    const double relerr = std::abs(wlib-wref) / std::abs(wref);
 	    if (relerr > res.d) {

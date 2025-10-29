@@ -77,7 +77,7 @@ std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
     for (int jx = 0; jx <= jrmax; ++jx) {
 	std::vector<double> wm;
 	for (int jy = 0; jx*jx+jy*jy <= jrmax*jrmax; ++jy)
-	    wm.emplace_back(abs(wofz(jx/(inv_b/2), jy/(inv_b/2))));
+	    wm.emplace_back(abs(Ref::fref(jx/(inv_b/2), jy/(inv_b/2))));
 	ret.emplace_back(wm);
     }
     return ret;
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 	int itau = 0;
 	int imin = 0;
 	double minerr = std::numeric_limits<double>::infinity();
-	std::vector<Coeff> WN = w_n_vector(x, y);
+	std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
 	for (int n = nSlb; n>=0; --n) {
 	    int itmp = itau + (1 << n);
 	    if (itmp >= nS)
@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
 		    continue;
 		double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
-		WN = w_n_vector(xd, yd);
+		WN = Ref::fn_vector(xd, yd);
 		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 
 	// Determine maximum d2 (with rho<=delta) for z determined above.
 	itau = 0;
-	WN = w_n_vector(x, y);
+	WN = Ref::fn_vector(x, y);
 	for (int n = nSlb; n>=0; --n) {
 	    int itmp = itau + (1 << n);
 	    if (itmp >= nS)
