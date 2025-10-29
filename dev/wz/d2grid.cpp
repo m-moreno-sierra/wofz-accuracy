@@ -88,11 +88,10 @@ std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
 //! i.e. a square lattice with lattice constant b, which is
 //! one half of the lattice constant a of the given square tiling.
 struct OneCenter {
-    int ix;   //!< x index of nearby b-grid point.
-    int iy;   //!< y index of nearby b-grid point.
-    int d2;   //!< squared covered polyomino circumcircle diameter in units of b^2.
-    double x; //!< exact x coordinate of expansion center.
-    double y; //!< exact y coordinate of expansion center.
+    int ix;                 //!< x index of nearby b-grid point.
+    int iy;                 //!< y index of nearby b-grid point.
+    int d2;                 //!< squared covered polyomino circumcircle diameter in units of b^2.
+    std::complex<double> z; //!< exact coordinates of expansion center.
 };
 
 //! Determines maximum d2 (with rho<=delta) for given expansion center c.
@@ -102,22 +101,21 @@ struct OneCenter {
 std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCenter& c,
                                const std::vector<int>& Si, const std::vector<std::vector<double>>& WW)
 {
-    const std::complex<double> z{c.x, c.y};
     const int nS = Si.size();
     const int nSlb = int(log2(nS));
     int itau = 0;
     double maxerr = std::numeric_limits<double>::infinity();
-    std::vector<Ref::Coeff> WN = Ref::fn_vector(z);
+    std::vector<Ref::Coeff> WN = Ref::fn_vector(c.z);
     for (int n = nSlb; n>=0; --n) {
         int itmp = itau + (1 << n);
         if (itmp >= nS)
             continue;
         const int d2 = Si[itmp];
         const double tau = sqrt(d2) / inv_b;
-        const double te = Terms::truncation_error(z, N, tau, WN);
+        const double te = Terms::truncation_error(c.z, N, tau, WN);
         if (std::isinf(te))
             continue;
-        const double re = Terms::rounding_error(z, N, tau, WN);
+        const double re = Terms::rounding_error(c.z, N, tau, WN);
         const double wmi = Terms::wmin(c.ix, c.iy, d2, WW);
         double err = (te+re) / wmi;
         if (err <= delta) {
@@ -193,11 +191,11 @@ int main(int argc, char *argv[])
     #pragma omp parallel for
     for (size_t i=0; i<VR.size(); ++i) {
 	const auto [ix, iy] = I[i];
-	double x = ix / inv_b;
-	double y = iy / inv_b;
-        OneCenter c = {ix, iy, 0, x, y};
-	std::complex<double> z{x, y};
+	const double x = ix / inv_b;
+	const double y = iy / inv_b;
 	const std::vector<int>& Si = S[::iSref(ix%2, iy%2)];
+
+        OneCenter c = {ix, iy, 0, {x, y}}; // will be optimized in-place
 
 	// Determine maximum d2 (with rho<=delta) for lattice point z.
         auto [itau, maxerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
@@ -217,7 +215,7 @@ int main(int argc, char *argv[])
 		    continue;
 		const double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
-		const std::vector<Ref::Coeff> WN = Ref::fn_vector({xd, yd});
+		const std::vector<Ref::Coeff> WN = Ref::fn_vector(zd);
 		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
@@ -225,28 +223,27 @@ int main(int argc, char *argv[])
 		const double err = (te+re) / wmi;
 		if (err < maxerr) {
 		    maxerr = err;
-		    z = zd;
+		    c.z = zd;
 		}
 	    }
 	}
 
 	// Determine maximum d2 (with rho<=delta) for z determined above.
-        OneCenter c2 = {ix, iy, 0, z.real(), z.imag()};
-        auto [itau2, dummy] = ::max_d2(N, delta, inv_b, c2, Si, WW);
-        c2.d2 = Si[itau2];
-	VR[i] = c2;
+        auto [itau2, dummy] = ::max_d2(N, delta, inv_b, c, Si, WW);
+        c.d2 = Si[itau2];
+	VR[i] = c;
     }
 
     // Print list of results, divided in blocks with same x.
     int ixold = -1;
     for (const auto& r : VR) {
-	const auto [ix, iy, d2, x, y] = r;
+	const auto [ix, iy, d2, z] = r;
 	if (ix != ixold) {
 	    if (ix>0)
 		std::cout << "\n";
 	    std::cout << std::format("{:f}", ix / inv_b) << "\n";
 	}
-	std::cout << std::format("{:f} {:d} 0x{:a} 0x{:a}\n", iy / inv_b, d2, x, y);
+	std::cout << std::format("{:f} {:d} 0x{:a} 0x{:a}\n", iy / inv_b, d2, z.real(), z.imag());
 	ixold = ix;
     }
     std::cout << "\n";
