@@ -103,7 +103,8 @@ int main(int argc, char *argv[])
     assert(*endptr == '\0');
     const double delta = strtod(argv[2], &endptr);
     assert(*endptr == '\0');
-    const double inv_a = strtod(argv[3], &endptr);
+    // Grid of expansion centers has half the lattice constant of the give square tiling:
+    const double inv_b = 2 * strtod(argv[3], &endptr);
     assert(*endptr == '\0');
     const int M = strtol(argv[4], &endptr, 10);
     assert(*endptr == '\0');
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
     printf("#   N_Taylor = %i (order of expansion)\n", N);
     printf("#   delta = %g (maximum error in units of epsilon)\n", delta);
     printf("#   M_recenter = %i (potential expansion centers from range -M...M)\n", M);
-    printf("#   1/a = %g\n (inverse lattice constant of square tiling)", inv_a);
+    printf("#   1/a = %g\n (inverse lattice constant of square tiling)", inv_b / 2);
     printf("# Output format:\n");
     printf("#   Block header line entry:\n");
     printf("#     x of grid point\n");
@@ -125,8 +126,6 @@ int main(int argc, char *argv[])
     printf("#     y' of expansion center (close to y)\n");
 
     const double R = 7;
-    // Grid of expansion centers has half the lattice constant of the give square tiling:
-    const double inv_b = 2 * inv_a;
     const int d2max = 1023;
 
     // D2 sequences start with 0. Otherwise as in paper.
@@ -182,7 +181,7 @@ int main(int argc, char *argv[])
 	    if (itmp >= nS)
 		continue;
 	    const int d2 = Si[itmp];
-	    const double tau = sqrt(d2) / (2 * inv_a);
+	    const double tau = sqrt(d2) / inv_b;
 	    const double te = truncation_error(z, N, tau, WN);
 	    if (std::isinf(te))
 		continue;
@@ -200,7 +199,7 @@ int main(int argc, char *argv[])
 
 	// Determine nearby zd with minimum rho at d2 determined above.
 	const int d2 = Si[itau];
-	const double tau = sqrt(d2) / (2 * inv_a);
+	const double tau = sqrt(d2) / inv_b;
 	const double wmi = wmin(ix, iy, d2, WW);
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
@@ -236,7 +235,7 @@ int main(int argc, char *argv[])
 	    if (itmp >= nS)
 		continue;
 	    const int d2 = Si[itmp];
-	    const double tau = sqrt(d2) / (2 * inv_a);
+	    const double tau = sqrt(d2) / inv_b;
 	    const double te = truncation_error(z, N, tau, WN);
 	    if (std::isinf(te))
 		continue;
@@ -253,6 +252,7 @@ int main(int argc, char *argv[])
 	VR[i] = Result{ix, iy, Si[itau], x, y};
     }
 
+    // Print list of results, divided in blocks with same x.
     int ixold = -1;
     for (const auto& r : VR) {
 	const auto [ix, iy, d2, x, y] = r;
