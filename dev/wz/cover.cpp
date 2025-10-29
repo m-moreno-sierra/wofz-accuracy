@@ -55,8 +55,7 @@ struct Ball {
     int ix;
     int iy;
     int d2;
-    double cx;
-    double cy;
+    std::complex<double> c;
     vector<Tile*> covered_tiles;
 };
 
@@ -179,7 +178,7 @@ void read_d2_file(const std::string& fname, Ranges& RR, int& NTayMax, double& in
 						     y, 2 * inv_a * y, iy));
             }
 	    if (d2)
-		RR.emplace_back(new Ball{ix, iy, d2, cx, cy, {}});
+		RR.emplace_back(new Ball{ix, iy, d2, {cx, cy}, {}});
             iy++;
         }
     }
@@ -401,21 +400,20 @@ int main(int argc, char *argv[]) {
 	    if (!t || t->status < 0)
 		continue;
 	    const Ball* b = Covers[t->status];
-	    const std::vector<Ref::Coeff> WN = Ref::fn_vector(b->cx, b->cy);
+	    const std::vector<Ref::Coeff> WN = Ref::fn_vector(b->c);
 	    const double wmi = abs(Ref::fref((jx+1)/inv_a, (jy+1)/inv_a));
 	    const double tx = (jx+0.5)/inv_a;
 	    const double ty = (jy+0.5)/inv_a;
-	    const double tau = hypot(fabs(tx-b->cx)+0.5/inv_a, fabs(ty-b->cy)+0.5/inv_a);
-	    const std::complex<double> cz(b->cx, b->cy);
+	    const double tau = hypot(fabs(tx-b->c.real())+0.5/inv_a, fabs(ty-b->c.imag())+0.5/inv_a);
 	    int Nk = NTayMax;
 	    for (int nb = nbmax; nb >= 0; --nb) {
 		int ntmp = Nk - (1<<nb);
 		if (ntmp < 0)
 		    break;
-		const double te = Terms::truncation_error(cz, ntmp, tau, WN);
+		const double te = Terms::truncation_error(b->c, ntmp, tau, WN);
 		if (std::isinf(te))
 		    continue;
-		const double re = Terms::rounding_error(cz, ntmp, tau, WN);
+		const double re = Terms::rounding_error(b->c, ntmp, tau, WN);
 		const double err = (te+re) / wmi;
 		if (err <= delta)
 		    Nk = ntmp;
@@ -520,8 +518,8 @@ int main(int argc, char *argv[]) {
         f << "alignas(64) static const double TaylorCoeffs[2 * " << (NTayMax + 1)
           << " * " << Covers.size() << "] = {\n";
         for (const Ball* b : Covers) {
-	    f << std::format("0x{:a}, 0x{:a}, ", b->cx, b->cy);
-	    std::vector<Ref::Coeff> WN = Ref::fn_vector(b->cx, b->cy, NTayMax);
+	    f << std::format("0x{:a}, 0x{:a}, ", b->c.real(), b->c.imag());
+	    std::vector<Ref::Coeff> WN = Ref::fn_vector(b->c, NTayMax);
 	    assert(NTayMax <= WN.size());
 	    for (const Ref::Coeff& wn : WN)
 		f << hexfloat(wn.fn.real()) << ", " << hexfloat(wn.fn.imag()) << ", ";

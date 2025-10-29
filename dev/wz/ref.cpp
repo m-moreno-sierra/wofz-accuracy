@@ -50,7 +50,7 @@ std::complex<double> Ref::fref(double x, double y)
     return {wx, wy};
 }
 
-std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
+std::vector<Ref::Coeff> Ref::fn_vector(std::complex<double> z, int N)
 {
     acb_t Z;  acb_init(Z);
     acb_t F;  acb_init(F);
@@ -61,8 +61,8 @@ std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
     for (acb_t& v : V)
 	acb_init(v);
 
-    arb_set_d(acb_realref(Z), x);
-    arb_set_d(acb_imagref(Z), y);
+    arb_set_d(acb_realref(Z), z.real());
+    arb_set_d(acb_imagref(Z), z.imag());
     const int prec = 343;
     HP::acb_fcoeffs(V, Z, prec);
 

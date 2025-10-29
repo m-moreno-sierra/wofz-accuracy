@@ -107,7 +107,7 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
     const int nSlb = int(log2(nS));
     int itau = 0;
     double maxerr = std::numeric_limits<double>::infinity();
-    std::vector<Ref::Coeff> WN = Ref::fn_vector(c.x, c.y);
+    std::vector<Ref::Coeff> WN = Ref::fn_vector(z);
     for (int n = nSlb; n>=0; --n) {
         int itmp = itau + (1 << n);
         if (itmp >= nS)
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 		    continue;
 		const double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
-		const std::vector<Ref::Coeff> WN = Ref::fn_vector(xd, yd);
+		const std::vector<Ref::Coeff> WN = Ref::fn_vector({xd, yd});
 		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
