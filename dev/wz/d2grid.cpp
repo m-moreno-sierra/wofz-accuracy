@@ -182,11 +182,11 @@ int main(int argc, char *argv[])
 		continue;
 	    const int d2 = Si[itmp];
 	    const double tau = sqrt(d2) / inv_b;
-	    const double te = truncation_error(z, N, tau, WN);
+	    const double te = Terms::truncation_error(z, N, tau, WN);
 	    if (std::isinf(te))
 		continue;
-	    const double re = rounding_error(z, N, tau, WN);
-	    const double wmi = wmin(ix, iy, d2, WW);
+	    const double re = Terms::rounding_error(z, N, tau, WN);
+	    const double wmi = Terms::wmin(ix, iy, d2, WW);
 	    double err = (te+re) / wmi;
 	    if (err <= delta) {
 		itau = itmp;
@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
 	// Determine nearby zd with minimum rho at d2 determined above.
 	const int d2 = Si[itau];
 	const double tau = sqrt(d2) / inv_b;
-	const double wmi = wmin(ix, iy, d2, WW);
+	const double wmi = Terms::wmin(ix, iy, d2, WW);
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
 		continue;
@@ -213,10 +213,10 @@ int main(int argc, char *argv[])
 		double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
 		WN = w_n_vector(xd, yd);
-		const double te = truncation_error(zd, N, tau, WN);
+		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
-		const double re = rounding_error(zd, N, tau, WN);
+		const double re = Terms::rounding_error(zd, N, tau, WN);
 		double err = (te+re) / wmi;
 		if (err < minerr) {
 		    minerr = err;
@@ -236,11 +236,11 @@ int main(int argc, char *argv[])
 		continue;
 	    const int d2 = Si[itmp];
 	    const double tau = sqrt(d2) / inv_b;
-	    const double te = truncation_error(z, N, tau, WN);
+	    const double te = Terms::truncation_error(z, N, tau, WN);
 	    if (std::isinf(te))
 		continue;
-	    const double re = rounding_error(z, N, tau, WN);
-	    const double wmi = wmin(ix, iy, d2, WW);
+	    const double re = Terms::rounding_error(z, N, tau, WN);
+	    const double wmi = Terms::wmin(ix, iy, d2, WW);
 	    const double err = (te+re) / wmi;
 	    if (err <= delta) {
 		itau = itmp;

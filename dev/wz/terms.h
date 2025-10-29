@@ -22,6 +22,8 @@
 
 #include "wn.h"
 
+namespace Terms {
+
 double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W);
 
 double truncation_error(std::complex<double> z, int N, double tau,
@@ -29,5 +31,7 @@ double truncation_error(std::complex<double> z, int N, double tau,
 
 double rounding_error(std::complex<double> z, int N, double tau,
 		      const std::vector<Coeff>& WN);
+
+} // namespace Terms
 
 #endif // CERF_FLINT_TERMS_H

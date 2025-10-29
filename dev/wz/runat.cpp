@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
     const std::complex<double> z{x, y};
     const std::vector<Coeff> WN = w_n_vector(x, y);
 
-    const double te = truncation_error(z, N, tau, WN);
-    const double re = rounding_error(z, N, tau, WN);
+    const double te = Terms::truncation_error(z, N, tau, WN);
+    const double re = Terms::rounding_error(z, N, tau, WN);
     std::cout << std::format("te={:f} re={:f}", te, re) << std::endl;
 
     return 0;

@@ -413,10 +413,10 @@ int main(int argc, char *argv[]) {
 		int ntmp = Nk - (1<<nb);
 		if (ntmp < 0)
 		    break;
-		const double te = truncation_error(cz, ntmp, tau, WN);
+		const double te = Terms::truncation_error(cz, ntmp, tau, WN);
 		if (std::isinf(te))
 		    continue;
-		const double re = rounding_error(cz, ntmp, tau, WN);
+		const double re = Terms::rounding_error(cz, ntmp, tau, WN);
 		const double err = (te+re) / wmi;
 		if (err <= delta)
 		    Nk = ntmp;
