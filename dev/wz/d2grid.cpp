@@ -83,6 +83,18 @@ std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
     return ret;
 }
 
+//! Full characterization of one Taylor expansion center.
+//! Such centers are computed with respect to a given b-grid,
+//! i.e. a square lattice with lattice constant b, which is
+//! one half of the lattice constant a of the given square tiling.
+struct OneCenter {
+    int ix;   //!< x index of nearby b-grid point.
+    int iy;   //!< y index of nearby b-grid point.
+    int d2;   //!< squared covered polyomino circumcircle diameter in units of b^2.
+    double x; //!< exact x coordinate of expansion center.
+    double y; //!< exact y coordinate of expansion center.
+};
+
 } // namespace
 
 
@@ -121,7 +133,7 @@ int main(int argc, char *argv[])
     printf("#     x of grid point\n");
     printf("#   Block lines entries:\n");
     printf("#     y of grid point\n");
-    printf("#     d2, covered polyomino circumcircle diameter in units of (a/2)^2\n");
+    printf("#     d2, squared covered polyomino circumcircle diameter in units of (a/2)^2\n");
     printf("#     x' of expansion center (close to x)\n");
     printf("#     y' of expansion center (close to y)\n");
 
@@ -140,14 +152,7 @@ int main(int argc, char *argv[])
 
     std::vector<std::pair<int,int>> I = Ref::domain_grid(inv_b); // List of grid points within domain.
 
-    struct Result {
-	int ix;
-	int iy;
-	int d2;
-	double x;
-	double y;
-    };
-    std::vector<Result> VR(I.size());
+    std::vector<::OneCenter> VR(I.size());
 
     #pragma omp parallel for
     for (int i=0; i<VR.size(); ++i) {
@@ -237,7 +242,7 @@ int main(int argc, char *argv[])
 	if (itau >= nS-1)
 	    throw std::runtime_error("increase d2max!");
 
-	VR[i] = Result{ix, iy, Si[itau], x, y};
+	VR[i] = {ix, iy, Si[itau], x, y};
     }
 
     // Print list of results, divided in blocks with same x.
