@@ -30,13 +30,15 @@
 
 #define SQR(x) ((x)*(x))
 
-std::vector<int> sorted_diameters(int sx, int sy, int d2max)
+//! Returns list of squared polyomino circumcircle diameters for given parities pi_x, pi_y.
+//! This is Algorithm 1 of the reference paper.
+std::vector<int> sorted_diameters(int pi_x, int pi_y, int d2max)
 {
     std::set<int> set;
     set.insert(0);
     for (int p=1; p<sqrt(d2max); ++p) {
 	for (int q=1;; ++q) {
-	    int d2 = SQR(2*p-sx) + SQR(2*q-sy);
+	    int d2 = SQR(2*p-pi_x) + SQR(2*q-pi_y);
 	    if (d2 > d2max)
 		break;
 	    set.insert(d2);
@@ -45,11 +47,11 @@ std::vector<int> sorted_diameters(int sx, int sy, int d2max)
     return std::vector<int>(set.begin(), set.end());
 }
 
-int iSref(bool sx, bool sy)
+int iSref(bool pi_x, bool pi_y)
 {
-    if (sx && sy)
+    if (pi_x && pi_y)
 	return 0;
-    else if ((!sx) && (!sy))
+    else if ((!pi_x) && (!pi_y))
 	return 2;
     else
 	return 1;
@@ -67,7 +69,13 @@ double double_neighbor(double x, int n)
 int main(int argc, char *argv[])
 {
     if (argc != 5) {
+        fprintf(stderr, "For each grid point, determine optimized expansion center and range.\n");
         fprintf(stderr, "Usage: %s N_Taylor delta inverse_a M_offsets\n", argv[0]);
+        fprintf(stderr, "where\n");
+        fprintf(stderr, "  N_Taylor  = order of expansion\n");
+        fprintf(stderr, "  delta     = maximum error in units of epsilon\n");
+        fprintf(stderr, "  inverse_a = 1/a where a is lattice constant of square tiling\n");
+        fprintf(stderr, "  M_offsets = M : try neighbor grid points from -M to M as expansion centers\n");
         return 1;
     }
     char *endptr;
@@ -82,12 +90,22 @@ int main(int argc, char *argv[])
 
     const auto now = std::chrono::system_clock::now();
     printf("# Created by %s at %s\n", argv[0], std::format("{:%d-%m-%Y %H:%M:%OS}", now).c_str());
-    printf("# N_Taylor = %i\n", N);
-    printf("# delta = %g\n", delta);
-    printf("# M_recenter = %i\n", M);
-    printf("# 1/a = %g\n", inv_a);
+    printf("# Given parameters:\n");
+    printf("#   N_Taylor = %i (order of expansion)\n", N);
+    printf("#   delta = %g (maximum error in units of epsilon)\n", delta);
+    printf("#   M_recenter = %i (potential expansion centers from range -M...M)\n", M);
+    printf("#   1/a = %g\n (inverse lattice constant of square tiling)", inv_a);
+    printf("# Output format:\n");
+    printf("#   Block header line entry:\n");
+    printf("#     x of grid point\n");
+    printf("#   Block lines entries:\n");
+    printf("#     y of grid point\n");
+    printf("#     d2, covered polyomino circumcircle diameter in units of (a/2)^2\n");
+    printf("#     x' of expansion center (close to x)\n");
+    printf("#     y' of expansion center (close to y)\n");
 
     const double R = 7;
+    // Grid of expansion centers has half the lattice constant of the give square tiling:
     const double inv_b = 2 * inv_a;
     const int d2max = 1023;
 
@@ -102,12 +120,12 @@ int main(int argc, char *argv[])
 
     const std::vector<std::vector<double>> WW = wOnGrid(inv_b, d2max);
 
-    std::vector<std::pair<int,int>> I;
+    std::vector<std::pair<int,int>> I; // List of grid points within domain.
     for (int ix = 0;; ++ix) {
 	double x = ix / inv_b;
 	if (x>R)
 	    break;
-	std::string out = std::format("{:f}\n", x);
+	std::string out = std::format("{:f}\n", x); // Block header line
 	for (int iy = 0;; ++iy) {
 	    double y = iy / inv_b;
 	    if (x*x + y*y >= R*R)
