@@ -125,7 +125,6 @@ int main(int argc, char *argv[])
     printf("#     x' of expansion center (close to x)\n");
     printf("#     y' of expansion center (close to y)\n");
 
-    const double R = 7;
     const int d2max = 1023;
 
     // D2 sequences start with 0. Otherwise as in paper.
@@ -139,18 +138,7 @@ int main(int argc, char *argv[])
 
     const std::vector<std::vector<double>> WW = ::wOnGrid(inv_b, d2max);
 
-    std::vector<std::pair<int,int>> I; // List of grid points within domain.
-    for (int ix = 0;; ++ix) {
-	double x = ix / inv_b;
-	if (x>R)
-	    break;
-	for (int iy = 0;; ++iy) {
-	    double y = iy / inv_b;
-	    if (x*x + y*y >= R*R)
-		break;
-	    I.emplace_back(std::pair<int,int>{ix, iy});
-	}
-    }
+    std::vector<std::pair<int,int>> I = Ref::domain_grid(inv_b); // List of grid points within domain.
 
     struct Result {
 	int ix;

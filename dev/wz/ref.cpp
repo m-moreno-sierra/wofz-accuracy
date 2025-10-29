@@ -98,3 +98,22 @@ std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
 
     return ret;
 }
+
+// Returns list of indices of lattice points within domain, for given inverse lattice constant inv_b.
+std::vector<std::pair<int,int>> Ref::domain_grid(double inv_b)
+{
+    std::vector<std::pair<int,int>> ret;
+    const double R = 7;
+    for (int ix = 0;; ++ix) {
+	double x = ix / inv_b;
+	if (x>R)
+	    break;
+	for (int iy = 0;; ++iy) {
+	    double y = iy / inv_b;
+	    if (x*x + y*y >= R*R)
+		break;
+	    ret.emplace_back(std::pair<int,int>{ix, iy});
+	}
+    }
+    return ret;
+}
