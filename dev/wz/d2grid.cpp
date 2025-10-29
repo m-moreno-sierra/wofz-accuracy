@@ -209,20 +209,20 @@ int main(int argc, char *argv[])
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
 		continue;
-	    double xd = ::double_neighbor(x, idx);
+	    const double xd = ::double_neighbor(x, idx);
 	    for (int idy=-M; idy<=M; ++idy) {
 		if (idx==0 and idy==0)
 		    continue;
 		if (iy==0 && idy!=0)
 		    continue;
-		double yd = ::double_neighbor(y, idy);
+		const double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
 		const std::vector<Ref::Coeff> WN = Ref::fn_vector(xd, yd);
 		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
 		const double re = Terms::rounding_error(zd, N, tau, WN);
-		double err = (te+re) / wmi;
+		const double err = (te+re) / wmi;
 		if (err < maxerr) {
 		    maxerr = err;
 		    z = zd;
@@ -233,8 +233,8 @@ int main(int argc, char *argv[])
 	// Determine maximum d2 (with rho<=delta) for z determined above.
         OneCenter c2 = {ix, iy, 0, z.real(), z.imag()};
         auto [itau2, dummy] = ::max_d2(N, delta, inv_b, c2, Si, WW);
-
-	VR[i] = {ix, iy, Si[itau2], x, y};
+        c2.d2 = Si[itau2];
+	VR[i] = c2;
     }
 
     // Print list of results, divided in blocks with same x.
