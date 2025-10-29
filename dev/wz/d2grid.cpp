@@ -83,6 +83,16 @@ std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
     return ret;
 }
 
+double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
+{
+    double ret = std::numeric_limits<double>::infinity();
+    for (int dix = ix%2; dix < sqrt(d2); dix += 2) {
+        int diy = iy%2 + int((sqrt(d2-dix*dix)-iy%2)/2);
+        ret = std::min(ret, W.at((ix+dix)/2).at((iy+diy)/2));
+    }
+    return ret;
+}
+
 //! Full characterization of one Taylor expansion center.
 //! Such centers are computed with respect to a given b-grid,
 //! i.e. a square lattice with lattice constant b, which is
@@ -116,7 +126,7 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
         if (std::isinf(te))
             continue;
         const double re = Terms::rounding_error(c.z, N, tau, WN);
-        const double wmi = Terms::wmin(c.ix, c.iy, d2, WW);
+        const double wmi = ::wmin(c.ix, c.iy, d2, WW);
         double err = (te+re) / wmi;
         if (err <= delta) {
             itau = itmp;
@@ -203,7 +213,7 @@ int main(int argc, char *argv[])
 	// Determine nearby zd with minimum rho at d2 determined above.
 	const int d2 = Si[itau];
 	const double tau = sqrt(d2) / inv_b;
-	const double wmi = Terms::wmin(ix, iy, d2, WW);
+	const double wmi = ::wmin(ix, iy, d2, WW);
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
 		continue;

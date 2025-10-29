@@ -42,16 +42,6 @@ double taylor_remainder(double tau, int N0, int N1, const std::vector<Ref::Coeff
 } // namespace
 
 
-double Terms::wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
-{
-    double ret = std::numeric_limits<double>::infinity();
-    for (int dix = ix%2; dix < sqrt(d2); dix += 2) {
-        int diy = iy%2 + int((sqrt(d2-dix*dix)-iy%2)/2);
-        ret = std::min(ret, W.at((ix+dix)/2).at((iy+diy)/2));
-    }
-    return ret;
-}
-
 double Terms::truncation_error(std::complex<double> z, int N, double tau, const std::vector<Ref::Coeff>& WN)
 {
     if (tau==0)

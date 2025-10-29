@@ -24,8 +24,6 @@
 
 namespace Terms {
 
-double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W);
-
 double truncation_error(std::complex<double> z, int N, double tau,
 			const std::vector<Ref::Coeff>& WN);
 
