@@ -17,15 +17,14 @@
 //
 //  ************************************************************************************************
 
+#include "relerr.h"
 #include <cassert>
 #include <flint/arb.h>
 #include <flint/acb.h>
 #include <flint/acb_hypgeom.h>
 #include <cerf.h>
-#include "relerr.h"
+#include "hp_fref.h"
 #include "wn.h"
-
-void my_acb_wofz(acb_t W, const acb_t Z, slong prec);
 
 //! Returns relative error between high-precision and target code.
 
@@ -41,7 +40,7 @@ double relerr_wofz(double x, double y)
     arb_set_d(acb_realref(Z), x);
     arb_set_d(acb_imagref(Z), y);
     int prec = 103;
-    my_acb_wofz(W, Z, prec);
+    HP::acb_fref(W, Z, prec);
 
     acb_get_real(E, W);
     double wx = arf_get_d(arb_midref(E), ARF_RND_NEAR);
