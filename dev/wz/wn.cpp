@@ -25,25 +25,9 @@
 #include <flint/acb_hypgeom.h>
 #include "wn.h"
 
-void my_acb_wofz(acb_t W, const acb_t Z, slong prec)
-{
-    acb_t T0; acb_init(T0);
-    acb_t T1; acb_init(T1);
-    acb_t T2; acb_init(T2);
-    acb_t I;  acb_init(I);  acb_onei(I);
+void my_acb_wofz(acb_t W, const acb_t Z, slong prec); // also used externally by relerr_wofz
 
-    acb_mul(T0, Z, I, prec);
-    acb_neg(T0, T0);
-    acb_hypgeom_erfc(T1, T0, prec); // erfc(-iz)
-    acb_sqr(T0, T0, prec);
-    acb_exp(T2, T0, prec); // exp(-z^2)=exp((-iz)^2)
-    acb_mul(W, T1, T2, prec);
-
-    acb_clear(T0);
-    acb_clear(T1);
-    acb_clear(T2);
-    acb_clear(I);
-}
+namespace {
 
 void my_acb_w_coeffs(std::vector<acb_t>& V, const acb_t Z, slong prec)
 {
@@ -70,6 +54,29 @@ void my_acb_w_coeffs(std::vector<acb_t>& V, const acb_t Z, slong prec)
     arb_clear(X);
     arb_clear(Y);
     acb_clear(T1);
+}
+
+} // namespace
+
+
+void my_acb_wofz(acb_t W, const acb_t Z, slong prec)
+{
+    acb_t T0; acb_init(T0);
+    acb_t T1; acb_init(T1);
+    acb_t T2; acb_init(T2);
+    acb_t I;  acb_init(I);  acb_onei(I);
+
+    acb_mul(T0, Z, I, prec);
+    acb_neg(T0, T0);
+    acb_hypgeom_erfc(T1, T0, prec); // erfc(-iz)
+    acb_sqr(T0, T0, prec);
+    acb_exp(T2, T0, prec); // exp(-z^2)=exp((-iz)^2)
+    acb_mul(W, T1, T2, prec);
+
+    acb_clear(T0);
+    acb_clear(T1);
+    acb_clear(T2);
+    acb_clear(I);
 }
 
 std::complex<double> wofz(double x, double y)
