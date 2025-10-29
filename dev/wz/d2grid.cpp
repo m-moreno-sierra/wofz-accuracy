@@ -145,7 +145,6 @@ int main(int argc, char *argv[])
 	double x = ix / inv_b;
 	if (x>R)
 	    break;
-	std::string out = std::format("{:f}\n", x); // Block header line
 	for (int iy = 0;; ++iy) {
 	    double y = iy / inv_b;
 	    if (x*x + y*y >= R*R)

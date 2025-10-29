@@ -41,3 +41,5 @@ target_link_libraries(runat PRIVATE flint)
 target_link_libraries(worst_per_tile PRIVATE flint ${Cerf_LIBRARIES} OpenMP::OpenMP_CXX)
 target_link_libraries(statistics PRIVATE flint ${Cerf_LIBRARIES} OpenMP::OpenMP_CXX)
 #target_link_libraries(wminat PRIVATE flint)
+
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
