@@ -20,7 +20,7 @@
 #ifndef CERF_FLINT_TERMS_H
 #define CERF_FLINT_TERMS_H
 
-#include "wn.h"
+#include "ref.h"
 
 namespace Terms {
 

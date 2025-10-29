@@ -25,7 +25,7 @@
 #include <format>
 #include <future>
 #include <limits>
-#include "wn.h"
+#include "ref.h"
 
 //! Program ref_val prints high-precision reference function value f(z)
 //! for z=x+iy given by command-line arguments x, y.

@@ -22,7 +22,7 @@
 #include <flint/arb.h>
 #include <cerf.h>
 #include "hp_fref.h"
-#include "wn.h"
+#include "ref.h"
 
 //! Returns relative error between high-precision and target code.
 

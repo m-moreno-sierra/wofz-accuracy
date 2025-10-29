@@ -22,7 +22,7 @@
 #include <iostream>
 #include <vector>
 #include "terms.h"
-#include "wn.h"
+#include "ref.h"
 
 namespace {
 
