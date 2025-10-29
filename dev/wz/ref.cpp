@@ -103,14 +103,12 @@ std::vector<Ref::Coeff> Ref::fn_vector(double x, double y, int N)
 std::vector<std::pair<int,int>> Ref::domain_grid(double inv_b)
 {
     std::vector<std::pair<int,int>> ret;
-    const double R = 7;
+    const double R = 7 * inv_b;
     for (int ix = 0;; ++ix) {
-	double x = ix / inv_b;
-	if (x>R)
+	if (ix>R)
 	    break;
 	for (int iy = 0;; ++iy) {
-	    double y = iy / inv_b;
-	    if (x*x + y*y >= R*R)
+	    if (ix*ix + iy*iy >= R*R)
 		break;
 	    ret.emplace_back(std::pair<int,int>{ix, iy});
 	}
