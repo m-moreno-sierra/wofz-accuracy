@@ -95,6 +95,38 @@ struct OneCenter {
     double y; //!< exact y coordinate of expansion center.
 };
 
+std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCenter& c,
+                               const std::vector<int>& Si, const std::vector<std::vector<double>>& WW)
+{
+    const std::complex<double> z{c.x, c.y};
+    const int nS = Si.size();
+    const int nSlb = int(log2(nS));
+    int itau = 0;
+    double minerr = std::numeric_limits<double>::infinity();
+    std::vector<Ref::Coeff> WN = Ref::fn_vector(c.x, c.y);
+    for (int n = nSlb; n>=0; --n) {
+        int itmp = itau + (1 << n);
+        if (itmp >= nS)
+            continue;
+        const int d2 = Si[itmp];
+        const double tau = sqrt(d2) / inv_b;
+        const double te = Terms::truncation_error(z, N, tau, WN);
+        if (std::isinf(te))
+            continue;
+        const double re = Terms::rounding_error(z, N, tau, WN);
+        const double wmi = Terms::wmin(c.ix, c.iy, d2, WW);
+        double err = (te+re) / wmi;
+        if (err <= delta) {
+            itau = itmp;
+            minerr = err;
+        }
+    }
+    if (itau >= nS-1)
+        throw std::runtime_error("increase d2max!");
+    assert(minerr <= delta || itau == 0);
+    return {itau, minerr};
+}
+
 } // namespace
 
 
@@ -159,35 +191,14 @@ int main(int argc, char *argv[])
 	const auto [ix, iy] = I[i];
 	double x = ix / inv_b;
 	double y = iy / inv_b;
+        OneCenter c = {ix, iy, 0, x, y};
 	std::complex<double> z{x, y};
 	const std::vector<int>& Si = S[::iSref(ix%2, iy%2)];
 	const int nS = Si.size();
 	const int nSlb = int(log2(nS));
 
 	// Determine maximum d2 (with rho<=delta) for lattice point z.
-	int itau = 0;
-	double minerr = std::numeric_limits<double>::infinity();
-	std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
-	for (int n = nSlb; n>=0; --n) {
-	    int itmp = itau + (1 << n);
-	    if (itmp >= nS)
-		continue;
-	    const int d2 = Si[itmp];
-	    const double tau = sqrt(d2) / inv_b;
-	    const double te = Terms::truncation_error(z, N, tau, WN);
-	    if (std::isinf(te))
-		continue;
-	    const double re = Terms::rounding_error(z, N, tau, WN);
-	    const double wmi = Terms::wmin(ix, iy, d2, WW);
-	    double err = (te+re) / wmi;
-	    if (err <= delta) {
-		itau = itmp;
-		minerr = err;
-	    }
-	}
-	if (itau >= nS-1)
-	    throw std::runtime_error("increase d2max!");
-	assert(minerr <= delta || itau == 0);
+        auto [itau, minerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
 
 	// Determine nearby zd with minimum rho at d2 determined above.
 	const int d2 = Si[itau];
@@ -204,7 +215,7 @@ int main(int argc, char *argv[])
 		    continue;
 		double yd = ::double_neighbor(y, idy);
 		const std::complex<double> zd{xd, yd};
-		WN = Ref::fn_vector(xd, yd);
+		const std::vector<Ref::Coeff> WN = Ref::fn_vector(xd, yd);
 		const double te = Terms::truncation_error(zd, N, tau, WN);
 		if (std::isinf(te))
 		    continue;
@@ -221,7 +232,7 @@ int main(int argc, char *argv[])
 
 	// Determine maximum d2 (with rho<=delta) for z determined above.
 	itau = 0;
-	WN = Ref::fn_vector(x, y);
+	const std::vector<Ref::Coeff> WN = Ref::fn_vector(x, y);
 	for (int n = nSlb; n>=0; --n) {
 	    int itmp = itau + (1 << n);
 	    if (itmp >= nS)
