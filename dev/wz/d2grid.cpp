@@ -9,7 +9,9 @@
 //
 //  File:      d2grid.cpp
 //
-//  Purpose:   Provides program d2grid.
+//  Purpose:   Program d2grid is Algorithm 2 [Acenters] of the reference paper.
+//             It determines near-optimum expansion centers, and writes a data file
+//             that is an essential input to the subsequent set cover computation.
 //
 //  License:   MIT License (file LICENSE in toplevel directory)
 //  Copyright: Forschungszentrum Jülich GmbH 2025
@@ -34,16 +36,16 @@ namespace {
 
 //! Returns list of squared polyomino circumcircle diameters for given parities pi_x, pi_y.
 //! This is Algorithm 1 of the reference paper.
-std::vector<int> sorted_diameters(int pi_x, int pi_y, int d2max)
+std::vector<int> sorted_diameters(int pi_x, int pi_y, int kappamax)
 {
     std::set<int> set;
     set.insert(0);
-    for (int p=1; p<sqrt(d2max); ++p) {
+    for (int p=1; p<sqrt(kappamax); ++p) {
 	for (int q=1;; ++q) {
-	    int d2 = SQR(2*p-pi_x) + SQR(2*q-pi_y);
-	    if (d2 > d2max)
+	    int kappa = SQR(2*p-pi_x) + SQR(2*q-pi_y);
+	    if (kappa > kappamax)
 		break;
-	    set.insert(d2);
+	    set.insert(kappa);
 	}
     }
     return std::vector<int>(set.begin(), set.end());
@@ -68,11 +70,11 @@ double double_neighbor(double x, int n)
     return ret;
 }
 
-std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
+std::vector<std::vector<double>> wOnGrid(double inv_b, int kappamax)
 {
     std::vector<std::vector<double>> ret;
     const double R=7;
-    const double jrmax = R*(inv_b/2) + sqrt(d2max)/2;
+    const double jrmax = R*(inv_b/2) + sqrt(kappamax)/2;
 
     for (int jx = 0; jx <= jrmax; ++jx) {
 	std::vector<double> wm;
@@ -83,11 +85,11 @@ std::vector<std::vector<double>> wOnGrid(double inv_b, int d2max)
     return ret;
 }
 
-double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
+double wmin(int ix, int iy, int kappa, const std::vector<std::vector<double>>& W)
 {
     double ret = std::numeric_limits<double>::infinity();
-    for (int dix = ix%2; dix < sqrt(d2); dix += 2) {
-        int diy = iy%2 + int((sqrt(d2-dix*dix)-iy%2)/2);
+    for (int dix = ix%2; dix < sqrt(kappa); dix += 2) {
+        int diy = iy%2 + int((sqrt(kappa-dix*dix)-iy%2)/2);
         ret = std::min(ret, W.at((ix+dix)/2).at((iy+diy)/2));
     }
     return ret;
@@ -100,15 +102,15 @@ double wmin(int ix, int iy, int d2, const std::vector<std::vector<double>>& W)
 struct OneCenter {
     int ix;                 //!< x index of nearby b-grid point.
     int iy;                 //!< y index of nearby b-grid point.
-    int d2;                 //!< squared covered polyomino circumcircle diameter in units of b^2.
+    int kappa;                 //!< squared covered polyomino circumcircle diameter in units of b^2.
     std::complex<double> z; //!< exact coordinates of expansion center.
 };
 
-//! Determines maximum d2 (with rho<=delta) for given expansion center c.
+//! Determines maximum kappa (with rho<=delta) for given expansion center c.
 //! Return values:
-//! - itau, index in Si such that d2_max = Si[itau].
-//! - maxerr, maximum error within d2, in units of delta.
-std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCenter& c,
+//! - itau, index in Si such that kappa_max = Si[itau].
+//! - maxerr, maximum error within kappa, in units of delta.
+std::tuple<int, double> max_kappa(int N, double delta, double inv_b, const OneCenter& c,
                                const std::vector<int>& Si, const std::vector<std::vector<double>>& WW)
 {
     const int nS = Si.size();
@@ -120,13 +122,13 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
         int itmp = itau + (1 << n);
         if (itmp >= nS)
             continue;
-        const int d2 = Si[itmp];
-        const double tau = sqrt(d2) / inv_b;
+        const int kappa = Si[itmp];
+        const double tau = sqrt(kappa) / inv_b;
         const double te = Terms::truncation_error(c.z, N, tau, WN);
         if (std::isinf(te))
             continue;
         const double re = Terms::rounding_error(c.z, N, tau, WN);
-        const double wmi = ::wmin(c.ix, c.iy, d2, WW);
+        const double wmi = ::wmin(c.ix, c.iy, kappa, WW);
         double err = (te+re) / wmi;
         if (err <= delta) {
             itau = itmp;
@@ -134,7 +136,7 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
         }
     }
     if (itau >= nS-1)
-        throw std::runtime_error("increase d2max!");
+        throw std::runtime_error("increase kappamax!");
     assert(maxerr <= delta || itau == 0);
     return {itau, maxerr};
 }
@@ -142,6 +144,9 @@ std::tuple<int, double> max_d2(int N, double delta, double inv_b, const OneCente
 } // namespace
 
 
+//  Purpose:   Program d2grid is Algorithm 2 [Acenters] of the reference paper.
+//             It determines near-optimum expansion centers, and writes a data file
+//             that is an essential input to the subsequent set cover computation.
 int main(int argc, char *argv[])
 {
     if (argc != 5) {
@@ -152,6 +157,8 @@ int main(int argc, char *argv[])
         fprintf(stderr, "  delta     = maximum error in units of epsilon\n");
         fprintf(stderr, "  inverse_a = 1/a where a is lattice constant of square tiling\n");
         fprintf(stderr, "  M_offsets = M : try neighbor grid points from -M to M as expansion centers\n");
+        fprintf(stderr, "Results are written to stdout.\n");
+        fprintf(stderr, "Redirect them into a file for use in subsequent set-cover computation\n");
         return 1;
     }
     char *endptr;
@@ -177,22 +184,22 @@ int main(int argc, char *argv[])
     printf("#     x of grid point\n");
     printf("#   Block lines entries:\n");
     printf("#     y of grid point\n");
-    printf("#     d2, squared covered polyomino circumcircle diameter in units of (a/2)^2\n");
+    printf("#     kappa, squared covered polyomino circumcircle diameter in units of (a/2)^2\n");
     printf("#     x' of expansion center (close to x)\n");
     printf("#     y' of expansion center (close to y)\n");
 
-    const int d2max = 1023;
+    const int kappamax = 1023;
 
-    // D2 sequences start with 0. Otherwise as in paper.
+    // kappa sequences start with 0. Otherwise as in paper.
     const std::vector<std::vector<int>> S {
-	::sorted_diameters(0, 0, d2max),
-	::sorted_diameters(0, 1, d2max),
-	::sorted_diameters(1, 1, d2max) };
+	::sorted_diameters(0, 0, kappamax),
+	::sorted_diameters(0, 1, kappamax),
+	::sorted_diameters(1, 1, kappamax) };
     assert(S[0][4]==40);
     assert(S[1][4]==25);
     assert(S[2][4]==26);
 
-    const std::vector<std::vector<double>> WW = ::wOnGrid(inv_b, d2max);
+    const std::vector<std::vector<double>> WW = ::wOnGrid(inv_b, kappamax);
 
     std::vector<std::pair<int,int>> I = Ref::domain_grid(inv_b); // List of grid points within domain.
 
@@ -207,13 +214,13 @@ int main(int argc, char *argv[])
 
         OneCenter c = {ix, iy, 0, {x, y}}; // will be optimized in-place
 
-	// Determine maximum d2 (with rho<=delta) for lattice point z.
-        auto [itau, maxerr] = ::max_d2(N, delta, inv_b, c, Si, WW);
+	// Determine maximum kappa (with rho<=delta) for lattice point z.
+        auto [itau, maxerr] = ::max_kappa(N, delta, inv_b, c, Si, WW);
 
-	// Determine nearby zd with minimum rho at d2 determined above.
-	const int d2 = Si[itau];
-	const double tau = sqrt(d2) / inv_b;
-	const double wmi = ::wmin(ix, iy, d2, WW);
+	// Determine nearby zd with minimum rho at kappa determined above.
+	const int kappa = Si[itau];
+	const double tau = sqrt(kappa) / inv_b;
+	const double wmi = ::wmin(ix, iy, kappa, WW);
 	for (int idx=-M; idx<=M; ++idx) {
 	    if (ix==0 && idx!=0)
 		continue;
@@ -238,22 +245,22 @@ int main(int argc, char *argv[])
 	    }
 	}
 
-	// Determine maximum d2 (with rho<=delta) for z determined above.
-        auto [itau2, dummy] = ::max_d2(N, delta, inv_b, c, Si, WW);
-        c.d2 = Si[itau2];
+	// Determine maximum kappa (with rho<=delta) for z determined above.
+        auto [itau2, dummy] = ::max_kappa(N, delta, inv_b, c, Si, WW);
+        c.kappa = Si[itau2];
 	VR[i] = c;
     }
 
     // Print list of results, divided in blocks with same x.
     int ixold = -1;
     for (const auto& r : VR) {
-	const auto [ix, iy, d2, z] = r;
+	const auto [ix, iy, kappa, z] = r;
 	if (ix != ixold) {
 	    if (ix>0)
 		std::cout << "\n";
 	    std::cout << std::format("{:f}", ix / inv_b) << "\n";
 	}
-	std::cout << std::format("{:f} {:d} 0x{:a} 0x{:a}\n", iy / inv_b, d2, z.real(), z.imag());
+	std::cout << std::format("{:f} {:d} 0x{:a} 0x{:a}\n", iy / inv_b, kappa, z.real(), z.imag());
 	ixold = ix;
     }
     std::cout << "\n";
