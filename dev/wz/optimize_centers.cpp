@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
     printf("#   N_Taylor = %i (order of expansion)\n", N);
     printf("#   delta = %g (maximum error in units of epsilon)\n", delta);
     printf("#   M_recenter = %i (potential expansion centers from range -M...M)\n", M);
-    printf("#   1/a = %g\n (inverse lattice constant of square tiling)", inv_b / 2);
+    printf("#   1/a = %g (inverse lattice constant of square tiling)\n", inv_b / 2);
     printf("# Output format:\n");
     printf("#   Block header line entry:\n");
     printf("#     x of grid point\n");

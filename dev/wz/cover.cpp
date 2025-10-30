@@ -96,7 +96,7 @@ std::map<int,vector<int>> polyominoPattern(int sx, int sy, const std::set<int>& 
     return ret;
 }
 
-void read_d2_file(const std::string& fname, Ranges& RR, int& NTayMax, double& inv_a, double& delta)
+void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, double& inv_a, double& delta)
 {
     std::ifstream file(fname);
     if (!file.is_open()) {
@@ -106,26 +106,26 @@ void read_d2_file(const std::string& fname, Ranges& RR, int& NTayMax, double& in
     std::string line;
     std::smatch match;
 
-    std::getline(file, line); // Skip header line
+    std::getline(file, line); // Skip file header line
+    std::getline(file, line); // Skip parameter block header line
 
     std::getline(file, line);
-    if (!std::regex_match(line, match, std::regex("# N_Taylor = (\\d+)")))
+    if (!std::regex_search(line, match, std::regex("^#\\s+N_Taylor = (\\d+)")))
         throw std::runtime_error("Failed to match N_Taylor");
     NTayMax = std::stoi(match[1]);
 
     std::getline(file, line);
-    if (!std::regex_match(line, match, std::regex("# delta = (\\d+)")))
+    if (!std::regex_search(line, match, std::regex("^#\\s+delta = (\\d+)")))
         throw std::runtime_error("Failed to match delta");
     delta = std::stod(match[1]);
 
     std::getline(file, line);
-    if (!std::regex_match(line, match, std::regex("# M_recenter = (\\d+)")))
+    if (!std::regex_search(line, match, std::regex("^#\\s+M_recenter = (\\d+)")))
         throw std::runtime_error("Failed to match M_recenter");
 
     std::getline(file, line);
-    if (!std::regex_match(line, match, std::regex("# 1/a = ([0-9.]+)")))
+    if (!std::regex_search(line, match, std::regex("^#\\s+1/a = ([0-9.]+)")))
         throw std::runtime_error("Failed to match 1/a");
-
     inv_a = std::stod(match[1]);
 
     std::string data;
@@ -318,7 +318,7 @@ int main(int argc, char *argv[]) {
     int NTayMax;
     double inv_a, delta;
     Ranges RR;
-    read_d2_file(filename, RR, NTayMax, inv_a, delta);
+    read_centers_file(filename, RR, NTayMax, inv_a, delta);
     std::cout << "1/a: " << inv_a << std::endl;
     std::cout << "delta: " << delta << std::endl;
 
