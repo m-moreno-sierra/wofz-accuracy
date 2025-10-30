@@ -7,9 +7,9 @@
 //             on square tiles, with application to the Faddeeva function
 //             (in preparation, available upon request)
 //
-//  File:      d2grid.cpp
+//  File:      optimize_centers.cpp
 //
-//  Purpose:   Program d2grid is Algorithm 2 [Acenters] of the reference paper.
+//  Purpose:   Program optimize_centers is Algorithm 2 [Acenters] of the reference paper.
 //             It determines near-optimum expansion centers, and writes a data file
 //             that is an essential input to the subsequent set cover computation.
 //
@@ -144,7 +144,7 @@ std::tuple<int, double> max_kappa(int N, double delta, double inv_b, const OneCe
 } // namespace
 
 
-//  Purpose:   Program d2grid is Algorithm 2 [Acenters] of the reference paper.
+//  Purpose:   Program optimize_centers is Algorithm 2 [Acenters] of the reference paper.
 //             It determines near-optimum expansion centers, and writes a data file
 //             that is an essential input to the subsequent set cover computation.
 int main(int argc, char *argv[])
