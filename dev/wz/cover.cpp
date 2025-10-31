@@ -209,16 +209,6 @@ void initialize_tiles(double inv_a, vector<Tile*>& VT, vector<vector<Tile*>>& XY
 
 static const double slice_angle = 17.5;
 
-bool near_x_axis(const Tile* t)
-{
-    return slice_angle * t->jy <= t->jx;
-}
-
-bool near_y_axis(const Tile* t)
-{
-    return slice_angle * t->jx <= t->jy;
-}
-
 void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
 {
     auto tile_at = [&XY2T](int jx, int jy) -> Tile*
@@ -258,11 +248,8 @@ void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
 		int jy = my + ny - ly/2;
 		if (Tile* t = tile_at(jx, jy)) {
 		    assert(t->status == -1);
-		    // exclude disk centers that are just a bit away from the axes
-		    if (!((b->ix!=0 && near_y_axis(t)) || (b->iy!=0 && near_x_axis(t)))) {
-			b->covered_tiles.push_back(t);
-			t->covering_balls.push_back(b);
-		    }
+                    b->covered_tiles.push_back(t);
+                    t->covering_balls.push_back(b);
 		}
 	    }
 	}
