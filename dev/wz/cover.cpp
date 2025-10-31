@@ -100,9 +100,8 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
                        double& delta)
 {
     std::ifstream file(fname);
-    if (!file.is_open()) {
+    if (!file.is_open())
         throw std::runtime_error("Could not open file: " + fname);
-    }
 
     std::string line;
     std::smatch match;
@@ -123,6 +122,9 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
     std::getline(file, line);
     if (!std::regex_search(line, match, std::regex("^#\\s+M_recenter = (\\d+)")))
         throw std::runtime_error("Failed to match M_recenter");
+    const int M = std::stoi(match[1]);
+    if (M > 1024)
+        throw std::runtime_error("Unplausible value of M");
 
     std::getline(file, line);
     if (!std::regex_search(line, match, std::regex("^#\\s+1/a = ([0-9.]+)")))
@@ -171,6 +173,14 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
             if (std::round(2 * inv_a * y) != iy)
                 throw std::runtime_error(
                     std::format("Invalid y entry: y={}, 2y/a={}, iy={}", y, 2 * inv_a * y, iy));
+            if (fabs(2 * inv_a * cx - ix) > M * 2.3e-16 * 2 * inv_a * (1+abs(ix)))
+                throw std::runtime_error(
+                    std::format("Excessive shift {} in x entry: x={}, 2x/a={}, ix={}",
+                                2 * inv_a * cx - ix, cx, 2 * inv_a * cx, ix));
+            if (fabs(2 * inv_a * cy - iy) > M * 2.3e-16 * 2 * inv_a * (1+abs(iy)))
+                throw std::runtime_error(
+                    std::format("Excessive shift {} in y entry: y={}, 2y/a={}, iy={}",
+                                2 * inv_a * cy - iy, cy, 2 * inv_a * cy, iy));
             if (kappa)
                 RR.emplace_back(new Ball{ix, iy, kappa, {cx, cy}, {}});
             iy++;
