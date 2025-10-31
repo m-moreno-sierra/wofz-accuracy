@@ -163,11 +163,8 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
         while (std::getline(s, line)) {
             if (line == "")
                 break;
-
             double y, cx, cy;
             int kappa;
-            std::string sx, sy;
-
             int n = sscanf(line.c_str(), "%lg %i %lg %lg", &y, &kappa, &cx, &cy);
             if (n != 4)
                 throw std::runtime_error("Invalid data line '" + line + "'");
