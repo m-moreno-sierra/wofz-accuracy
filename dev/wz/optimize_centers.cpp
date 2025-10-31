@@ -35,7 +35,7 @@
 namespace {
 
 //! Returns list of squared polyomino circumcircle diameters for given parities pi_x, pi_y.
-//! This is Algorithm 1 of the reference paper.
+//! This is Algorithm 1 [tag AKappa] of the reference paper.
 std::vector<int> sorted_diameters(int pi_x, int pi_y, int kappamax)
 {
     std::set<int> set;
@@ -145,7 +145,7 @@ std::tuple<int, double> max_kappa(int N, double delta, double inv_b, const OneCe
 } // namespace
 
 
-//  Purpose:   Program optimize_centers is Algorithm 2 [Acenters] of the reference paper.
+//  Purpose:   Program optimize_centers is Algorithm 2 [tag Acenters] of the reference paper.
 //             It determines near-optimum expansion centers, and writes a data file
 //             that is an essential input to the subsequent set cover computation.
 int main(int argc, char* argv[])
