@@ -18,22 +18,28 @@
 //  ************************************************************************************************
 
 #include "relerr.h"
-#include <cassert>
-#include <flint/arb.h>
-#include <cerf.h>
 #include "hp_fref.h"
 #include "ref.h"
+#include <cassert>
+#include <cerf.h>
+#include <flint/arb.h>
 
 //! Returns relative error between high-precision and target code.
 
 double relerr_wofz(double x, double y)
 {
-    acb_t Z;  acb_init(Z);
-    arb_t E;  arb_init(E);
-    acb_t W;  acb_init(W);
-    acb_t W2; acb_init(W2);
-    arb_t A1; arb_init(A1);
-    arb_t A2; arb_init(A2);
+    acb_t Z;
+    acb_init(Z);
+    arb_t E;
+    arb_init(E);
+    acb_t W;
+    acb_init(W);
+    acb_t W2;
+    acb_init(W2);
+    arb_t A1;
+    arb_init(A1);
+    arb_t A2;
+    arb_init(A2);
 
     arb_set_d(acb_realref(Z), x);
     arb_set_d(acb_imagref(Z), y);
@@ -47,8 +53,8 @@ double relerr_wofz(double x, double y)
     double wy = arf_get_d(arb_midref(E), ARF_RND_NEAR);
     int ybits = arb_rel_accuracy_bits(E);
 
-    assert(wx==0 || xbits==-1 || xbits>53);
-    assert(wy==0 || ybits==-1 || ybits>53);
+    assert(wx == 0 || xbits == -1 || xbits > 53);
+    assert(wy == 0 || ybits == -1 || ybits > 53);
 
     const std::complex<double> w2 = w_of_z(std::complex<double>{x, y});
     arb_set_d(acb_realref(W2), w2.real());

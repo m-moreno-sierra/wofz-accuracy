@@ -17,23 +17,23 @@
 //
 //  ************************************************************************************************
 
+#include "terms.h"
 #include <cassert>
-#include <iostream>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
-#include <chrono>
 #include <format>
 #include <future>
+#include <iostream>
 #include <limits>
-#include "terms.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     if (argc != 6) {
         fprintf(stderr, "Usage: %s N_Taylor d2 inverse_a x y\n", argv[0]);
         return 1;
     }
-    char *endptr;
+    char* endptr;
     int N = strtol(argv[1], &endptr, 10);
     assert(*endptr == '\0');
     int d2 = strtol(argv[2], &endptr, 10);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     printf("# 1/a = %g\n", inv_a);
     printf("# z = %g + i %g\n", x, y);
 
-    const double tau = sqrt(d2)/(2*inv_a);
+    const double tau = sqrt(d2) / (2 * inv_a);
     const std::complex<double> z{x, y};
     const std::vector<Ref::Coeff> WN = Ref::fn_vector(z);
 

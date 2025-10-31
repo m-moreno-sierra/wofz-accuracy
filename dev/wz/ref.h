@@ -36,10 +36,11 @@ struct Coeff {
 
 std::complex<double> fref(double x, double y);
 
-std::vector<Coeff> fn_vector(std::complex<double> z, int N=53);
+std::vector<Coeff> fn_vector(std::complex<double> z, int N = 53);
 
-// Returns list of indices of lattice points within domain, for given inverse lattice constant inv_b.
-std::vector<std::pair<int,int>> domain_grid(double inv_b);
+// Returns list of indices of lattice points within domain, for given inverse lattice constant
+// inv_b.
+std::vector<std::pair<int, int>> domain_grid(double inv_b);
 
 } // namespace Ref
 

@@ -18,20 +18,25 @@
 //
 //  ************************************************************************************************
 
-#include <cassert>
-#include <flint/arb.h>
-#include <flint/acb_hypgeom.h>
 #include "hp_fref.h"
+#include <cassert>
+#include <flint/acb_hypgeom.h>
+#include <flint/arb.h>
 
 //! Computes 'F' := f_ref('Z') with a precision of 'prec' decimal digits.
 //! Implementation for f_ref = w, Faddeeva function.
 
 void HP::acb_fref(acb_t F, const acb_t Z, slong prec)
 {
-    acb_t T0; acb_init(T0);
-    acb_t T1; acb_init(T1);
-    acb_t T2; acb_init(T2);
-    acb_t I;  acb_init(I);  acb_onei(I);
+    acb_t T0;
+    acb_init(T0);
+    acb_t T1;
+    acb_init(T1);
+    acb_t T2;
+    acb_init(T2);
+    acb_t I;
+    acb_init(I);
+    acb_onei(I);
 
     acb_mul(T0, Z, I, prec);
     acb_neg(T0, T0);
@@ -53,9 +58,13 @@ void HP::acb_fref(acb_t F, const acb_t Z, slong prec)
 
 void HP::acb_fcoeffs(std::vector<acb_t>& V, const acb_t Z, slong prec)
 {
-    acb_t T1; acb_init(T1);
-    arb_t X; arb_init(X); arb_zero(X);
-    arb_t Y; arb_init(Y);
+    acb_t T1;
+    acb_init(T1);
+    arb_t X;
+    arb_init(X);
+    arb_zero(X);
+    arb_t Y;
+    arb_init(Y);
     arb_const_pi(Y, prec);
     arb_sqrt(Y, Y, prec);
     arb_inv(Y, Y, prec);
@@ -65,11 +74,11 @@ void HP::acb_fcoeffs(std::vector<acb_t>& V, const acb_t Z, slong prec)
     assert(V.size() > 0);
     acb_fref(V[0], Z, prec);
 
-    for(size_t n = 1; n<V.size(); ++n) {
-	acb_mul(V[n], V[n-1], Z, prec);
-	acb_add(V[n], V[n], n==1 ? T1 : V[n-2], prec);
-	acb_mul_si(V[n], V[n], -2, prec);
-	acb_div_ui(V[n], V[n], n, prec);
+    for (size_t n = 1; n < V.size(); ++n) {
+        acb_mul(V[n], V[n - 1], Z, prec);
+        acb_add(V[n], V[n], n == 1 ? T1 : V[n - 2], prec);
+        acb_mul_si(V[n], V[n], -2, prec);
+        acb_div_ui(V[n], V[n], n, prec);
     }
 
     arb_clear(X);

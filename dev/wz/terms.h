@@ -25,10 +25,9 @@
 namespace Terms {
 
 double truncation_error(std::complex<double> z, int N, double tau,
-			const std::vector<Ref::Coeff>& WN);
+                        const std::vector<Ref::Coeff>& WN);
 
-double rounding_error(std::complex<double> z, int N, double tau,
-		      const std::vector<Ref::Coeff>& WN);
+double rounding_error(std::complex<double> z, int N, double tau, const std::vector<Ref::Coeff>& WN);
 
 } // namespace Terms
 

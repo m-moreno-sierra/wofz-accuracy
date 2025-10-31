@@ -17,27 +17,27 @@
 //
 //  ************************************************************************************************
 
+#include "ref.h"
 #include <cassert>
-#include <iostream>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
-#include <chrono>
 #include <format>
 #include <future>
+#include <iostream>
 #include <limits>
-#include "ref.h"
 
 //! Program ref_val prints high-precision reference function value f(z)
 //! for z=x+iy given by command-line arguments x, y.
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     if (argc != 3) {
         fprintf(stderr, "Print a reference value f(z) for given z=x+iy.\n");
         fprintf(stderr, "Usage: %s x y\n", argv[0]);
         return 1;
     }
-    char *endptr;
+    char* endptr;
     double x = strtod(argv[1], &endptr);
     assert(*endptr == '\0');
     double y = strtod(argv[2], &endptr);
