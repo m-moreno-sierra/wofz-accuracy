@@ -51,7 +51,7 @@ struct Tile;
 struct Ball {
     int ix;
     int iy;
-    int d2;
+    int kappa;
     std::complex<double> c;
     vector<Tile*> covered_tiles;
 };
@@ -72,23 +72,23 @@ std::string hexfloat(double x)
     return x>=0 ? std::format("0x{:a}", x) : std::format("-0x{:a}", -x);
 }
 
-// Function to compute polyomino pattern
-std::map<int,vector<int>> polyominoPattern(int sx, int sy, const std::set<int>& d2set)
+//! Compute polyomino patterns
+std::map<int,vector<int>> polyominoPattern(int pi_x, int pi_y, const std::set<int>& kappaset)
 {
     std::map<int,vector<int>> ret;
-    for (int d2 : d2set) {
+    for (int kappa : kappaset) {
 	vector<int> rows;
-	int nj2 = int(std::sqrt(d2)) + 1;
-	for (int k = 2 - sx; k < nj2; k += 2) {
-	    double dx = std::sqrt(d2 - k * k) / 2.0 - sy / 2.0;
-	    int row = 2 * int(dx) + sy;
+	int nj2 = int(std::sqrt(kappa)) + 1;
+	for (int k = 2 - pi_x; k < nj2; k += 2) {
+	    double dx = std::sqrt(kappa - k * k) / 2.0 - pi_y / 2.0;
+	    int row = 2 * int(dx) + pi_y;
 	    if (row > 0) {
-		if (k > sx)
+		if (k > pi_x)
 		    rows.insert(rows.begin(), row);
 		rows.push_back(row);
 	    }
 	}
-	ret[d2] = rows;
+	ret[kappa] = rows;
     }
     return ret;
 }
@@ -164,10 +164,10 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
 		break;
 
             double y, cx, cy;
-            int d2;
+            int kappa;
             std::string sx, sy;
 
-	    int n = sscanf(line.c_str(), "%lg %i %lg %lg", &y, &d2, &cx, &cy);
+	    int n = sscanf(line.c_str(), "%lg %i %lg %lg", &y, &kappa, &cx, &cy);
             if (n != 4)
                 throw std::runtime_error("Invalid data line '"+line+"'");
             if (ix == 0 && iy == 0) {
@@ -177,8 +177,8 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
 		    throw std::runtime_error(std::format("Invalid y entry: y={}, 2y/a={}, iy={}",
 						     y, 2 * inv_a * y, iy));
             }
-	    if (d2)
-		RR.emplace_back(new Ball{ix, iy, d2, {cx, cy}, {}});
+	    if (kappa)
+		RR.emplace_back(new Ball{ix, iy, kappa, {cx, cy}, {}});
             iy++;
         }
     }
@@ -222,23 +222,23 @@ void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
         };
 
     // Squared coverage diameters occuring in ranges:
-    std::set<int> d2set;
+    std::set<int> kappaset;
     for (const Ball* b : RR)
-	d2set.insert(b->d2);
+	kappaset.insert(b->kappa);
 
-    // Polyomino shape for sx, sy, d2
+    // Polyomino shape for sx, sy, kappa
     vector<vector<std::map<int,vector<int>>>> P(2, vector<std::map<int,vector<int>>>(2));
-    P[0][0] = polyominoPattern(0, 0, d2set);
-    P[0][1] = polyominoPattern(0, 1, d2set);
-    P[1][0] = polyominoPattern(1, 0, d2set);
-    P[1][1] = polyominoPattern(1, 1, d2set);
+    P[0][0] = polyominoPattern(0, 0, kappaset);
+    P[0][1] = polyominoPattern(0, 1, kappaset);
+    P[1][0] = polyominoPattern(1, 0, kappaset);
+    P[1][1] = polyominoPattern(1, 1, kappaset);
 
     // Tiles covered by disk
     for (Ball* b : RR) {
-	assert(b->d2 > 0);
+	assert(b->kappa > 0);
 	const int mx = b->ix/2;
 	const int my = b->iy/2;
-	const vector<int>& pat = P[b->ix%2][b->iy%2][b->d2];
+	const vector<int>& pat = P[b->ix%2][b->iy%2][b->kappa];
 	const int lx = pat.size();
 	assert(b->covered_tiles.size()==0);
 	for (int nx=0; nx<lx; ++nx) {
@@ -321,7 +321,7 @@ public:
 //! Main function
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        std::cerr << "Usage: " << argv[0] << " <file with x blocks with y tau d2 lines> <nAlgo>\n";
+        std::cerr << "Usage: " << argv[0] << " <file with x blocks with y tau kappa lines> <nAlgo>\n";
         std::cerr << "nAlgo: 0: greedy, 1: constraint, 2: merit\n";
         return 1;
     }
