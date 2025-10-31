@@ -207,16 +207,6 @@ void initialize_tiles(double inv_a, vector<Tile*>& VT, vector<vector<Tile*>>& XY
     }
 }
 
-Tile* tile_at(int jx, int jy, const vector<vector<Tile*>>& XY2T)
-{
-    if (jx<0 || jx>=XY2T.size())
-	return nullptr;
-    const vector<Tile*>& xy2t = XY2T.at(jx);
-    if (jy<0 || jy>=xy2t.size())
-	return nullptr;
-    return xy2t.at(jy);
-}
-
 static const double slice_angle = 17.5;
 
 bool near_x_axis(const Tile* t)
@@ -231,6 +221,16 @@ bool near_y_axis(const Tile* t)
 
 void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
 {
+    auto tile_at = [&XY2T](int jx, int jy) -> Tile*
+        {
+            if (jx<0 || jx>=XY2T.size())
+                return nullptr;
+            const vector<Tile*>& xy2t = XY2T.at(jx);
+            if (jy<0 || jy>=xy2t.size())
+                return nullptr;
+            return xy2t.at(jy);
+        };
+
     // Squared coverage diameters occuring in ranges:
     std::set<int> d2set;
     for (const Ball* b : RR)
@@ -256,7 +256,7 @@ void initialize_ranges(const vector<vector<Tile*>>& XY2T, Ranges& RR)
 	    int ly = pat[nx];
 	    for (int ny=0; ny<ly; ++ny) {
 		int jy = my + ny - ly/2;
-		if (Tile* t = tile_at(jx, jy, XY2T)) {
+		if (Tile* t = tile_at(jx, jy)) {
 		    assert(t->status == -1);
 		    // exclude disk centers that are just a bit away from the axes
 		    if (!((b->ix!=0 && near_y_axis(t)) || (b->iy!=0 && near_x_axis(t)))) {
@@ -343,43 +343,43 @@ int main(int argc, char *argv[]) {
 
     int NTayMax;
     double inv_a, delta;
-    Ranges RR;
-    read_centers_file(filename, RR, NTayMax, inv_a, delta);
+    ::Ranges RR;
+    ::read_centers_file(filename, RR, NTayMax, inv_a, delta);
     std::cout << "1/a: " << inv_a << std::endl;
     std::cout << "delta: " << delta << std::endl;
 
-    vector<Tile*> VT;
-    vector<vector<Tile*>> XY2T;
-    initialize_tiles(inv_a, VT, XY2T);
+    vector<::Tile*> VT;
+    vector<vector<::Tile*>> XY2T;
+    ::initialize_tiles(inv_a, VT, XY2T);
     const int Nax = XY2T.size();
-    int nUncovered = count_uncovered(VT);
+    int nUncovered = ::count_uncovered(VT);
     std::cout << "initially uncovered: " << nUncovered << std::endl;
 
-    initialize_ranges(XY2T, RR);
+    ::initialize_ranges(XY2T, RR);
     std::cout << "available ranges: " << RR.size() << std::endl;
-    vector<const Ball*> Covers;
+    vector<const ::Ball*> Covers;
 
     // --- Covering algorithm:
 
     if (algo<=1) {
 	if (algo==1) {
-	    for (Tile* t : VT)
+	    for (::Tile* t : VT)
 		t->wgt = SQR(t->jx) + SQR(t->jy+inv_a);
-	    sort(VT.begin(), VT.end(), [](Tile* p, Tile*q) { return p->wgt < q->wgt; });
+	    sort(VT.begin(), VT.end(), [](::Tile* p, ::Tile*q) { return p->wgt < q->wgt; });
 	}
 	auto t0 = VT.begin();
 	while (nUncovered > 0) {
-	    const Ball* bsel = nullptr;
+	    const ::Ball* bsel = nullptr;
 	    int ncov = 0;
-	    vector<Ball*>& B = RR;
+	    vector<::Ball*>& B = RR;
 	    if (algo==1) {
 		while ((*t0)->status!=-1) ++t0;
 		assert(t0 < VT.end());
 		B = (*t0)->covering_balls;
 	    }
-	    for (const Ball* b : B) {
+	    for (const ::Ball* b : B) {
 		int nb = 0;
-		for (const Tile* t : b->covered_tiles)
+		for (const ::Tile* t : b->covered_tiles)
 		    if (t->status==-1)
 			++nb;
 		if (nb > ncov) {
@@ -390,19 +390,19 @@ int main(int argc, char *argv[]) {
 	    if (!bsel)
 		throw std::runtime_error(std::format("found no cover for {},{}",
 						     (*t0)->jx, (*t0)->jy));
-	    nUncovered -= add_cover(Covers, bsel);
-	    assert(nUncovered == count_uncovered(VT));
+	    nUncovered -= ::add_cover(Covers, bsel);
+	    assert(nUncovered == ::count_uncovered(VT));
 	}
 
     } else if (algo==2) {
-	for (Tile* t : VT)
+	for (::Tile* t : VT)
 	    t->wgt = exp(-5*hypot(t->jx, t->jy+inv_a)/inv_a);
 	while (nUncovered > 0) {
-	    const Ball* bsel = nullptr;
+	    const ::Ball* bsel = nullptr;
 	    double maxsum = 0;
-	    for (const Ball* b : RR) {
+	    for (const ::Ball* b : RR) {
 		double sum = 0;
-		for (const Tile* t : b->covered_tiles)
+		for (const ::Tile* t : b->covered_tiles)
 		    if (t->status==-1)
 			sum += t->wgt;
 		if (sum > maxsum) {
@@ -411,8 +411,8 @@ int main(int argc, char *argv[]) {
 		}
 	    }
 	    assert(bsel);
-	    nUncovered -= add_cover(Covers, bsel);
-	    assert(nUncovered == count_uncovered(VT));
+	    nUncovered -= ::add_cover(Covers, bsel);
+	    assert(nUncovered == ::count_uncovered(VT));
 	}
     } else
 	assert(0);
@@ -422,10 +422,10 @@ int main(int argc, char *argv[]) {
     for (int jx = 0; jx < Nax; ++jx) {
 	assert(XY2T[jx].size() == Nax);
 	for (int jy = 0; jy < Nax; ++jy) {
-	    Tile* t = XY2T[jx][jy];
+	    ::Tile* t = XY2T[jx][jy];
 	    if (!t || t->status < 0)
 		continue;
-	    const Ball* b = Covers[t->status];
+	    const ::Ball* b = Covers[t->status];
 	    const std::vector<Ref::Coeff> WN = Ref::fn_vector(b->c);
 	    const double wmi = abs(Ref::fref((jx+1)/inv_a, (jy+1)/inv_a));
 	    const double tx = (jx+0.5)/inv_a;
@@ -456,7 +456,7 @@ int main(int argc, char *argv[]) {
     {
         ::OutFile f("/tmp/w_taylor_centers.tab", argc, argv);
         f << "# " << Covers.size() << " expansion centers approximately at b-lattice points:\n";
-        for (const Ball* b : Covers)
+        for (const ::Ball* b : Covers)
             f << std::setw(3) << b->ix << " " << std::setw(3) << b->iy << "\n";
     }
 
@@ -469,7 +469,7 @@ int main(int argc, char *argv[]) {
         for (int jx = 0; jx < Nax; ++jx) {
 	    assert(XY2T[jx].size() == Nax);
             for (int jy = 0; jy < Nax; ++jy) {
-		const Tile* t = XY2T[jx][jy];
+		const ::Tile* t = XY2T[jx][jy];
                 f << std::setw(2) << (t ? t->status : -2) << ",";
 	    }
             f << "\n";
@@ -482,11 +482,11 @@ int main(int argc, char *argv[]) {
         const std::string typ = (Covers.size() < 128) ? "signed char" : "short";
         f << "static const double inverseA = " << inv_a << ";\n";
         f << "static const int nXcover = " << Nax << ";\n";
-        f << "alignas(64) static const " << typ << " Tiles[" << (2* Nax * Nax) << "] = {\n";
+        f << "alignas(64) static const " << typ << " ::Tiles[" << (2* Nax * Nax) << "] = {\n";
         for (int jx = 0; jx < Nax; ++jx) {
 	    assert(XY2T[jx].size() == Nax);
             for (int jy = 0; jy < Nax; ++jy) {
-		const Tile* t = XY2T[jx][jy];
+		const ::Tile* t = XY2T[jx][jy];
                 f << std::setw(2) << (t ? t->status : -2) << ",";
                 f << std::setw(2) << (t ? t->Nk : -2) << ",";
 	    }
@@ -500,7 +500,7 @@ int main(int argc, char *argv[]) {
         for (int jx = 0; jx < Nax; ++jx) {
 	    assert(XY2T[jx].size() == Nax);
             for (int jy = 0; jy < Nax; ++jy) {
-		const Tile* t = XY2T[jx][jy];
+		const ::Tile* t = XY2T[jx][jy];
                 f << std::setw(2) << (t ? t->Nk : -2) << " ";
 	    }
             f << "\n";
@@ -512,12 +512,12 @@ int main(int argc, char *argv[]) {
         f << "static const int NTay = " << NTayMax << ";\n";
         f << "alignas(64) static const double TaylorCoeffs[2 * " << (NTayMax + 1)
           << " * " << Covers.size() << "] = {\n";
-        for (const Ball* b : Covers) {
+        for (const ::Ball* b : Covers) {
 	    f << std::format("0x{:a}, 0x{:a}, ", b->c.real(), b->c.imag());
 	    std::vector<Ref::Coeff> WN = Ref::fn_vector(b->c, NTayMax);
 	    assert(NTayMax <= WN.size());
 	    for (const Ref::Coeff& wn : WN)
-		f << hexfloat(wn.fn.real()) << ", " << hexfloat(wn.fn.imag()) << ", ";
+		f << ::hexfloat(wn.fn.real()) << ", " << ::hexfloat(wn.fn.imag()) << ", ";
 	    f << "\n";
         }
         f << "};\n";
