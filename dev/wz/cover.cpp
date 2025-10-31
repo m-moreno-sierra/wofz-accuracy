@@ -24,7 +24,6 @@
 #include <cstdio>
 #include <fstream>
 #include <iomanip>
-#include <ios>
 #include <iostream>
 #include <map>
 #include <regex>
@@ -32,7 +31,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
-#include <tuple>
 #include <vector>
 #include "terms.h"
 #include "ref.h"
