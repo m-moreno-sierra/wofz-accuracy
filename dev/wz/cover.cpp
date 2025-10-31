@@ -9,7 +9,8 @@
 //
 //  File:      cover.cpp
 //
-//  Purpose:   Provides program cover.
+//  Purpose:   Program 'cover' computes a set cover of the target domain,
+//             and writes C code with tables of expansion centers and Taylor coefficients
 //
 //  License:   MIT License (file LICENSE in toplevel directory)
 //  Copyright: Forschungszentrum Jülich GmbH 2025
@@ -323,7 +324,10 @@ public:
 } // namespace
 
 
-//! Main function
+//! Program 'cover' computes a set cover of the target domain
+//! and writes C code with tables of expansion centers and Taylor coefficients.
+//! Three different algorithms are at choice: "greedy", "constraint", "merit".
+//! These are Algorithms 5-7 [tags Acover1, Acover2, Acover3] of the reference paper.
 int main(int argc, char* argv[])
 {
     if (argc != 3) {
