@@ -171,13 +171,9 @@ void read_centers_file(const std::string& fname, Ranges& RR, int& NTayMax, doubl
             int n = sscanf(line.c_str(), "%lg %i %lg %lg", &y, &kappa, &cx, &cy);
             if (n != 4)
                 throw std::runtime_error("Invalid data line '" + line + "'");
-            if (ix == 0 && iy == 0) {
-                // First entry, no check needed
-            } else {
-                if (std::round(2 * inv_a * y) != iy)
-                    throw std::runtime_error(
-                        std::format("Invalid y entry: y={}, 2y/a={}, iy={}", y, 2 * inv_a * y, iy));
-            }
+            if (std::round(2 * inv_a * y) != iy)
+                throw std::runtime_error(
+                    std::format("Invalid y entry: y={}, 2y/a={}, iy={}", y, 2 * inv_a * y, iy));
             if (kappa)
                 RR.emplace_back(new Ball{ix, iy, kappa, {cx, cy}, {}});
             iy++;
