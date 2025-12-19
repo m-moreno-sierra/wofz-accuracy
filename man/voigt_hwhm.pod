@@ -42,8 +42,9 @@ Homepage: http://apps.jcns.fz-juelich.de/libcerf
 
 =head1 REFERENCE
 
-Joachim Wuttke, Power series for the half width of the Voigt function
-(in preparation; manuscript available upon request)
+Joachim Wuttke, Power series for the half width of the Voigt function, rederived.
+J. Numer. Anal. Approx. Theo. 54, 345-356 (2025)
+
 
 =head1 AUTHOR
 
