@@ -1,11 +1,13 @@
 /*
  * File width.c:
- *   Compute voit_hwhm, half width at half maximum of the Voigt profile,
- *   using iterative regula falsi (Illinois method).
+ *   Compute voigt_hwhm, half width at half maximum of the Voigt profile,
+ *   using power series (Wuttke, J. Numer. Anal. Approx. Theo. 54, 345-356 (2025))
+ *   and hard-coded Chebyshev approximations.
+
  *   Modified from code originally written for gnuplot.
  *
  * Copyright:
- *   Ethan A Merritt 2020, 2021; Joachim Wuttke 2021
+ *   Joachim Wuttke 2021, 2025
  *
  * License:
  *   Permission is hereby granted, free of charge, to any person obtaining
