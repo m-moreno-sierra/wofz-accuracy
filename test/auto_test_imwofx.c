@@ -1,6 +1,6 @@
 //--- Begin of auto-generated test cases; do not edit
 //
-// Generated on 2026-02-18, 12:07:03
+// Generated on 2026-02-18, 13:38:24
 // by the piecewise polynomial approximation generator (https://jugit.fz-juelich.de/mlz/ppapp)
 // Reference: Wuttke and Kleinsorge,
 //            "Code generation for piecewise Chebyshev approximation."
@@ -13,13 +13,16 @@
 // Nxo = 2, number of extra octaves on each side
 // nr = 136, total number of subdomains
 
-static const double ppapp_maxrelerr = 2.2; // maximum expected relative error
+static const double ppapp_maxrelerr_inside = 2.2; // maximum expected relative error inside [a,b)
+static const double ppapp_maxrelerr_outside = 2.5; // maximum expected relative error outside [a,b)
+static double ppapp_maxrelerr; // current maximum expected relative error
 
 int test_one(double x, double fref);
 
 int run_tests(void)
 {
     int failed = 0;
+    ppapp_maxrelerr = ppapp_maxrelerr_outside;
 // subdomain 0:0 (0.125..0.132812)
     failed += test_one(0x1.0000000000000p-3, 0x1.1ddff178c9265p-3);
     failed += test_one(0x1.0a3b179839006p-3, 0x1.290c36a9f785dp-3);
@@ -244,6 +247,7 @@ int run_tests(void)
     failed += test_one(0x1.f04fc6d83946cp-2, 0x1.e009b8787e462p-2);
     failed += test_one(0x1.fedd9682b9d8ap-2, 0x1.e9ae7e24ca605p-2);
     failed += test_one(0x1.fffffffffffffp-2, 0x1.ea6b5c4b5d506p-2);
+    ppapp_maxrelerr = ppapp_maxrelerr_inside;
 // subdomain 2:0 (0.5..0.53125)
     failed += test_one(0x1.0000000000000p-1, 0x1.ea6b5c4b5d507p-2);
     failed += test_one(0x1.0e0f3eabf87c1p-1, 0x1.fc0ec2700b2fbp-2);
@@ -748,6 +752,7 @@ int run_tests(void)
     failed += test_one(0x1.732fa2de4b720p+3, 0x1.8ff26f999c44bp-5);
     failed += test_one(0x1.70640be017a95p+3, 0x1.9301468017a42p-5);
     failed += test_one(0x1.7ffffffffffffp+3, 0x1.828143b17c97ep-5);
+    ppapp_maxrelerr = ppapp_maxrelerr_outside;
 // subdomain 6:8 (12..12.5)
     failed += test_one(0x1.8000000000000p+3, 0x1.828143b17c97dp-5);
     failed += test_one(0x1.83eae003f7c67p+3, 0x1.7e93162aace58p-5);
