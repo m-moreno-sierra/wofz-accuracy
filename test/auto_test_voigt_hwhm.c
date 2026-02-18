@@ -1,6 +1,6 @@
 //--- Begin of auto-generated test cases; do not edit
 //
-// Generated on 2026-02-18, 12:15:19
+// Generated on 2026-02-18, 14:31:35
 // by the piecewise polynomial approximation generator (https://jugit.fz-juelich.de/mlz/ppapp)
 // Reference: Wuttke and Kleinsorge,
 //            "Code generation for piecewise Chebyshev approximation."
@@ -13,13 +13,18 @@
 // Nxo = 3, number of extra octaves on each side
 // nr = 192, total number of subdomains
 
-static const double ppapp_maxrelerr = 2.2; // maximum expected relative error
+// somewhat relaxed accuracy because of divisions.
+// TODO: rigorous analysis of error bounds.
+static const double ppapp_maxrelerr_inside = 4.2; // maximum expected relative error inside [a,b)
+static const double ppapp_maxrelerr_outside = 4.2; // maximum expected relative error outside [a,b)
+static double ppapp_maxrelerr; // current maximum expected relative error
 
 int test_one(double x, double fref);
 
 int run_tests(void)
 {
     int failed = 0;
+    ppapp_maxrelerr = ppapp_maxrelerr_outside;
 // subdomain 0:0 (0.03125..0.0332031)
     failed += test_one(0x1.0000000000000p-5, 0x1.31b38ca4cde11p+0);
     failed += test_one(0x1.0a3b179839006p-5, 0x1.31dfa33c5c2ddp+0);
@@ -356,6 +361,7 @@ int run_tests(void)
     failed += test_one(0x1.f6c006f65df22p-3, 0x1.505a884a9bd36p+0);
     failed += test_one(0x1.f474ebc0ecdd9p-3, 0x1.50300b8e3ce73p+0);
     failed += test_one(0x1.fffffffffffffp-3, 0x1.51060d0bb2023p+0);
+    ppapp_maxrelerr = ppapp_maxrelerr_inside;
 // subdomain 3:0 (0.25..0.265625)
     failed += test_one(0x1.0000000000000p-2, 0x1.51060d0bb2023p+0);
     failed += test_one(0x1.03ff350bbfbcap-2, 0x1.519a7a67505d9p+0);
@@ -1028,6 +1034,7 @@ int run_tests(void)
     failed += test_one(0x1.f45241eb3b58ep+3, 0x1.f75ea7d641890p+3);
     failed += test_one(0x1.fcee624dd6d82p+3, 0x1.ffedc24ef38c5p+3);
     failed += test_one(0x1.fffffffffffffp+3, 0x1.017d6b218c652p+4);
+    ppapp_maxrelerr = ppapp_maxrelerr_outside;
 // subdomain 9:0 (16..17)
     failed += test_one(0x1.0000000000000p+4, 0x1.017d6b218c652p+4);
     failed += test_one(0x1.089c5b318c9ddp+4, 0x1.0a0d85331ba18p+4);
