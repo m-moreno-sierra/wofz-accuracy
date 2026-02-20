@@ -1,6 +1,6 @@
 //--- Begin of auto-generated code; do not edit
 //
-// Generated on 2026-02-16, 18:34:14
+// Generated on 2026-02-17, 17:04:53
 // by the piecewise polynomial approximation generator (https://jugit.fz-juelich.de/mlz/ppapp)
 // Reference: Wuttke and Kleinsorge,
 //            "Code generation for piecewise Chebyshev approximation."
