@@ -29,7 +29,7 @@ Accuracy of the real functions erfcx and im_w_of_x has been greatly improved in 
 
 ## Copyright and Citation
 
-Copyright (C) [Steven G. Johnson](http:*math.mit.edu/~stevenj), Massachusetts Institute of Technology, 2012; [Joachim Wuttke](http:*www.fz-juelich.de/SharedDocs/Personen/JCNS/EN/Wuttke_J.html), Forschungszentrum Jülich, 2013.
+Copyright (C) [Steven G. Johnson](https://math.mit.edu/~stevenj), Massachusetts Institute of Technology, 2012; [Joachim Wuttke](https://www.fz-juelich.de/profile/wuttke_j), Forschungszentrum Jülich, 2013.
 
 License: [MIT License](http://opensource.org/licenses/MIT)
 
