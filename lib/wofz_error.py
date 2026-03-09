@@ -1,17 +1,27 @@
+import sys
 import subprocess
 import flint
 
-result=subprocess.check_output(["../build/run/run_wofz", "1.0", "0.5"]).decode().split()
-w_c=flint.acb(result[0], result[1])
+def main():
+    if len(sys.argv) < 3:
+        print("Usage: python3 wofz_error.py <x> <y>")
+        return
 
-flint.ctx.prec = 96 
-z = flint.acb(1.0, 0.5)
-i = flint.acb(0, 1)
-iz = i * z
-w_ref = (-z**2).exp() * (-iz).erfc()
+    x_val = sys.argv[1]
+    y_val = sys.argv[2]
 
-error_abs = abs(w_c - w_ref.mid())
-error_rel = error_abs/abs(w_ref.mid())
+    result = subprocess.check_output(["../build/run/run_wofz", x_val, y_val]).decode().split()
+    w_c = flint.acb(result[0], result[1])
 
-print(f"Relative error: {error_rel.str(10)}")
+    flint.ctx.prec = 96 #aprox 24 digits
+    z = flint.acb(x_val, y_val)
+    i = flint.acb(0, 1)
+    iz = i * z
+    w_ref = (-z**2).exp() * (-iz).erfc()
 
+    error = abs(w_c - w_ref.mid()) / abs(w_ref.mid())
+
+    print(f"Relative error: {error.str(10)}")
+
+if __name__ == "__main__":
+    main()
