@@ -20,7 +20,7 @@ def get_zero(n):
     return flint.acb(xn,yn)
 
 
-def newton(z_guess, it=10):
+def newton(z_guess, it=15):
     z=z_guess
     deriv_const = -2 / flint.arb.pi().sqrt()
 
