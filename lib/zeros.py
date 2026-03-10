@@ -19,11 +19,35 @@ def get_zero(n):
 
     return flint.acb(xn,yn)
 
+
+def newton(z_guess, it=10):
+    z=z_guess
+    deriv_const = -2 / flint.arb.pi().sqrt()
+
+    for _ in range(it):
+        #w=(-z**2).exp() * (-flint.acb(0,1)*z).erfc()
+        #w2=-2*z*w+2*flint.acb(0,1) / flint.acb.pi().sqrt()
+        #step = w/w2 
+
+        f=z.erfc()
+        f2=deriv_const*(-z**2).exp()
+        step=f/f2
+
+        if step.abs_upper() < (z.abs_lower()*flint.arb("1e-24")):
+            break
+
+        z=z-step
+
+    return z
+
+
+
 def main():
     
-    for n in range(1, 6):
+    for n in range(1, 11):
         z_approx = get_zero(n)
-        print(f"{n:<3} | {z_approx.str(20)}")
+        z_exact = newton(z_approx)
+        print(f"{n:<} | {z_exact.str(24)}")
 
 if __name__ == "__main__":
     main()
